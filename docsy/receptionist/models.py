@@ -3,10 +3,13 @@ from datetime import date, datetime
 from patient.models import patient
 
 class doctor(models.Model):
-    name = models.TextField(max_length=100)
-    specalist = models.TextField(max_length=100, null=True)
-    password = models.TextField(max_length=1000)
-    email=models.EmailField(unique=True,max_length=200)
+    name = models.TextField(max_length=50)
+    specalist = models.TextField(max_length=50, null=True)
+    email = models.EmailField(unique=True,max_length=50)
+    phoneno = models.TextField(unique=True, max_length=10)
+    gender = models.TextField(max_length=10)
+    password = models.TextField(max_length=25)
+    clinic_address = models.TextField(max_length=150)
     registration_time = models.DateField(default=date.today)
 
 
@@ -68,3 +71,25 @@ class imagingexam(models.Model):
     imaging_findings = models.TextField()
     imaging_document = models.FileField(upload_to='images/', null=True, verbose_name="")
     
+    
+class allergies(models.Model):
+    patientId = models.ForeignKey(patient,on_delete=models.CASCADE)
+    substance = models.TextField()
+    criticality = models.TextField()
+    type = models.TextField()
+    comment = models.TextField()
+
+class procedurehistory(models.Model):
+    patientId = models.ForeignKey(patient,on_delete=models.CASCADE)
+    procedure_name = models.TextField()
+    body_site = models.TextField()
+    procedure_date = models.DateField(default=date.today)
+    
+class illnesshistory(models.Model):
+    patientId = models.ForeignKey(patient,on_delete=models.CASCADE)
+    illness_name = models.TextField()
+    body_site = models.TextField()
+    severity = models.TextField()
+    illness_date_onset = models.DateTimeField(default = datetime.now)
+    illness_date_abatement = models.DateTimeField(default = datetime.now)
+ 
