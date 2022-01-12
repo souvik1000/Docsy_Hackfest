@@ -28,3 +28,13 @@ def loginauth(request):
 
 def doctorsDashboard(request):
     return HttpResponse("Doctors Dashboard")
+
+def prescription(request):
+    return render(request, 'prescription.html')
+
+def patientSummary(request):
+    return render(request, 'patientsummary.html')
+
+def historyofillness(request):
+    return render(request, 'historyofillness.html')
+    
