@@ -7,12 +7,13 @@ def login(request):
 
 def registrationValidation(request):
     name = request.POST['name']
-    specality = request.POST['specality']
+    email=request.POST['email']
+    specalist = request.POST['specality']
     gender = request.POST['gender']
     phone = request.POST['phone']
     password = request.POST['password']
     clinic_address = request.POST['clinic_address']
-    submit_details=doctor(name=name,specality=specality,gender=gender,phone=phone,password=password,clinic_address=clinic_address)
+    submit_details=doctor(name=name,specalist=specalist,email=email,gender=gender,phoneno=phone,password=password,clinic_address=clinic_address)
     submit_details.save()
     return HttpResponse("Registration Successful")
 
