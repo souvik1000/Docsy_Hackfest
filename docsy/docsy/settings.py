@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'receptionist.apps.ReceptionistConfig',
+    'patient.apps.PatientConfig'
 ]
 
 MIDDLEWARE = [
