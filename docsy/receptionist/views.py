@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+
+from patient.models import patient
 from .models import doctor,illnesshistory
 
 def login(request):
@@ -45,7 +47,11 @@ def patientIllnessCreation(request):
     severity = request.POST['severity']
     illness_date_onset = request.POST['illness_date_onset']
     illness_date_abatement = request.POST['illness_date_abatement']
-    print(patientno, illness_name, body_site, severity, illness_date_onset, illness_date_abatement)
-    submit_details = illnesshistory(patientId=patientno, illness_name=illness_name, body_site=body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement)
+    pid = patient.objects.get(id=patientno)
+    # print(patientno, illness_name, body_site, severity, illness_date_onset, illness_date_abatement)
+    submit_details = illnesshistory(patientId=pid, illness_name=illness_name, body_site=body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement)
     submit_details.save()
     return HttpResponse("Added Successful")
+
+# def labreportCreation(request):
+    
