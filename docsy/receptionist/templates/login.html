@@ -150,7 +150,6 @@
             var mobile = document.getElementById('sign_in_mobile').value;
             var pass = document.getElementById('sign_in_pass').value;
 
-
             var el = document.getElementsByName("csrfmiddlewaretoken");
             csrf_value = el[0].getAttribute("value");
 
@@ -170,8 +169,6 @@
                     } else {
                         document.getElementById('incorrect').innerHTML = "";
                         document.location.href = "{% url 'doctorsDashboard' %}";
-
-
                     }
                 }
             });
