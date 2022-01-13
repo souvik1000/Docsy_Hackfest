@@ -11,9 +11,13 @@
 
 <body>
     <div>
-        <input type="text" name="patient_name" placeholder="Enter firstname" />
-        <input type="text" name="phone_number" placeholder="phone_number" />
-        <a href="{% url 'patientSummaryView' %}">Submit</a>
+        <form action="{% url 'patientSummaryView' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="patient_name" placeholder="Enter firstname" />
+            <input type="text" name="phone_number" placeholder="phone_number" />
+            <button type="submit">Search</button>
+        </form>
+        <!-- <a href="{% url 'patientSummaryView' %}">Submit</a> -->
         <a href="#">Allergies</a>
         <div class="card-group" style="height: 500px;">
             {% for data in allergy_data %}
@@ -28,7 +32,18 @@
             {% endfor %}
         </div>
         <br />
-        <a>History of Procedure</a>
+        <a href="#">History of Procedure</a>
+        <div class="card-group" style="height: 500px;">
+            {% for data in procedure_data %}
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">{{data.procedure_name}}</p>
+                    <p class="card-text">{{data.body_site}}</p>
+                    <p class="card-text">{{data.severity}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
         <br />
         <a href="#">History of Illness</a>
         <div class="card-group" style="height: 500px;">
@@ -43,25 +58,12 @@
             {% endfor %}
         </div>
         <br />
-        <a href="#">Allergies</a>
-        <div class="card-group" style="height: 500px;">
-            {% for data in allergy_data %}
-            <div class="card">
-                <div class="card-body">
-                    <p class="card-text">{{data.substance}}</p>
-                    <p class="card-text">{{data.criticality}}</p>
-                    <p class="card-text">{{data.type}}</p>
-                    <p class="card-text">{{data.comment}}</p>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        <br />
         <a>Lab Report</a>
         <a>Enter</a>
 
         <div>
             <a href="#">View Diagnostics </a>
+
         </div>
     </div>
 </body>

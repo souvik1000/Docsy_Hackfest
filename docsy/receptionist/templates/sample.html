@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample</title>
+</head>
+
+<body>
+    <div id="each_medicine" class="card">
+        <!-- product name and image -->
+        <div class="row  text-left">
+            <div class="form-group col-sm-3 flex-column d-flex">
+                <label class="form-control-label px-3">Medicine Name </label>
+                <input type="text" id="medicine_name`+c+`" name="medicine_name`+c+`" placeholder="enter medicine_name">
+                <span id="medicine_name_error`+c+`"></span>
+            </div>
+            <div class="form-group col-sm-3 flex-column d-flex">
+                <label class="form-control-label px-3">Form </label>
+                <input type="text" id="form`+c+`" name="form`+c+`" placeholder="enter form">
+                <span id="form_error`+c+`"></span>
+            </div>
+            <div class="form-group col-sm-3 flex-column d-flex">
+                <label class="form-control-label px-3">Strength </label>
+                <input type="number" id="strength`+c+`" name="strength`+c+`" placeholder="enter strength">
+                <span id="strength_error`+c+`"></span>
+            </div>
+            <div class="form-group col-sm-3 flex-column d-flex">
+                <label class="form-control-label px-3"> strength unit </label>
+                <input type="text" id="strength_unit`+c+`" name="strength_unit`+c+`" placeholder="enter strength">
+                <span id="strength_unit_error`+c+`"></span>
+            </div>
+        </div>
+        <div class="row  text-left">
+            <div class="form-group col-sm-3 flex-column d-flex">
+                <label class="form-control-label px-3">Diluent </label>
+                <input type="text" id="diluent`+c+`" name="diluent`+c+`" placeholder="enter diluent">
+                <span id="diluent_error`+c+`"></span>
+            </div>
+            <div class="form-group col-sm-3 flex-column d-flex">
+                <label class="form-control-label px-3">diluent amount </label>
+                <input type="number" id="diluent_amount`+c+`" name="diluent_amount`+c+`" placeholder="enter diluent_amount">
+                <span id="diluent_amount_error`+c+`"></span>
+            </div>
+            <div class="form-group col-sm-3 flex-column d-flex">
+                <label class="form-control-label px-3">Diluent_unit </label>
+                <input type="text" id="diluent_unit`+c+`" name="diluent_unit`+c+`" placeholder="enter diluent_unit">
+                <span id="diluent_unit_error`+c+`"></span>
+            </div>
+            <div class="form-group col-sm-3 flex-column d-flex">
+                <label class="form-control-label px-3">  dosage_directions </label>
+                <input type="text" id="dosade_directions`+c+`" name="dosade_directions`+c+`" placeholder="enter strength">
+                <span id="dosade_directions_error`+c+`"></span>
+            </div>
+        </div>
+        <div class="row  text-left">
+            <div class="form-group col-sm-3 flex-column d-flex">
+                <label class="form-control-label px-3">frequency </label>
+                <input type="number" id="frequency`+c+`" name="frequency`+c+`" placeholder="enter diluent">
+                <span id="frequency_error`+c+`"></span>
+            </div>
+            <div class="form-group col-sm-3 flex-column d-flex">
+                <label class="form-control-label px-3">frequency_unit </label>
+                <select id="frequency_unit`+c+`" name="frequency_unit`+c+`">
+                        <option value="">choose interval unit</option>
+                        <option value="1">1/d</option>
+                        <option value="2">1/h</option>
+                        <option value="3">1/m</option>
+                        <option value="4">1/s</option>
+                    </select>
+
+                <span id="frequency_unit_error`+c+`"></span>
+            </div>
+            <div class="form-group col-sm-3 flex-column d-flex">
+                <label class="form-control-label px-3">interval </label>
+                <input type="number" id="interval`+c+`" name="interval`+c+`" placeholder="enter interval">
+                <span id="interval_error`+c+`"></span>
+            </div>
+            <div class="form-group col-sm-3 flex-column d-flex">
+                <label class="form-control-label px-3">interval_unit </label>
+                <select id="interval_unit`+c+`" name="interval_unit`+c+`">
+                        <option value="">choose interval unit</option>
+                        <option value="1">h</option>
+                        <option value="2">m</option>
+                        <option value="3">s</option>
+                    </select>
+                <span id="interval_unit_error`+c+`"></span>
+            </div>
+
+        </div>
+
+        <div class="row  text-left">
+            <div class="form-group col-sm-3 flex-column d-flex">
+                <label class="form-control-label px-3">  named_time_event" </label>
+                <input type="text" id="named_time_event`+c+`" name="named_time_event`+c+`" placeholder="enter named_time_event" " > 
+                    <span id="named_time_error`+c+` "></span>
+                </div>
+                <div class="form-group col-sm-3 flex-column d-flex "> 
+                    <label class="form-control-label px-3 ">exact_timing_critical </label>
+                    <input type="checkbox " id="exact_timing_critical`+c+` " name="exact_timing_critical`+c+` " placeholder="enter exact_timing_critical " > 
+                    <span id="exact_timing_critical_error`+c+` "></span>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+
+if 'doctor_id' in request.session:
+            doctorid=request.session['doctor_id']
+            doctorObj=doctor.objects.get(id=doctorid)
+            #retrieve doctorid through
+            patientId=request.POST['patientId']
+            patientObj=patient.objects.get(id=patientId)
+            # return HttpResponse(patientObj.id)
+            prescription_data=prescription(comment='hii',doctorId=doctorObj,patientId=patientObj)
+            prescription_data.save()
+
+            prescriptionId=prescription.objects.get(id=prescription_data.id)
+            problem_name=request.POST['problem_name']
+            problem_body_site=request.POST['problem_body_site']
+            severity=request.POST['severity']
+            problems_data=problem(prescriptionId=prescriptionId,patientId=patientObj,problem_name=problem_name,problem_body_site=problem_body_site,severity=severity)
+            problems_data.save()
+
+            l1=[]
+            medicine_count=request.POST['medicine_count']
+            for k in range(1,int(medicine_count)+1):
+                i=str(k)
+                medicine_name=request.POST['medicine_name'+i]
+                form=request.POST['form'+i]
+                strength=request.POST['strength'+i]
+                strength_unit=request.POST['strength_unit'+i]
+                diluent=request.POST['diluent'+i]
+                diluent_amount=request.POST['diluent_amount'+i]
+                diluent_unit=request.POST['diluent_unit'+i]
+                dosade_directions=request.POST['dosade_directions'+i]
+                frequency=request.POST['frequency'+i]
+                frequency_unit=request.POST['frequency_unit'+i]
+                interval=request.POST['interval'+i]
+                interval_unit=request.POST['interval_unit'+i]
+                named_time_event=request.POST['named_time_event'+i]
+
+                
+                medicine_data=medicines(prescriptionId=prescriptionId,medicine_name=medicine_name,form=form,strength=strength,strength_unit=strength_unit,diluent=diluent,diluent_amount=diluent_amount,diluent_unit=diluent_unit,dosade_directions=dosade_directions,frequency=frequency,frequency_unit=frequency_unit,interval=interval,interval_unit=interval_unit,named_time_event=named_time_event,exact_timing_critical=exact_timing_critical)
+                medicine_data.save()
+                l1.append([medicine_name,form,strength,strength_unit,diluent,diluent_amount,diluent_unit,dosade_directions,frequency,frequency_unit,interval,interval_unit,named_time_event,exact_timing_critical])
+            return HttpResponse("Prescription added ")
+    else:
+        return redirect(login)
+
+    return HttpResponse(l1)
+
+
+</html>
