@@ -12,9 +12,14 @@
 
 <body>
     <div>
+<<<<<<< HEAD
+        <form action="#" method="POST">
+            <input type="number" placeholder="patientId" name="patientId" /> <br />
+=======
         <form action="{% url 'patientIllnessCreation' %}" method="POST">
             {% csrf_token %}
             <input type="number" placeholder="patientno" name="patientno" /> <br />
+>>>>>>> d397ea26ccacc0d02cc4cfabdb2e6b46875634f4
             <input type="text" placeholder="illness_name" name="illness_name" /> <br />
             <input type="text" placeholder="body_site" name="body_site" /> <br />
             <input type="text" placeholder="severity" name="severity" /> <br />
