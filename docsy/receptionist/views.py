@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import doctor,problem,medicines,prescription, illnesshistory,allergies
+from .models import doctor,problem,medicines,prescription, illnesshistory,allergies,imagingexam
 from patient.models import patient
 
 def login(request):
@@ -137,6 +137,17 @@ def allergyview(request):
     patient_id=patient_data[0].id
     allergy_data=allergies.objects.all().filter(patientId=patient_id)
     return render(request,'patientsummary.html',{"allergy_data":allergy_data})
+def imagereportcreation(request):
+    diagnosticId=request.POST['DiagnosticId']
+    imaging_event=request.POST['imaging_event']
+    imaging_test_name=request.POST['imaging_test_name']
+    imaging_modality=request.POST['imaging_modality']
+    imaging_body_site=request.POST['imaging_body_site']
+    imaging_findings=request.POST['imaging_findings']
+    imaging_document= request.POST['imaging_document'] 
+    submit_details = imagingexam(diagnosticId=diagnosticId,imaging_event=imaging_event,imaging_test_name=imaging_test_name, imaging_modality=imaging_modality,imaging_body_site=imaging_body_site,imaging_findings=imaging_findings,imaging_document=imaging_document)
+    submit_details.save()
+    return render(request, 'createPartionData.html')
 # def digenosisCreation(request):
 #     lab_event = 
 #     lab_test_name = 

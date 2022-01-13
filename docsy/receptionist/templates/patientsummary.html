@@ -30,7 +30,7 @@
         </div>
         <br />
         <a>History of Procedure</a>
-        <br />
+        
         <a href="#">History of Illness</a>
         <div class="card-group" style="height: 500px;">
             {% for data in illness_data %}
@@ -44,20 +44,7 @@
             {% endfor %}
         </div>
         <br />
-        <a href="#">Allergies</a>
-        <div class="card-group" style="height: 500px;">
-            {% for data in allergy_data %}
-            <div class="card">
-                <div class="card-body">
-                    <p class="card-text">{{data.substance}}</p>
-                    <p class="card-text">{{data.criticality}}</p>
-                    <p class="card-text">{{data.type}}</p>
-                    <p class="card-text">{{data.comment}}</p>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        <br />
+        
         <a>Lab Report</a>
         <a>Enter</a>
 

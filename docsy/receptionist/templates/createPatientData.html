@@ -38,17 +38,59 @@
                     <button type="submit">Submit</button>
                 </form>
             </div>
+            
         </div>
         <div id="diagenosis-creation">
-            <div>
+            <div id="digenosis-details">
                 <form method="post" action="{% url 'prescriptionBackend' %}" enctype="multipart/form-data" }>
-                    <div id="diagenosis-details">
+                    {% csrf_token %}
+                    <div id="labreport">
+                        <form action="{% url '' %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="text" placeholder="lab_event" name="lab_event" />
+                            <input type="text" placeholder="lab_test_name" name="lab_test_name" />
+                            <input type="text" placeholder="lab_specimen_type" name="lab_specimen_type" />
+                            <input type="text" placeholder="lab_specimen_method" name="lab_specimen_method" />
+                            <input type="text" placeholder="lab_specimen_body_site" name="lab_specimen_body_site" />
+                            <input type="text" placeholder="lab_findings" name="lab_findings" />
+                    
+                            <input type="file" placeholder="lab_document" name="lab_document" />
+                            <button type="button">Submit</button> 
+                        </form>
 
                     </div>
+                    <div id="imagereport">
+
+                    </div>
+                    <button onclick=get_imagereport()>Add ImageReport</button>
                 </form>
             </div>
         </div>
     </div>
+    <script>
+        function get_imagereport() {
+            var c = parseInt(document.getElementById('image_counter').value) + 1
+            document.getElementById('image_counter').value = c
+            document.getElementById('medicine_count_val ').innerHTML=c
+            image_report = `
+            <div id="imagereport">
+                <input type="text" placeholder="imaging_event` + c + `" name="limaging_event` + c + `" />
+                <input type="text" placeholder="imaging_test_name` + c + `" name="imaging_test_name` + c + `" />
+
+                <input type="text" placeholder="imaging_modality ` + c + `" name="imaging_modality ` + c + `" />
+                <input type="text" placeholder="imaging_body_site ` + c + `" name="imaging_body_site ` + c + `" />
+                <input type="text" placeholder="imaging_findings ` + c + ` " name="imaging_findings ` + c + `" />
+                <input type="file" placeholder="imaging_document ` + c + `" name="imaging_document ` + c + `" />
+                
+            </div>
+            `
+            document.getElementById("imagereport").insertAdjacentHTML('beforeend', image_report);
+        }
+    
+
+
+
+    </script>
 </body>
 
 </html>
