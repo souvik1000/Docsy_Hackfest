@@ -13,7 +13,7 @@
     <div>
         <input type="text" name="patient_name" placeholder="Enter firstname" />
         <input type="text" name="phone_number" placeholder="phone_number" />
-        <a href="{% url 'allergyview' %}">Submit</a>
+        <a href="{% url 'patientSummaryView' %}">Submit</a>
         <a href="#">Allergies</a>
         <div class="card-group" style="height: 500px;">
             {% for data in allergy_data %}

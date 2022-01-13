@@ -19,7 +19,8 @@ urlpatterns=[
     path('patientIllnessCreation/', views.patientIllnessCreation, name="patientIllnessCreation"),
     path('patientAllergiesCreation/', views.patientAllergiesCreation, name="patientAllergiesCreation"),
     path('historyofillness/', views.historyofillness, name="historyofillness"),
-    path('patientIllnessView/', views.patientIllnessView, name="patientIllnessView"),
-    path('allergyview/', views.allergyview, name="allergyview"),
+    path('patientSummaryView/', views.patientSummaryView, name="patientSummaryView"),
+    # path('patientIllnessView/', views.patientIllnessView, name="patientIllnessView"),
+    # path('allergyview/', views.allergyview, name="allergyview"),
     path('logout/',views.logout,name="logout"),
 ]

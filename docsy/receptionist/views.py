@@ -124,20 +124,20 @@ def patientIllnessCreation(request):
     submit_details.save()
     return render(request, 'createPartionData.html')
 
-def patientIllnessView(request):
+def patientSummaryView(request):
     patient_data = patient.objects.filter(name="Souvik", phoneno="8450042512")
     patient_id = patient_data[0].id
     illness_data = illnesshistory.objects.all().filter(patientId=patient_id)
-    allergies_data = allergies.obj
+    allergy_data=allergies.objects.all().filter(patientId=patient_id)
     # print(illness_data[0].illness_name)
-    return render(request, 'patientsummary.html', {"illness_data":illness_data})
+    return render(request, 'patientsummary.html', {"illness_data":illness_data, "allergy_data":allergy_data})
     # return render()
 
-def allergyview(request):
-    patient_data=patient.objects.filter(name="Souvik",phoneno="8450042512")
-    patient_id=patient_data[0].id
-    allergy_data=allergies.objects.all().filter(patientId=patient_id)
-    return render(request,'patientsummary.html',{"allergy_data":allergy_data})
+# def allergyview(request):
+#     patient_data=patient.objects.filter(name="Souvik",phoneno="8450042512")
+#     patient_id=patient_data[0].id
+    
+#     return render(request,'patientsummary.html',)
 # def digenosisCreation(request):
 #     lab_event = 
 #     lab_test_name = 
