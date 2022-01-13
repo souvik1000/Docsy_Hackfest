@@ -33,3 +33,5 @@ def patientsummary(request):
     return render (request,'patientsummary.html') 
 def allergies(request):
     return render (request,'allergies.html')
+def historyofillness(request):
+    return render(request,'historyofillness.html')    
