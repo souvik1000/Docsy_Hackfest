@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import doctor,problem,medicines,prescription, illnesshistory,allergies,imagingexam
+
+from .models import doctor,problem,medicines,prescription, illnesshistory,allergies,procedurehistory,diagnostic,labreport,imagingexam
 from patient.models import patient
 
 def login(request):
@@ -86,21 +87,22 @@ def prescriptionBackend(request):
 
     return HttpResponse(l1)
 
-
 def doctorsDashboard(request):
     return render(request,'doctorsDashboard.html')
     return HttpResponse("Doctors Dashboard")
- 
 
 
-def historyofillness(request):
-    return render(request, 'historyofillness.html')
+
+def procedure(request):
+    return render(request,'procedure.html' )
 
 def patientSummary(request):
     return render(request,'patientsummary.html')
 
-def createPartionData(request):
-    return render(request, 'createPartionData.html')
+def createPatientData(request):
+    return render(request, 'createPatientData.html')
+
+# For Creation 
 
 def patientAllergiesCreation(request):
     patientId = request.POST['patientId']
@@ -110,8 +112,17 @@ def patientAllergiesCreation(request):
     comment = request.POST['comment']
     pid = patient.objects.get(id=patientId)
     allergies(patientId=pid, substance=substance, criticality=criticality, type=type, comment=comment).save()
-    return render(request, 'createPartionData.html')
- 
+    return render(request, 'createPatientData.html')
+
+def procedurecreation(request):
+    patientId=patient.objects.get(id=1)
+    procedure_name=request.POST['Procedure']
+    body_site=request.POST['BodySite']
+    date_of_procedure=request.POST['DateofProcedure']
+    submit_procedure=procedurehistory(patientId=patientId,procedure_name=procedure_name ,body_site=body_site,procedure_date=date_of_procedure)
+    submit_procedure.save()       
+    return render(request, 'createPatientData.html')
+
 def patientIllnessCreation(request):
     patientno = request.POST['patientno']
     illness_name = request.POST['illness_name']
@@ -122,14 +133,53 @@ def patientIllnessCreation(request):
     pid = patient.objects.get(id=patientno)
     submit_details = illnesshistory(patientId=pid, illness_name=illness_name, body_site=body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement)
     submit_details.save()
-    return render(request, 'createPartionData.html')
+    return render(request, 'createPatientData.html')
 
-def patientIllnessView(request):
-    patient_data = patient.objects.filter(name="Souvik", phoneno="8450042512")
+def diaganosisReportCreation(request):
+    patient_name = request.POST['patient_name']
+    patient_number = request.POST['phone_number']
+    doctor_name = request.POST['doctor_name']
+    doctor_number = request.POST['doctor_number']
+    
+    patient_data = patient.objects.filter(name=patient_name, phoneno=patient_number)
     patient_id = patient_data[0].id
-    illness_data = illnesshistory.objects.all().filter(patientId=patient_id)
-    # print(illness_data[0].illness_name)
-    return render(request, 'patientsummary.html', {"illness_data":illness_data})
+    doctor_data = doctor.objects.filter(name=doctor_name, phoneno=doctor_number)
+    doctor_id = doctor_data[0].id
+    diagnostic_data = diagnostic(patientId= patient_id, doctorId=doctor_id).save()
+    diagnosticId = diagnostic.objects.get(id=diagnostic_data.id)
+    
+    # hidden counter
+    lab_counter = request.POST['lab_counter']
+    # image_counter = request.POST['image_counter']
+    for lc in range(1,int(lab_counter)+1):
+        lab_event = request.POST['lab_event'+str(lc)]
+        lab_specimen_type = request.POST['lab_specimen_type'+str(lc)]
+        lab_specimen_method = request.POST['lab_specimen_method'+str(lc)]
+        lab_specimen_body_site = request.POST['lab_specimen_body_site'+str(lc)]
+        lab_findings = request.POST['lab_findings'+str(lc)]
+        lab_document = request.Files['lab_document'+str(lc)]
+        comment = request.POST['comment'+str(lc)]
+        labreport(diagnosticId=diagnosticId, lab_event=lab_event, lab_specimen_type=lab_specimen_type, lab_specimen_method=lab_specimen_method, lab_specimen_body_site=lab_specimen_body_site, lab_findings=lab_findings, lab_document=lab_document, comment=comment).save()
+        return render(request, 'createPatientData.html')
+
+
+
+
+# For Patient Data Views
+
+def patientSummaryView(request):
+    patient_name = request.POST['patient_name']
+    patient_number = request.POST['phone_number']
+    try:
+        patient_data = patient.objects.filter(name=patient_name, phoneno=patient_number)
+        patient_id = patient_data[0].id
+        illness_data = illnesshistory.objects.all().filter(patientId=patient_id)
+        allergy_data = allergies.objects.all().filter(patientId=patient_id)
+        procedure_data = procedurehistory.objects.all().filter(patientId=patient_id)
+        # print(illness_data[0].illness_name)
+        return render(request, 'patientsummary.html', {"illness_data":illness_data, "allergy_data":allergy_data, "procedure_data":procedure_data})
+    except:
+        return render(request, 'not_found_page.html')
     # return render()
 
 def allergyview(request):

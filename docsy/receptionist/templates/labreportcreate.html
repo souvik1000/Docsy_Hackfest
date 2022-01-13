@@ -9,19 +9,15 @@
 </head>
 
 <body>
-    <div>
-        <form action="{% url '' %}" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="text" placeholder="lab_event" name="lab_event" />
-            <input type="text" placeholder="lab_test_name" name="lab_test_name" />
-            <input type="text" placeholder="lab_specimen_type" name="lab_specimen_type" />
-            <input type="text" placeholder="lab_specimen_method" name="lab_specimen_method" />
-            <input type="text" placeholder="lab_specimen_body_site" name="lab_specimen_body_site" />
-            <input type="text" placeholder="lab_findings" name="lab_findings" />
-            <!-- <input type="text" placeholder="lab_findings" name="lab_findings" /> -->
-            <input type="file" placeholder="comment" name="comment" />
-            <button type="button">Submit</button> lab_document = models.FileField(upload_to='images/')
-        </form>
+    <div id="labreport">
+        <input type="text" placeholder="lab_event`+c+`" name="lab_event`+c+`" />
+        <input type="text" placeholder="lab_test_name`+c+`" name="lab_test_name`+c+`" />
+        <input type="text" placeholder="lab_specimen_type`+c+`" name="lab_specimen_type`+c+`" />
+        <input type="text" placeholder="lab_specimen_method`+c+`" name="lab_specimen_method`+c+`" />
+        <input type="text" placeholder="lab_specimen_body_site`+c+`" name="lab_specimen_body_site`+c+`" />
+        <input type="text" placeholder="lab_findings`+c+`" name="lab_findings`+c+`" />
+        <input type="file" placeholder="lab_document`+c+`" name="lab_document`+c+`" />
+        <input type="text" placeholder="comment`+c+`" name="comment`+c+`" />
     </div>
 </body>
 

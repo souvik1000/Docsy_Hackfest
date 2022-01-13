@@ -71,7 +71,6 @@ class imagingexam(models.Model):
     imaging_findings = models.TextField()
     imaging_document = models.FileField(upload_to='images/', null=True, verbose_name="")
     
-    
 class allergies(models.Model):
     patientId = models.ForeignKey(patient,on_delete=models.CASCADE)
     substance = models.TextField()
