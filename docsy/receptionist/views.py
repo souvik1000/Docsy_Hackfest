@@ -1,11 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-<<<<<<< HEAD
 from .models import doctor,problem,medicines,prescription
 from patient.models import patient
-=======
-from .models import doctor,illnesshistory
->>>>>>> 0b1e69d824fe2b10dcc90d6c560c700dfc632c85
 
 def login(request):
     return render(request,'login.html')
@@ -36,7 +32,7 @@ def doctorprescription(request):
     if 'doctor_id' in request.session:
         return render(request,'prescription.html')
     else:
-        return redirect(login)
+        return redirect
 
 def prescriptionBackend(request):
     if 'doctor_id' in request.session:
@@ -94,13 +90,14 @@ def prescriptionBackend(request):
 
 
 def doctorsDashboard(request):
+    return render(request,'doctorsDashboard.html')
     return HttpResponse("Doctors Dashboard")
 
-<<<<<<< HEAD
 def logout(request):
     if request.session.get('doctor_id', True):
             del request.session['doctor_id']
             return redirect(login)
+<<<<<<< HEAD
     
 =======
 def patientsummary(request):
@@ -129,3 +126,6 @@ def patientIllnessCreation(request):
     return HttpResponse("Added Successful")
 >>>>>>> 0b1e69d824fe2b10dcc90d6c560c700dfc632c85
 >>>>>>> d397ea26ccacc0d02cc4cfabdb2e6b46875634f4
+=======
+    
+>>>>>>> dc11eafb9ac38c9280b907e558e7f10f5128d155
