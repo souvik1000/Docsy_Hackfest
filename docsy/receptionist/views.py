@@ -1,7 +1,11 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
+<<<<<<< HEAD
 from .models import doctor,problem,medicines,prescription
 from patient.models import patient
+=======
+from .models import doctor,illnesshistory
+>>>>>>> 0b1e69d824fe2b10dcc90d6c560c700dfc632c85
 
 def login(request):
     return render(request,'login.html')
@@ -92,8 +96,31 @@ def prescriptionBackend(request):
 def doctorsDashboard(request):
     return HttpResponse("Doctors Dashboard")
 
+<<<<<<< HEAD
 def logout(request):
     if request.session.get('doctor_id', True):
             del request.session['doctor_id']
             return redirect(login)
     
+=======
+def patientsummary(request):
+    return render (request,'patientsummary.html')
+ 
+def allergies(request):
+    return render (request,'allergies.html')
+
+def historyofillness(request):
+    return render(request, 'historyofillness.html')
+
+def patientIllnessCreation(request):
+    patientno = request.POST['patientno']
+    illness_name = request.POST['illness_name']
+    body_site = request.POST['body_site']
+    severity = request.POST['severity']
+    illness_date_onset = request.POST['illness_date_onset']
+    illness_date_abatement = request.POST['illness_date_abatement']
+    print(patientno, illness_name, body_site, severity, illness_date_onset, illness_date_abatement)
+    submit_details = illnesshistory(patientId=patientno, illness_name=illness_name, body_site=body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement)
+    submit_details.save()
+    return HttpResponse("Added Successful")
+>>>>>>> 0b1e69d824fe2b10dcc90d6c560c700dfc632c85
