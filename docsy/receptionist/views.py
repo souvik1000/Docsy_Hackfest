@@ -85,11 +85,9 @@ def prescriptionBackend(request):
     else:
         return redirect(login)
 
-    return HttpResponse(l1)
 
 def doctorsDashboard(request):
     return render(request,'doctorsDashboard.html')
-    return HttpResponse("Doctors Dashboard")
 
 
 
@@ -111,16 +109,18 @@ def patientAllergiesCreation(request):
     type = request.POST['type']
     comment = request.POST['comment']
     pid = patient.objects.get(id=patientId)
-    allergies(patientId=pid, substance=substance, criticality=criticality, type=type, comment=comment).save()
+    submit_allergies = allergies(patientId=pid, substance=substance, criticality=criticality, type=type, comment=comment)
+    submit_allergies.save()
     return render(request, 'createPatientData.html')
 
 def procedurecreation(request):
-    patientId=patient.objects.get(id=1)
+    patientId = request.POST['patientId']
+    patientId=patient.objects.get(id=patientId)
     procedure_name=request.POST['Procedure']
     body_site=request.POST['BodySite']
     date_of_procedure=request.POST['DateofProcedure']
     submit_procedure=procedurehistory(patientId=patientId,procedure_name=procedure_name ,body_site=body_site,procedure_date=date_of_procedure)
-    submit_procedure.save()       
+    submit_procedure.save()
     return render(request, 'createPatientData.html')
 
 def patientIllnessCreation(request):
@@ -145,22 +145,39 @@ def diaganosisReportCreation(request):
     patient_id = patient_data[0].id
     doctor_data = doctor.objects.filter(name=doctor_name, phoneno=doctor_number)
     doctor_id = doctor_data[0].id
-    diagnostic_data = diagnostic(patientId= patient_id, doctorId=doctor_id).save()
+    patientid = patient.objects.get(id=patient_id)
+    doctorid = doctor.objects.get(id=doctor_id)
+    # print(patientid,doctorid)
+    diagnostic_data = diagnostic(patientId=patientid, doctorId=doctorid)
+    diagnostic_data.save()
     diagnosticId = diagnostic.objects.get(id=diagnostic_data.id)
     
     # hidden counter
     lab_counter = request.POST['lab_counter']
-    # image_counter = request.POST['image_counter']
+    image_counter = request.POST['image_counter']
+    
     for lc in range(1,int(lab_counter)+1):
-        lab_event = request.POST['lab_event'+str(lc)]
-        lab_specimen_type = request.POST['lab_specimen_type'+str(lc)]
-        lab_specimen_method = request.POST['lab_specimen_method'+str(lc)]
-        lab_specimen_body_site = request.POST['lab_specimen_body_site'+str(lc)]
-        lab_findings = request.POST['lab_findings'+str(lc)]
-        lab_document = request.Files['lab_document'+str(lc)]
-        comment = request.POST['comment'+str(lc)]
-        labreport(diagnosticId=diagnosticId, lab_event=lab_event, lab_specimen_type=lab_specimen_type, lab_specimen_method=lab_specimen_method, lab_specimen_body_site=lab_specimen_body_site, lab_findings=lab_findings, lab_document=lab_document, comment=comment).save()
-        return render(request, 'createPatientData.html')
+        i = str(lc)
+        lab_event = request.POST['lab_event'+i]
+        lab_test_name = request.POST['lab_test_name'+i]
+        lab_specimen_type = request.POST['lab_specimen_type'+i]
+        lab_specimen_method = request.POST['lab_specimen_method'+i]
+        lab_specimen_body_site = request.POST['lab_specimen_body_site'+i]
+        lab_findings = request.POST['lab_findings'+i]
+        lab_document = request.FILES['lab_document'+i]
+        labreport(diagnosticId=diagnosticId, lab_event=lab_event, lab_test_name=lab_test_name, lab_specimen_type=lab_specimen_type, lab_specimen_method=lab_specimen_method, lab_specimen_body_site=lab_specimen_body_site, lab_findings=lab_findings, lab_document=lab_document).save()
+        
+    for xc in range(1,int(image_counter)+1):
+        i = str(xc)
+        imaging_event=request.POST['imaging_event'+i]
+        imaging_test_name=request.POST['imaging_test_name'+i]
+        imaging_modality=request.POST['imaging_modality'+i]
+        imaging_body_site=request.POST['imaging_body_site'+i]
+        imaging_findings=request.POST['imaging_findings'+i]
+        imaging_document= request.FILES['imaging_document'+i] 
+        imagingexam(diagnosticId=diagnosticId,imaging_event=imaging_event, imaging_test_name=imaging_test_name, imaging_modality=imaging_modality, imaging_body_site=imaging_body_site, imaging_findings=imaging_findings, imaging_document=imaging_document).save()
+        
+    return render(request, 'createPatientData.html')
 
 
 
@@ -182,21 +199,7 @@ def patientSummaryView(request):
         return render(request, 'not_found_page.html')
     # return render()
 
-def allergyview(request):
-    patient_data=patient.objects.filter(name="Souvik",phoneno="8450042512")
-    patient_id=patient_data[0].id
-    allergy_data=allergies.objects.all().filter(patientId=patient_id)
-    return render(request,'patientsummary.html',{"allergy_data":allergy_data})
 def imagereportcreation(request):
-    diagnosticId=request.POST['DiagnosticId']
-    imaging_event=request.POST['imaging_event']
-    imaging_test_name=request.POST['imaging_test_name']
-    imaging_modality=request.POST['imaging_modality']
-    imaging_body_site=request.POST['imaging_body_site']
-    imaging_findings=request.POST['imaging_findings']
-    imaging_document= request.POST['imaging_document'] 
-    submit_details = imagingexam(diagnosticId=diagnosticId,imaging_event=imaging_event,imaging_test_name=imaging_test_name, imaging_modality=imaging_modality,imaging_body_site=imaging_body_site,imaging_findings=imaging_findings,imaging_document=imaging_document)
-    submit_details.save()
     return render(request, 'createPartionData.html')
 # def digenosisCreation(request):
 #     lab_event = 
