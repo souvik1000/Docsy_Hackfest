@@ -22,4 +22,6 @@ urlpatterns=[
     # path('patientIllnessView/', views.patientIllnessView, name="patientIllnessView"),
     # path('allergyview/', views.allergyview, name="allergyview"),
     path('logout/',views.logout,name="logout"),
+    path('viewpresciptions',views.viewpresciption,name="prescription")
+
 ]

@@ -198,6 +198,13 @@ def imagereportcreation(request):
     submit_details = imagingexam(diagnosticId=diagnosticId,imaging_event=imaging_event,imaging_test_name=imaging_test_name, imaging_modality=imaging_modality,imaging_body_site=imaging_body_site,imaging_findings=imaging_findings,imaging_document=imaging_document)
     submit_details.save()
     return render(request, 'createPartionData.html')
+def viewpresciption(request):
+    presciption_data=prescription.objects.values('patientId','doctorId','comment')
+    #patient_id=presciption_data[0].patientId
+    problem_data=problem.objects.values().filter(prescriptionId=1)
+    medicines_data=medicines.objects.values().filter(prescriptionId=1)
+    return HttpResponse(presciption_data)
+
 # def digenosisCreation(request):
 #     lab_event = 
 #     lab_test_name = 
