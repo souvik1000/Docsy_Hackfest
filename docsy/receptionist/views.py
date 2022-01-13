@@ -108,12 +108,12 @@ def patientsummary(request):
 def allergies(request):
     return render (request,'allergies.html')
 def procedurecreation(request):
-    #procedureObj=procedurehistory.objects.get(id=patientId)
+    patientId=patient.objects.get(id=1)
     procedure_name=request.POST['Procedure']
     body_site=request.POST['BodySite']
     date_of_procedure=request.POST['DateofProcedure']
-    submit_procedure=procedurehistory(patientId=1,procedure_name=procedure_name ,body_site=body_site,procedure_date=date_of_procedure)
-    submit_procedure.save()
+    submit_procedure=procedurehistory(patientId=patientId,procedure_name=procedure_name ,body_site=body_site,procedure_date=date_of_procedure)
+    submit_procedure.save()       
     return HttpResponse("Added Successful")
 
 def procedure(request):
