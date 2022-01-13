@@ -12,7 +12,8 @@
 <body>
     <div>
         <input type="text" name="patient_name" placeholder="Enter firstname" />
-        <a href="{% url 'patientIllnessView' %}">Submit</a>
+        <input type="text" name="phone_number" placeholder="phone_number" />
+        <a href="{% url 'allergyview' %}">Submit</a>
         <a href="#">Allergies</a>
         <div style="height: 500px;">
             {% for data in patient_data %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import doctor,problem,medicines,prescription, illnesshistory
+from .models import doctor,problem,medicines,prescription,illnesshistory
 from patient.models import patient
 
 def login(request):
@@ -86,13 +86,12 @@ def prescriptionBackend(request):
 
     return HttpResponse(l1)
 
-
 def doctorsDashboard(request):
     return render(request,'doctorsDashboard.html')
     return HttpResponse("Doctors Dashboard")
  
-def allergies(request):
-    return render (request,'allergies.html')
+# def allergies(request):
+#     return render (request,'allergies.html')
 
 def historyofillness(request):
     return render(request, 'historyofillness.html')
@@ -132,10 +131,16 @@ def patientIllnessView(request):
     patient_data = patient.objects.filter(name="Souvik", phoneno="8450042512")
     patient_id = patient_data[0].id
     illness_data = illnesshistory.objects.all().filter(patientId=patient_id)
+    allergies_data = allergies.obj
     # print(illness_data[0].illness_name)
     return render(request, 'patientsummary.html', {"illness_data":illness_data})
     # return render()
 
+def allergyview(request):
+    patient_data = patient.objects.filter(name="Souvik", phoneno="8450042512")
+    patient_id = patient_data[0].id
+    # allergy_data = allergies.
+    # return render(request,'patientsummary.html',{"allergy_data":allergy_data})
 
 # def digenosisCreation(request):
 #     lab_event = 
