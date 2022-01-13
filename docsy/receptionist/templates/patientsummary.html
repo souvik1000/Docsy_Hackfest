@@ -12,12 +12,19 @@
 <body>
     <div>
         <input type="text" name="patient_name" placeholder="Enter firstname" />
-        <a href="{% url 'patientIllnessView' %}">Submit</a>
+        <input type='number' name="phone_number" placeholder="phone number"/>
+        
+        <a href="{% url 'allergyview' %}">Submit</a>
         <a href="#">Allergies</a>
-        <div style="height: 500px;">
-            {% for data in patient_data %}
-            <div>
-
+        <div class="card-group" style="height: 500px;">
+            {% for data in allergy_data %}
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">{{data.substance}}</p>
+                    <p class="card-text">{{data.criticality}}</p>
+                    <p class="card-text">{{data.type}}</p>
+                    <p class="card-text">{{data.comment}}</p>
+                </div>
             </div>
             {% endfor %}
         </div>
@@ -29,9 +36,23 @@
             {% for data in illness_data %}
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">{{data.illness_name}}</h5>
+                    <p class="card-text">{{data.illness_name}}</p>
                     <p class="card-text">{{data.body_site}}</p>
                     <p class="card-text">{{data.severity}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <br />
+        <a href="#">Allergies</a>
+        <div class="card-group" style="height: 500px;">
+            {% for data in allergy_data %}
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">{{data.substance}}</p>
+                    <p class="card-text">{{data.criticality}}</p>
+                    <p class="card-text">{{data.type}}</p>
+                    <p class="card-text">{{data.comment}}</p>
                 </div>
             </div>
             {% endfor %}
@@ -41,7 +62,7 @@
         <a>Enter</a>
 
         <div>
-            <a href="#">View Diagenostic</a>
+            <a href="#">View Diagnostics </a>
         </div>
     </div>
 </body>
