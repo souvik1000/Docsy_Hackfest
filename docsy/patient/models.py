@@ -12,5 +12,3 @@ class patient(models.Model):
     password = models.TextField(max_length=25)
     address = models.TextField(max_length=150)
     registration_time = models.DateField(default=date.today)
-
-    

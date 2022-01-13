@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Report</title>
+</head>
+
+<body>
+    <div>
+        <form action="{% url '' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" placeholder="lab_event" name="lab_event" />
+            <input type="text" placeholder="lab_test_name" name="lab_test_name" />
+            <input type="text" placeholder="lab_specimen_type" name="lab_specimen_type" />
+            <input type="text" placeholder="lab_specimen_method" name="lab_specimen_method" />
+            <input type="text" placeholder="lab_specimen_body_site" name="lab_specimen_body_site" />
+            <input type="text" placeholder="lab_findings" name="lab_findings" />
+            <!-- <input type="text" placeholder="lab_findings" name="lab_findings" /> -->
+            <input type="file" placeholder="comment" name="comment" />
+            <button type="button">Submit</button> lab_document = models.FileField(upload_to='images/')
+        </form>
+    </div>
+</body>
+
+</html>
