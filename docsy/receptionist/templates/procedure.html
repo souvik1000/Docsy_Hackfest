@@ -10,12 +10,13 @@
 
 <body>
     <div>
-        <form action="#" method="POST">
+        <form method="POST" action="{% url 'procedurecreation' %}" >
+            {%csrf_token%}
             <input type="text" placeholder="Procedure name" name="Procedure" /><br>
-            <input type="text" placeholder="Body site" name="Body site" /><br>
+            <input type="text" placeholder="Body site" name="BodySite" /><br>
             <label for="Date of Procedure">Date of Procedure: </label>
-            <input type="date" placeholder="Date of Procedure" name="Date of Procedure" /><br>
-            <button type="button">Submit</button>
+            <input type="date" placeholder="Date of Procedure" name="DateofProcedure" /><br>
+            <input type="Submit" value="Submit">
         </form>
     </div>
 </body>
