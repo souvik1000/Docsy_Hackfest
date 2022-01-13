@@ -11,6 +11,7 @@
 <body>
     <div>
         <form action="#" method="POST">
+            {% csrf_token %}
             <input type="text" placeholder="patientId" name="patientId" />
             <input type="text" placeholder="substance" name="substance" />
             <input type="text" placeholder="criticality" name="criticality" />
