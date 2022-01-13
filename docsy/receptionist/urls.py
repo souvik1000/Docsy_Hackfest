@@ -8,6 +8,9 @@ urlpatterns=[
     path('loginauth/',views.loginauth,name="loginauth"),
     path('doctorsDashboard/',views.doctorsDashboard,name="doctorsDashboard"),
 
+    path('patientSummary/procedure',views.procedure,name="procedure"),
+    path('procedurecreation/',views.procedurecreation,name="procedurecreation"),
+    
     # path('patientSummary/',views.patientsummary,name="patientsummary"),
     # path('patientSummary/allergies',views.allergies,name="allergies"),
     # path('patientSummary/historyofillness',views.historyofillness,name="historyofillness"),

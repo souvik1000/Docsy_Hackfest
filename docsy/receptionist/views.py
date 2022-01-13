@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import doctor,problem,medicines,prescription, illnesshistory,allergies
+
+from .models import doctor,problem,medicines,prescription, illnesshistory,allergies,procedurehistory
 from patient.models import patient
 
 def login(request):
@@ -89,12 +90,25 @@ def prescriptionBackend(request):
 def doctorsDashboard(request):
     return render(request,'doctorsDashboard.html')
     return HttpResponse("Doctors Dashboard")
- 
-# def allergies(request):
-#     return render (request,'allergies.html')
 
-def historyofillness(request):
-    return render(request, 'historyofillness.html')
+
+
+# def historyofillness(request):
+#     return render(request, 'historyofillness.html')
+
+
+
+def procedurecreation(request):
+    patientId=patient.objects.get(id=1)
+    procedure_name=request.POST['Procedure']
+    body_site=request.POST['BodySite']
+    date_of_procedure=request.POST['DateofProcedure']
+    submit_procedure=procedurehistory(patientId=patientId,procedure_name=procedure_name ,body_site=body_site,procedure_date=date_of_procedure)
+    submit_procedure.save()       
+    return HttpResponse("Added Successful")
+
+def procedure(request):
+    return render(request,'procedure.html' )
 
 def patientSummary(request):
     return render(request,'patientsummary.html')
