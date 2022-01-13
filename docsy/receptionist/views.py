@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import doctor,problem,medicines,prescription,illnesshistory
+from .models import doctor,problem,medicines,prescription, illnesshistory
 from patient.models import patient
 
 def login(request):
@@ -86,27 +86,36 @@ def prescriptionBackend(request):
 
     return HttpResponse(l1)
 
-   
-
 
 def doctorsDashboard(request):
     return render(request,'doctorsDashboard.html')
-
-def logout(request):
-    if request.session.get('doctor_id', True):
-            del request.session['doctor_id']
-            return redirect(login)
-
-def patientsummary(request):
-    return render (request,'patientsummary.html')
+    return HttpResponse("Doctors Dashboard")
  
 def allergies(request):
     return render (request,'allergies.html')
-    
 
 def historyofillness(request):
     return render(request, 'historyofillness.html')
 
+
+
+
+def patientSummary(request):
+    return render(request,'patientsummary.html')
+
+def createPartionData(request):
+    return render(request, 'createPartionData.html')
+
+def patientAllergiesCreation(request):
+    patientId = request.POST['patientId']
+    substance = request.POST['substance']
+    criticality = request.POST['criticality']
+    type = request.POST['type']
+    comment = request.POST['comment']
+    pid = patient.objects.get(id=patientId)
+    allergies(patientId=pid, substance=substance, criticality=criticality, type=type, comment=comment).save()
+    return render(request, 'createPartionData.html')
+    
 def patientIllnessCreation(request):
     patientno = request.POST['patientno']
     illness_name = request.POST['illness_name']
@@ -114,8 +123,35 @@ def patientIllnessCreation(request):
     severity = request.POST['severity']
     illness_date_onset = request.POST['illness_date_onset']
     illness_date_abatement = request.POST['illness_date_abatement']
-    print(patientno, illness_name, body_site, severity, illness_date_onset, illness_date_abatement)
-    submit_details = illnesshistory(patientId=patientno, illness_name=illness_name, body_site=body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement)
+    pid = patient.objects.get(id=patientno)
+    submit_details = illnesshistory(patientId=pid, illness_name=illness_name, body_site=body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement)
     submit_details.save()
-    return HttpResponse("Added Successful")
-    
+    return render(request, 'createPartionData.html')
+
+def patientIllnessView(request):
+    patient_data = patient.objects.filter(name="Souvik", phoneno="8450042512")
+    patient_id = patient_data[0].id
+    illness_data = illnesshistory.objects.all().filter(patientId=patient_id)
+    # print(illness_data[0].illness_name)
+    return render(request, 'patientsummary.html', {"illness_data":illness_data})
+    # return render()
+
+
+# def digenosisCreation(request):
+#     lab_event = 
+#     lab_test_name = 
+#     lab_specimen_type = 
+#     lab_specimen_method = 
+#     lab_specimen_body_site = 
+#     lab_findings = 
+#     upload_file = 
+
+
+# def diagenosisLink(request):
+#     return render()
+
+
+def logout(request):
+    if request.session.get('doctor_id', True):
+            del request.session['doctor_id']
+            return redirect(login)

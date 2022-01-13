@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel=”stylesheet” integrity=”sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel=”stylesheet” integrity=”sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x " crossorigin="anonymous ">
 
       <title>Add Product</title>
     
@@ -21,7 +22,7 @@
             color: #000;
             overflow-x: hidden;
             height: 100%;
-            background-image: url("https://i.imgur.com/GMmCQHC.png");
+            background-image: url("https://i.imgur.com/GMmCQHC.png ");
             background-repeat: no-repeat;
             background-size: 100% 100%
         }
@@ -120,16 +121,16 @@
         var striked_price=document.getElementById('striked_price').value;
         var FileUploadPath = document.getElementById('product_image').value;
 
-        if((selected_category==""))
+        if((selected_category==" "))
         {   
-            console.log("1");
+            console.log("1 ");
             k=1;
-            document.getElementById('selected_category_error').innerHTML="Null value can't be accepted.";
+            document.getElementById('selected_category_error').innerHTML="Null value can 't be accepted.";
         }
         else
         {
             k=0;
-            document.getElementById('selected_category_error').innerHTML="";
+            document.getElementById('selected_category_error ').innerHTML="";
         }
         // sub_category
         
@@ -138,87 +139,87 @@
         {   
             console.log("2");
             k=1;
-            document.getElementById('selected_sub_category_error').innerHTML="Null value can't be accepted.";
+            document.getElementById('selected_sub_category_error ').innerHTML="Null value can't be accepted. ";
         }
         else
         {
             k=0;
-            document.getElementById('selected_sub_category_error').innerHTML="";
+            document.getElementById('selected_sub_category_error').innerHTML=" ";
         }
         var product_name=document.getElementById('product_name').value;
         console.log(product_name)
         if((product_name.length<1))
         {   
-            console.log("3");
+            console.log("3 ");
             k=1;
-            document.getElementById('product_name_error').innerHTML="Null value can't be accepted.";
+            document.getElementById('product_name_error').innerHTML="Null value can 't be accepted.";
         }
         else
         {
             k=0;
-            document.getElementById('product_name_error').innerHTML="";
+            document.getElementById('product_name_error ').innerHTML="";
         }
         if(product_price=="")
         {   
             console.log("4");
             k=1;
-            document.getElementById('product_price_error').innerHTML="Null value can't be accepted.";
+            document.getElementById('product_price_error ').innerHTML="Null value can't be accepted. ";
         }
         else if((product_price<=0))
         {   
-            console.log("5");
+            console.log("5 ");
             k=1;
-            document.getElementById('product_price_error').innerHTML="Product price cannot be less than or equal to zero";
+            document.getElementById('product_price_error').innerHTML="Product price cannot be less than or equal to zero ";
         }
         else
         {
             k=0;
-            document.getElementById('product_price_error').innerHTML="";
+            document.getElementById('product_price_error').innerHTML=" ";
         }
-        if(striked_price=="")
+        if(striked_price==" ")
         {   
-            console.log("6");
+            console.log("6 ");
             k=1;
-            document.getElementById('striked_price_error').innerHTML="Null value can't be accepted.";
+            document.getElementById('striked_price_error').innerHTML="Null value can 't be accepted.";
         }
         else if((striked_price<=0))
         {   
             console.log("7");
             k=1;
-            document.getElementById('striked_price_error').innerHTML="striked price cannot be less than or equal to zero";
+            document.getElementById('striked_price_error ').innerHTML="striked price cannot be less than or equal to zero";
         }
         else if((striked_price<product_price))  
         {   
             console.log("8");
             k=1;
-            document.getElementById('striked_price_error').innerHTML="striked price should be less than product price";
+            document.getElementById('striked_price_error ').innerHTML="striked price should be less than product price";
         }
         else
         {
             k=0;
-            document.getElementById('striked_price_error').innerHTML="";
+            document.getElementById('striked_price_error ').innerHTML="";
         }
 
-        if (FileUploadPath == '') 
+        if (FileUploadPath == ' ') 
         {
             console.log("9");
             k=1;
-            document.getElementById('product_image_error').innerHTML="Upload an Image";
+            document.getElementById('product_image_error ').innerHTML="Upload an Image";
         }
         else
         {
 
             console.log("10");
-            var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+            var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('. ') + 1).toLowerCase();
             if (!(Extension == "gif" || Extension == "png" || Extension == "bmp"|| Extension == "jpeg" || Extension == "jpg"))
             {
                 k=1;
-                document.getElementById('product_image_error').innerHTML="Upload only gif,png,bmp,jpeg or jpg";
+                document.getElementById('product_image_error ').innerHTML="Upload only gif,png,bmp,jpeg or jpg";
             }
             else
             {
                 k=0;
-                document.getElementById('product_image_error').innerHTML="";
+                document.getElementById('product_image_error ').innerHTML="";
             }
         }
 
@@ -235,11 +236,9 @@
 
 
     <div class="container ">
-
         <div class="row d-flex justify-content-center">
 
-            
-                <form class="form-card"  method="post" action="{% url 'prescriptionBackend' %}" enctype = "multipart/form-data">
+                <form class="form-card"  method="post" action="{% url 'prescriptionBackend ' %}" enctype = "multipart/form-data">
                     <!-- disease -->
                     <!-- end problem -->
                     {%csrf_token%}
@@ -274,29 +273,20 @@
                             <div  id="total_medicine" class="text-center">
 
                             </div>
-                        
-
 
                     <!-- <end disesae -->
-                      
-
-                       
-                </form>
       
-                        
-               
+                </form>
 
-            
-       
     </div>
 
 <button onclick=get_medicine() >Add medicine</button>
 
 <script>
     function get_medicine(){
-        var c=parseInt(document.getElementById('medicine_count').value)+1
-        document.getElementById('medicine_count').value=c
-        document.getElementById('medicine_count_val').innerHTML=c
+        var c=parseInt(document.getElementById('medicine_count ').value)+1
+        document.getElementById('medicine_count ').value=c
+        document.getElementById('medicine_count_val ').innerHTML=c
 
         var s=`
         <div  id="each_medicine" class="card">
@@ -398,13 +388,13 @@
    
 </div>
         `;
-//         let div = document.createElement('div');
-//   div.innerText = document.getElementById('getText').innerText;
+//         let div = document.createElement('div ');
+//   div.innerText = document.getElementById('getText ').innerText;
 //   document.body.appendChild(div);
 //             var cm=document.createElemen
         
         // document.getElementById("total_medicine").innerHTML=document.getElementById("total_medicine").innerHTML.append;
-        document.getElementById("total_medicine").insertAdjacentHTML( 'beforeend', s );
+        document.getElementById("total_medicine").insertAdjacentHTML( 'beforeend ', s );
     }
 </script>
 
