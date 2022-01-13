@@ -1,3 +1,4 @@
+from os import name
 from django.urls import path
 from . import views
 
@@ -8,6 +9,13 @@ urlpatterns=[
     path('doctorsDashboard/',views.doctorsDashboard,name="doctorsDashboard"),
     path('prescription/',views.doctorprescription,name="doctorprescription"),
     path('prescriptionBackend/',views.prescriptionBackend,name="prescriptionBackend"),
+    
+    path('patientSummary/', views.patientSummary, name="patientSummary"),
+    path('createPartionData/', views.createPartionData, name="createPartionData"),
+    path('patientIllnessCreation/', views.patientIllnessCreation, name="patientIllnessCreation"),
+    path('patientAllergiesCreation/', views.patientAllergiesCreation, name="patientAllergiesCreation"),
+    path('historyofillness/', views.historyofillness, name="historyofillness"),
+    path('patientIllnessView/', views.patientIllnessView, name="patientIllnessView"),
+    
     path('logout/',views.logout,name="logout")
-
 ]
