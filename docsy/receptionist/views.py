@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
+import json
 
 from .models import doctor,problem,medicines,prescription
 from patient.models import patient,Appointment  
@@ -266,6 +267,24 @@ def patientSummaryView(request,pid,appid):
         return render(request, 'not_found_page.html')
     # return render()
 
+def imagereportcreation(request):
+    return render(request, 'createPartionData.html')
+def viewpresciption(request):
+    l1=[]
+    medicines_data=[]
+    p=prescription.objects.all().values_list('patientId')
+    presciption_data=prescription.objects.values('patientId','doctorId','comment')
+    #patient_id=presciption_data[0].patientId
+    #presciption_Id=presciption_data['patientId']
+    for i in range(len(p)):
+        #print(p[i][0])
+        problem_data=problem.objects.values().filter(prescriptionId=p[i][0])
+        l1.append(problem_data)
+        #print(l1)
+        medicines_data=medicines.objects.values().filter(prescriptionId=p[i])
+    print(list(l1))
+    return HttpResponse(l1)
+
 
 # def labreportView(request):
 #     patient_name = request.POST['patient_name']
@@ -305,6 +324,16 @@ def patientSummaryView(request,pid,appid):
 # def diagenosisLink(request):
 #     return render()
 
+def imagereportView(request):
+    patient_name = request.POST['patient_name']
+    patient_number = request.POST['phone_number']
+    patient_data = patient.objects.filter(name=patient_name, phoneno=patient_number)
+    patient_id = patient_data[0].id
+    # doctorid = doctor.objects.get(id=patient_id)
+    # print(patientid,doctorid)
+    # diagnostic_data = diagnostic(patientId=patientid, doctorId=doctorid)
+    diagnostic_data = diagnostic.objects.all().filter(patientId=patient_id)
+    # print(diagnos
 
 
 def logout(request):

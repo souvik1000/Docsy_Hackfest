@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date, datetime
 from patient.models import patient
+from django.contrib.auth.models import AbstractUser
 
 class doctor(models.Model):
     name = models.TextField(max_length=50)
@@ -91,3 +92,5 @@ class illnesshistory(models.Model):
     severity = models.TextField()
     illness_date_onset = models.DateTimeField(default = datetime.now)
     illness_date_abatement = models.DateTimeField(default = datetime.now)
+
+
