@@ -8,9 +8,11 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Bootstrap Ecommerce Template" name="keywords">
     <meta content="Bootstrap Ecommerce Template Free Download" name="description">
-    <title>SignIn | SignUp Page</title>
+    <title> Patient SignIn | SignUp Page</title>
     <!--  <link rel="stylesheet" href="./style.css">-->
     <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css" />
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -20,7 +22,7 @@
     <script type="text/javascript">
         function validate(signup_form) {
             var name = document.getElementById('name').value;
-            var specality = document.getElementById('specality').value;
+            var dob = document.getElementById('dob').value;
             var phone = document.getElementById('phone').value;
             var email=document.getElementById('email').value;
             var gender = document.getElementById('gender').value;
@@ -42,14 +44,12 @@
             } else
                 document.getElementById("uname1").innerHTML = "";
 
-            if (specality.length == 0) {
-                document.getElementById("specality_error").innerHTML = "Enter Your specality";
+            if (dob.length == 0) {
+                document.getElementById("dob_error").innerHTML = "Enter Your dob";
                 k = 1;
-            } else if (!specality.match(check1)) {
-                document.getElementById("specality_error").innerHTML = "Enter Characters Name";
-                k = 1;
-            } else
-                document.getElementById("specality_error").innerHTML = "";
+            } 
+            else
+                document.getElementById("dob_error").innerHTML = "";
 
 
 
@@ -138,7 +138,6 @@
                 k = 1;
             } else if (pass.length > 0)
                 document.getElementById("cpass1").innerHTML = "";
-            
             if (k == 1) {
                 return false;
             }
@@ -148,7 +147,7 @@
 
     <script>
         function loginauthenticate(form1) {
-            var mobile = document.getElementById('sign_in_mobile').value;
+            var mail = document.getElementById('sign_in_email').value;
             var pass = document.getElementById('sign_in_pass').value;
 
             var el = document.getElementsByName("csrfmiddlewaretoken");
@@ -156,9 +155,9 @@
 
             $.ajax({
                 type: 'post',
-                url: "{% url 'loginauth' %}",
+                url: "{% url 'patientloginauth' %}",
                 data: {
-                    a: mobile,
+                    a: mail,
                     b: pass,
                     csrfmiddlewaretoken: csrf_value
                 },
@@ -169,13 +168,14 @@
                         document.getElementById('sign_in_pass').value = "";
                     } else {
                         document.getElementById('incorrect').innerHTML = "";
-                        document.location.href = "{% url 'doctorsDashboard' %}";
+                        document.location.href = "{% url 'patientDashboard' %}";
                     }
                 }
             });
         }
     </script>
-    <script>
+
+<script>
     function checkemail(form1) {
         var mail = document.getElementById('email').value;
     
@@ -184,7 +184,7 @@
         csrf_value = el[0].getAttribute("value");
         $.ajax({
             type: 'post',
-            url: "{% url 'doctoremailalreadyexists' %}",
+            url: "{% url 'emailalreadyexists' %}",
             data: {
                 a: mail,
                 csrfmiddlewaretoken: csrf_value
@@ -192,7 +192,6 @@
             success: function(response) {
                 if (response == 0) {
                     document.getElementById('emailid1').innerHTML = "Email Already Exists";
-                    return false
             
                 } else {
                     document.getElementById('incorrect').innerHTML = "";
@@ -202,48 +201,77 @@
         });
     }
 </script>
+<script>
+    function checkemail() {
+        var mail = document.getElementById('email').value;
+    
 
+        var el = document.getElementsByName("csrfmiddlewaretoken");
+        csrf_value = el[0].getAttribute("value");
+        $.ajax({
+            type: 'post',
+            url: "{% url 'emailalreadyexists' %}",
+            data: {
+                a: mail,
+                csrfmiddlewaretoken: csrf_value
+            },
+            success: function(response) {
+                if (response == 0) {
+                    document.getElementById('emailid1').innerHTML = "Email Already Exists";
+            
+                } else {
+                    document.getElementById('emailid1').innerHTML = "";
+                
+                }
+            }
+        });
+    }
+</script>
 <script>
     function checkmobile() {
         var phone = document.getElementById('phone').value;
+        // alert(phone)
         var el = document.getElementsByName("csrfmiddlewaretoken");
         csrf_value = el[0].getAttribute("value");
-        var k=0;
         $.ajax({
             type: 'post',
-            
-            url: "{% url 'doctormobilealreadyexists' %}",
+            url: "{% url 'mobilealreadyexists' %}",
             data: {
                 a: phone,
                 csrfmiddlewaretoken: csrf_value
             },
             success: function(response) {
+                // alert(response)
                 if (response == 0) {
                     document.getElementById('phone_error').innerHTML = "Mobile Already Exists";
-                    k=1;
                 } else {
                     document.getElementById('phone_error').innerHTML = "";
                 
                 }
             }
         });
-        if(k==1)
-            return false
     }
 </script>
+    {% if message %}
+   
+    <div class="alert alert-success alert-dismissible " role="alert">
+      {{ message }}
+     
+    </div>
+    {% endif %}
 
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            <form name="signup_form" method="post" action="{% url 'registrationValidation' %}" enctype="multipart/form-data">
+            <form name="signup_form" method="post" action="{% url 'patientregistrationValidation' %}" enctype="multipart/form-data">
                 {%csrf_token%}
                 <h1>Create Account</h1>
                 <input type="text" placeholder="Name" name="name" id="name" />
                 <span id="uname1"></span>
 
-                <input type="text" placeholder="Specality" name="specality" id="specality" />
-                <span id="specality_error"></span>
+                <input type="date"  name="dob" id="dob" />
+                <span id="dob_error"></span>
 
-                <input type="email" placeholder="Email" name="email" id="email" onchange="return checkemail();" />
+                <input type="email" placeholder="Email" name="email" id="email" onchange=checkemail() />
                 <span id="emailid1"></span>
                 <select name="gender" id="gender">
                     <option value="" >Choose Gender</option>
@@ -252,7 +280,7 @@
                 </select>
                 <span id="gender_error"></span>
 
-                <input type="number" placeholder="Phone" name="phone" id="phone"  onchange="return checkmobile();"/>
+                <input type="number" placeholder="Phone" name="phone" id="phone" onchange=checkmobile() />
                 <span id="phone_error"></span>
 
                 <input type="password" placeholder="Password" name="password" id="password" />
@@ -261,8 +289,7 @@
                 <input type="password" placeholder="Conform Password" name="cpassword" id="cpassword" />
                 <span id="cpass1"></span>
 
-                <textarea name="clinic_address" id="clinic_address" placeholder="Enter Clinic Address"></textarea>
-
+                
 
                 <button onclick="return validate(this)">Sign Up</button>
             </form>
@@ -272,7 +299,7 @@
                 {%csrf_token%}
                 <h1>Sign in</h1>
 
-                <input type="number" placeholder="Mobile Number" name="sign_in_mobile" id="sign_in_mobile" />
+                <input type="email" placeholder="Email" name="sign_in_email" id="sign_in_email" />
                 <input type="password" placeholder="Password" name="sign_in_pass" id="sign_in_pass" />
                 <!-- <a href="#">Forgot your password?</a> -->
                 <span id="incorrect"></span>

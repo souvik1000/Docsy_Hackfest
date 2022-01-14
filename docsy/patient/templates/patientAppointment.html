@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Doctors Login</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Bootstrap Ecommerce Template" name="keywords">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta content="Bootstrap Ecommerce Template Free Download" name="description">
+    <!--  <link rel="stylesheet" href="./style.css">-->
+
+</head>
+    
+<body>
+    <!-- partial:index.partial.html -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    
+<script>
+    function getSpecs(form1) {
+        var specalization = document.getElementById('specalization').value;
+        // alert(specalization);
+        var el = document.getElementsByName("csrfmiddlewaretoken");
+        csrf_value = el[0].getAttribute("value");
+
+        $.ajax({
+                type: 'post',
+                url: "{% url 'getspecialiseddoctor' %}",
+                data: {
+                    spec:specalization,
+                    csrfmiddlewaretoken: csrf_value
+                },
+                success: function(response) {
+                    // alert(response)
+                    document.getElementById('Doctor').innerHTML=response;
+                 }
+            });
+    }
+</script>
+<h3>Take Appointment </h3>
+
+<form action="{% url 'patientAppointmentBackend' %}" method="POST"><input type="hidden" name="form1" value="">
+{% csrf_token %}
+<div class="form-group">
+    <label class="control-label  " for="id_appointment">Choose specalist</label>
+    <div class=" ">
+        <select name="specalization" placeholder="Choose specalization" class=" form-control" required="" id="specalization" onchange="getSpecs()">
+            <option value="">choose specalization</option>
+            {% for i in all_specialization %}
+            <option value="{{i.specalist}}">{{i.specalist}}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <label class="control-label  " for="id_appointment">Choose Your Doctor</label>
+    <div>
+        <select name="Doctor" placeholder="Choose Your Doctor" class=" form-control" required="" id="Doctor">
+            <option value="">choose Doctor</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="appointmentTime">Appointment (date and time):</label><br>
+    <input type="datetime-local" id="appointmentTime" name="appointmentTime">
+</div>
+
+</div>
+
+
+<div class="row form-group">
+    <div class="col-md-12">
+        <input onclick="myFunction()" type="submit" value="Submit">
+    </div>
+</div>
+</form>
+
+<script>
+    function myFunction() {
+        confirm("Are you sure taking  this appointment?");
+    }
+</script>
+
+</body>
+</html>

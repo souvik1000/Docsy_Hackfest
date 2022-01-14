@@ -2,11 +2,31 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 import json
 
+from .models import doctor,problem,medicines,prescription
+from patient.models import patient,Appointment  
+
+
 from .models import doctor,problem,medicines,prescription, illnesshistory,allergies,procedurehistory,diagnostic,labreport,imagingexam
-from patient.models import patient
+
+
 
 def login(request):
     return render(request,'login.html')
+
+def doctoremailalreadyexists(request):
+    email=request.POST['a']
+    patient_table=patient.objects.all()
+    for i in patient_table:
+        if(i.email==email):
+            return  HttpResponse(0)
+    return HttpResponse(1)
+def doctormobilealreadyexists(request):
+    mobile=request.POST['a']
+    patient_table=patient.objects.all()
+    for i in patient_table:
+        if(i.phoneno==mobile):
+            return  HttpResponse(0)
+    return HttpResponse(1)
 
 def registrationValidation(request):
     name = request.POST['name']
@@ -30,11 +50,15 @@ def loginauth(request):
             return  HttpResponse(1)
     return HttpResponse(0)
 
-def doctorprescription(request):
+def doctorprescription(request,patientid,appointmentId):
     if 'doctor_id' in request.session:
-        return render(request,'prescription.html')
+
+        appointment=Appointment.objects.get(id=appointmentId)
+        appointment.status="1"
+        appointment.save()
+        return render(request,'prescription.html',{'patientid':patientid})
     else:
-        return redirect
+        return redirect("login")
 
 def prescriptionBackend(request):
     if 'doctor_id' in request.session:
@@ -82,12 +106,39 @@ def prescriptionBackend(request):
                 medicine_data=medicines(prescriptionId=prescriptionId,medicine_name=medicine_name,form=form,strength=strength,strength_unit=strength_unit,diluent=diluent,diluent_amount=diluent_amount,diluent_unit=diluent_unit,dosade_directions=dosade_directions,frequency=frequency,frequency_unit=frequency_unit,interval=interval,interval_unit=interval_unit,named_time_event=named_time_event,exact_timing_critical=exact_timing_critical)
                 medicine_data.save()
                 l1.append([medicine_name,form,strength,strength_unit,diluent,diluent_amount,diluent_unit,dosade_directions,frequency,frequency_unit,interval,interval_unit,named_time_event,exact_timing_critical])
-            return HttpResponse("Prescription added")
+            return redirect(doctorsDashboard)
+            # return HttpResponse("Prescription added")
     else:
         return redirect(login)
 
 
 def doctorsDashboard(request):
+
+    doctor_id=request.session['doctor_id']
+    today_appointments=Appointment.objects.all()
+    # patient_id=Appointment.objects.values('patientId')
+
+    d=doctor.objects.get(id=doctor_id)
+    # a=Appointment.objects.select_related('patientId').filter(doctorId=d.id)
+    a=Appointment.objects.filter(doctorId=d.id,status=0)
+    ap=[]
+    for i in a:
+        x=i.patientId
+        ap.append([x.id,x.name,i.disease,i.appointmentTime,i.id])
+
+    b=Appointment.objects.filter(doctorId=d.id,status="1")
+    bp=[]
+    for i in b:
+        x=i.patientId
+        bp.append([x.id,x.name,i.disease,i.appointmentTime,i.id])
+    
+        
+    
+        
+    
+    return render(request,'doctorsDashboard.html',{"today_appointments":ap,"past_appointments":bp})
+    # return HttpResponse("Doctors Dashboard")
+
     return render(request,'doctorsDashboard.html')
 
 
@@ -182,7 +233,6 @@ def diaganosisReportCreation(request):
 
 
 
-
 # For Patient Data Views
 
 def patientSummaryView(request):
@@ -194,8 +244,18 @@ def patientSummaryView(request):
         illness_data = illnesshistory.objects.all().filter(patientId=patient_id)
         allergy_data = allergies.objects.all().filter(patientId=patient_id)
         procedure_data = procedurehistory.objects.all().filter(patientId=patient_id)
+        # Diagenostic Data
+        diagnostic_data = diagnostic.objects.all().filter(patientId=patient_id)
+        doctors_detail = []; lab_reports = []; image_reports = []
+        patient_detail = diagnostic_data[0].patientId
+
+        for data in range(0, len(diagnostic_data)):
+            doctors_detail.append(diagnostic_data[data].doctorId)
+            lab_reports.append(labreport.objects.get(diagnosticId=diagnostic_data[data].id))
+            image_reports.append(imagingexam.objects.get(diagnosticId=diagnostic_data[data].id))
+        
         # print(illness_data[0].illness_name)
-        return render(request, 'patientsummary.html', {"illness_data":illness_data, "allergy_data":allergy_data, "procedure_data":procedure_data})
+        return render(request, 'patientsummary.html', {"illness_data":illness_data, "allergy_data":allergy_data, "procedure_data":procedure_data, "lab_report":lab_reports, "image_report":image_reports, "patient_details":patient_detail, "doctor_details":doctors_detail})
     except:
         return render(request, 'not_found_page.html')
     # return render()
@@ -218,6 +278,32 @@ def viewpresciption(request):
     print(list(l1))
     return HttpResponse(l1)
 
+
+# def labreportView(request):
+#     patient_name = request.POST['patient_name']
+#     patient_number = request.POST['phone_number']
+#     patient_data = patient.objects.filter(name=patient_name, phoneno=patient_number)
+#     patient_id = patient_data[0].id
+#     diagnostic_data = diagnostic.objects.all().filter(patientId=patient_id)
+#     doctors_detail = []; lab_reports = []; image_reports = []
+#     patient_detail = diagnostic_data[0].patientId
+    
+#     for data in range(0, len(diagnostic_data)):
+#         doctors_detail.append(diagnostic_data[data].doctorId)
+#         lab_reports.append(labreport.objects.get(diagnosticId=diagnostic_data[data].id))
+#         image_reports.append(imagingexam.objects.get(diagnosticId=diagnostic_data[data].id))
+#     # print(lab_reports,"\n", image_reports,"\n", patient_detail,"\n", doctors_detail)
+    
+#     return render(request, 'patientsummary.html', {"lab_report":lab_reports, "image_report":image_reports, "patient_details":patient_detail, "doctor_details":doctors_detail})
+    
+    
+    
+
+
+
+
+# def imagereportcreation(request):
+#     return render(request, 'createPartionData.html')
 # def digenosisCreation(request):
 #     lab_event = 
 #     lab_test_name = 
@@ -230,6 +316,7 @@ def viewpresciption(request):
 
 # def diagenosisLink(request):
 #     return render()
+
 
 
 def logout(request):
