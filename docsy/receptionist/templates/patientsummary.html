@@ -63,8 +63,56 @@
 
         <div>
             <a href="#">View Diagnostics </a>
-
+            <div id="diagenostic-data">
+                <div class="card-group">
+                    {% for data in diagnostic_data %}
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">{{data.diagnostic_name}}</p>
+                            <p class="card-text">{{data.body_site}}</p>
+                            <p class="card-text">{{data.severity}}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="lab-report">
+                <div class="card-group">
+                    {% for data in lab_data %}
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">{{data.lab_event}}</p>
+                            <p class="card-text">{{data.lab_test_name}}</p>
+                            <p class="card-text">{{data.lab_specimen_type}}</p>
+                            <p class="card-text">{{data.lab_specimen_method}}</p>
+                            <p class="card-text">{{data.lab_specimen_body_site}}</p>
+                            <p class="card-text">{{data.lab_findings}}</p>
+                            <p class="card-text">{{data.lab_document}}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="image-report">
+                <div class="card-group">
+                    {% for data in image_data %}
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">{{data.imaging_event}}</p>
+                            <p class="card-text">{{data.imaging_test_name}}</p>
+                            <p class="card-text">{{data.imaging_modality}}</p>
+                            <p class="card-text">{{data.imaging_body_site}}</p>
+                            <p class="card-text">{{data.imaging_findings}}</p>
+                            <p class="card-text">{{data.imaging_document}}</p>
+                           
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
+
+
     </div>
 </body>
 
