@@ -244,35 +244,32 @@
                     {%csrf_token%}
                     <input type="hidden" name="medicine_count" id="medicine_count" value="0" />
                     <div  id="each_problem" class="card">
-                            <div   class="row  text-left">
-                                <div class="form-group col-sm-3 flex-column d-flex"> 
-                                    <label class="form-control-label px-3">patientId  </label>
-                                    <input type="text"  id="patientId" name="patientId"  value="1" placeholder="enter " readonly> 
-                                    <span id="patientId_error"></span>
-                                </div>
-                                <div class="form-group col-sm-3 flex-column d-flex"> 
-                                    <label class="form-control-label px-3">problem_name </label>
-                                    <input type="text" id="problem_name" name="problem_name" placeholder="enter problem_name" > 
-                                    <span id="problem_name_error"></span>
-                                </div>
-                                <div class="form-group col-sm-3 flex-column d-flex"> 
-                                    <label class="form-control-label px-3">problem_body_site </label>
-                                    <input type="text" id="problem_body_site" name="problem_body_site" placeholder="enter problem_body_site" > 
-                                    <span id="problem_body_site_error"></span>
-                                </div>
-                                <div class="form-group col-sm-3 flex-column d-flex"> 
-                                    <label class="form-control-label px-3"> severity </label>
-                                    <input type="text" id="severity" name="severity" placeholder="enter severity" > 
-                                    <span id="severity_unit_error"></span>
-                                </div>
+                        <div   class="row  text-left">
+                            <div class="form-group col-sm-3 flex-column d-flex"> 
+                                <label class="form-control-label px-3">patientId  </label>
+                                <input type="text"  id="patientId" name="patientId"  value="1" placeholder="enter " readonly> 
+                                <span id="patientId_error"></span>
+                            </div>
+                            <div class="form-group col-sm-3 flex-column d-flex"> 
+                                <label class="form-control-label px-3">problem_name </label>
+                                <input type="text" id="problem_name" name="problem_name" placeholder="enter problem_name" > 
+                                <span id="problem_name_error"></span>
+                            </div>
+                            <div class="form-group col-sm-3 flex-column d-flex"> 
+                                <label class="form-control-label px-3">problem_body_site </label>
+                                <input type="text" id="problem_body_site" name="problem_body_site" placeholder="enter problem_body_site" > 
+                                <span id="problem_body_site_error"></span>
+                            </div>
+                            <div class="form-group col-sm-3 flex-column d-flex"> 
+                                <label class="form-control-label px-3"> severity </label>
+                                <input type="text" id="severity" name="severity" placeholder="enter severity" > 
+                                <span id="severity_unit_error"></span>
                             </div>
                         </div>
-                        <p>Total Medicines are:<span id="medicine_count_val">0</span></p>
-                        <input type="submit" class="btn btn-danger" value="submit">
-
-                            <div  id="total_medicine" class="text-center">
-
-                            </div>
+                    </div>
+                    <p>Total Medicines are:<span id="medicine_count_val">0</span></p>
+                    <input type="submit" class="btn btn-danger" value="submit">
+                    <div  id="total_medicine" class="text-center"></div>
                             
                     <!-- <end disesae -->
       
