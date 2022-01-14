@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date, datetime
 from patient.models import patient
+from django.contrib.auth.models import AbstractUser
 
 class doctor(models.Model):
     name = models.TextField(max_length=50)
@@ -59,7 +60,7 @@ class labreport(models.Model):
     lab_specimen_method = models.TextField()
     lab_specimen_body_site = models.TextField()
     lab_findings = models.TextField()
-    lab_document = models.FileField(upload_to='images/', null=True, verbose_name="")
+    lab_document = models.FileField(upload_to='static/images/', null=True, verbose_name="")
 
 
 class imagingexam(models.Model):
@@ -69,7 +70,7 @@ class imagingexam(models.Model):
     imaging_modality = models.TextField()
     imaging_body_site = models.TextField()
     imaging_findings = models.TextField()
-    imaging_document = models.FileField(upload_to='images/', null=True, verbose_name="")
+    imaging_document = models.FileField(upload_to='static/images/', null=True, verbose_name="")
     
 class allergies(models.Model):
     patientId = models.ForeignKey(patient,on_delete=models.CASCADE)
@@ -91,3 +92,5 @@ class illnesshistory(models.Model):
     severity = models.TextField()
     illness_date_onset = models.DateTimeField(default = datetime.now)
     illness_date_abatement = models.DateTimeField(default = datetime.now)
+
+

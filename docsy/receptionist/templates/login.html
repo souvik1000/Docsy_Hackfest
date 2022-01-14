@@ -22,7 +22,7 @@
             var name = document.getElementById('name').value;
             var specality = document.getElementById('specality').value;
             var phone = document.getElementById('phone').value;
-            // var email=document.getElementById('email').value;
+            var email=document.getElementById('email').value;
             var gender = document.getElementById('gender').value;
             var pass = document.getElementById('password').value;
             var cpass = document.getElementById('cpassword').value;
@@ -65,18 +65,18 @@
             } else
                 document.getElementById("gender_error").innerHTML = "";
 
-            // if(email.length==0){
-            //      document.getElementById("emailid1").innerHTML="Enter EmailID";
-            //      k=1;
-            //  }
-            // else if(!email.match(check))
-            // {
-            //     document.getElementById("emailid1").innerHTML="Enter a Correct Mail";
-            //     k=1;
-            // }
-            // else{
-            //     document.getElementById("emailid1").innerHTML="";
-            // }
+            if(email.length==0){
+                 document.getElementById("emailid1").innerHTML="Enter EmailID";
+                 k=1;
+             }
+            else if(!email.match(check))
+            {
+                document.getElementById("emailid1").innerHTML="Enter a Correct Mail";
+                k=1;
+            }
+            else{
+                document.getElementById("emailid1").innerHTML="";
+            }
             if (pass.length == 0) {
                 document.getElementById("pass1").innerHTML = "Enter Password";
                 k = 1;
@@ -138,6 +138,7 @@
                 k = 1;
             } else if (pass.length > 0)
                 document.getElementById("cpass1").innerHTML = "";
+            
             if (k == 1) {
                 return false;
             }
@@ -174,6 +175,62 @@
             });
         }
     </script>
+    <script>
+    function checkemail(form1) {
+        var mail = document.getElementById('email').value;
+    
+
+        var el = document.getElementsByName("csrfmiddlewaretoken");
+        csrf_value = el[0].getAttribute("value");
+        $.ajax({
+            type: 'post',
+            url: "{% url 'doctoremailalreadyexists' %}",
+            data: {
+                a: mail,
+                csrfmiddlewaretoken: csrf_value
+            },
+            success: function(response) {
+                if (response == 0) {
+                    document.getElementById('emailid1').innerHTML = "Email Already Exists";
+                    return false
+            
+                } else {
+                    document.getElementById('incorrect').innerHTML = "";
+                
+                }
+            }
+        });
+    }
+</script>
+
+<script>
+    function checkmobile() {
+        var phone = document.getElementById('phone').value;
+        var el = document.getElementsByName("csrfmiddlewaretoken");
+        csrf_value = el[0].getAttribute("value");
+        var k=0;
+        $.ajax({
+            type: 'post',
+            
+            url: "{% url 'doctormobilealreadyexists' %}",
+            data: {
+                a: phone,
+                csrfmiddlewaretoken: csrf_value
+            },
+            success: function(response) {
+                if (response == 0) {
+                    document.getElementById('phone_error').innerHTML = "Mobile Already Exists";
+                    k=1;
+                } else {
+                    document.getElementById('phone_error').innerHTML = "";
+                
+                }
+            }
+        });
+        if(k==1)
+            return false
+    }
+</script>
 
     <div class="container" id="container">
         <div class="form-container sign-up-container">
@@ -186,7 +243,7 @@
                 <input type="text" placeholder="Specality" name="specality" id="specality" />
                 <span id="specality_error"></span>
 
-                <input type="email" placeholder="Email" name="email" id="email" />
+                <input type="email" placeholder="Email" name="email" id="email" onchange="return checkemail();" />
                 <span id="emailid1"></span>
                 <select name="gender" id="gender">
                     <option value="" >Choose Gender</option>
@@ -195,7 +252,7 @@
                 </select>
                 <span id="gender_error"></span>
 
-                <input type="number" placeholder="Phone" name="phone" id="phone" />
+                <input type="number" placeholder="Phone" name="phone" id="phone"  onchange="return checkmobile();"/>
                 <span id="phone_error"></span>
 
                 <input type="password" placeholder="Password" name="password" id="password" />
