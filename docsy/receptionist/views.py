@@ -12,6 +12,21 @@ from .models import doctor,problem,medicines,prescription, illnesshistory,allerg
 def login(request):
     return render(request,'login.html')
 
+def doctoremailalreadyexists(request):
+    email=request.POST['a']
+    patient_table=patient.objects.all()
+    for i in patient_table:
+        if(i.email==email):
+            return  HttpResponse(0)
+    return HttpResponse(1)
+def doctormobilealreadyexists(request):
+    mobile=request.POST['a']
+    patient_table=patient.objects.all()
+    for i in patient_table:
+        if(i.phoneno==mobile):
+            return  HttpResponse(0)
+    return HttpResponse(1)
+
 def registrationValidation(request):
     name = request.POST['name']
     email=request.POST['email']

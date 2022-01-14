@@ -39,7 +39,7 @@ def mobilealreadyexists(request):
     mobile=request.POST['a']
     patient_table=patient.objects.all()
     for i in patient_table:
-        if(i.mobileno==mobile):
+        if(i.phoneno==mobile):
             return  HttpResponse(0)
     return HttpResponse(1)
 def patientDashboard(request):

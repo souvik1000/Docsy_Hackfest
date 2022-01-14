@@ -21,5 +21,7 @@ urlpatterns=[
     # path('patientIllnessView/', views.patientIllnessView, name="patientIllnessView"),
     # path('allergyview/', views.allergyview, name="allergyview"),
     path('logout/',views.logout,name="logout"),
+    path("doctoremailalreadyexists/",views.doctoremailalreadyexists,name="doctoremailalreadyexists"),
+    path("doctormobilealreadyexists/",views.doctormobilealreadyexists,name="doctormobilealreadyexists")
 
 ]
