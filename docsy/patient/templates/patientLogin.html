@@ -237,7 +237,7 @@
             type: 'post',
             url: "{% url 'mobilealreadyexists' %}",
             data: {
-                a: mobile,
+                a: phone,
                 csrfmiddlewaretoken: csrf_value
             },
             success: function(response) {
