@@ -1,3 +1,4 @@
+from os import name
 from django.urls import path
 from . import views
 
@@ -8,7 +9,17 @@ urlpatterns=[
     path('doctorsDashboard/',views.doctorsDashboard,name="doctorsDashboard"),
     path('prescription/<str:patientid>/<str:appointmentId>',views.doctorprescription,name="doctorprescription"),
     path('prescriptionBackend/',views.prescriptionBackend,name="prescriptionBackend"),
-    path('logout/',views.logout,name="logout")
-    
+    path('logout/',views.logout,name="logout"),
+    path('patientSummary/procedure',views.procedure,name="procedure"),
+    path('procedurecreation/',views.procedurecreation,name="procedurecreation"),
+    path('patientSummary/', views.patientSummary, name="patientSummary"),
+    path('createPatientData/', views.createPatientData, name="createPatientData"),
+    path('patientIllnessCreation/', views.patientIllnessCreation, name="patientIllnessCreation"),
+    path('patientAllergiesCreation/', views.patientAllergiesCreation, name="patientAllergiesCreation"),
+    path('patientSummaryView/', views.patientSummaryView, name="patientSummaryView"),
+    path('diaganosisReportCreation', views.diaganosisReportCreation, name="diaganosisReportCreation"),
+    # path('patientIllnessView/', views.patientIllnessView, name="patientIllnessView"),
+    # path('allergyview/', views.allergyview, name="allergyview"),
+    path('logout/',views.logout,name="logout"),
 
 ]

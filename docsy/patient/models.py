@@ -14,6 +14,7 @@ class patient(models.Model):
     address = models.TextField(max_length=150)
     registration_time = models.DateField(default=date.today)
 
+
 class Appointment(models.Model):
     patientId= models.ForeignKey(patient,on_delete=models.CASCADE)
     doctorId = models.IntegerField()
@@ -22,6 +23,5 @@ class Appointment(models.Model):
     disease=models.TextField(max_length=50, null=True)
     appointmentTime=models.DateTimeField(default=datetime.now)
     status=models.TextField(default="0")
-
 
     
