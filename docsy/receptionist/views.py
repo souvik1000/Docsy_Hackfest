@@ -51,7 +51,6 @@ def loginauth(request):
 
 def doctorprescription(request,patientid,appointmentId):
     if 'doctor_id' in request.session:
-
         appointment=Appointment.objects.get(id=appointmentId)
         #ekkada chudu
         appointment.status="0"
@@ -204,10 +203,9 @@ def diaganosisReportCreation(request):
     # doctorid = doctor.objects.get(id=doctor_id)
     # print(patientid,doctorid)
     if request.session.get('doctor_id', True):
-
-<<<<<<< HEAD
-=======
-        patient_id = patientid = patient.objects.get(id=1)
+        #pa1
+        # Change id(patient id) to desired id instead of 1
+        patient_id = patientid = patient.objects.get(id=1)#change 1 here 
         did = request.session['doctor_id']
         doctor_id = doctor.objects.get(id=did)
         diagnostic_data = diagnostic(patientId=patient_id, doctorId=doctor_id)
@@ -240,8 +238,6 @@ def diaganosisReportCreation(request):
         return HttpResponse('load lab')
     else:
         return HttpResponse("please login!")
-
->>>>>>> 00495c9 (Backend & frontend of lab/image report)
 # For Patient Data Views
 
 def patientSummaryView(request,pid):

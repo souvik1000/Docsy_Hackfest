@@ -18,11 +18,8 @@ urlpatterns=[
     path('patientAllergiesCreation/', views.patientAllergiesCreation, name="patientAllergiesCreation"),
     path('patientSummaryView/', views.patientSummaryView, name="patientSummaryView"),
     path('diaganosisReportCreation', views.diaganosisReportCreation, name="diaganosisReportCreation"),
-<<<<<<< HEAD
     # path('labreportView/',views.labreportView, name="labreportView"),
-=======
     path('doctorsDashboard/checkstatus/<str:pid>/<str:appid>', views.checkstatus, name="checkstatus"),
->>>>>>> 00495c9 (Backend & frontend of lab/image report)
     # path('patientIllnessView/', views.patientIllnessView, name="patientIllnessView"),
     # path('allergyview/', views.allergyview, name="allergyview"),
     path('logout/',views.logout,name="logout"),
