@@ -6,7 +6,7 @@ from patient.models import patient,Appointment
 
 
 from .models import doctor,problem,medicines,prescription, illnesshistory,allergies,procedurehistory,diagnostic,labreport,imagingexam
-from patient.models import patient
+
 
 
 def login(request):
