@@ -238,26 +238,25 @@ def diaganosisReportCreation(request):
 def patientSummaryView(request):
     patient_name = request.POST['patient_name']
     patient_number = request.POST['phone_number']
-    try:
-        patient_data = patient.objects.filter(name=patient_name, phoneno=patient_number)
-        patient_id = patient_data[0].id
-        illness_data = illnesshistory.objects.all().filter(patientId=patient_id)
-        allergy_data = allergies.objects.all().filter(patientId=patient_id)
-        procedure_data = procedurehistory.objects.all().filter(patientId=patient_id)
-        # Diagenostic Data
-        diagnostic_data = diagnostic.objects.all().filter(patientId=patient_id)
-        doctors_detail = []; lab_reports = []; image_reports = []
-        patient_detail = diagnostic_data[0].patientId
+    
+    patient_data = patient.objects.filter(name=patient_name, phoneno=patient_number)
+    patient_id = patient_data[0].id
+    illness_data = illnesshistory.objects.all().filter(patientId=patient_id)
+    allergy_data = allergies.objects.all().filter(patientId=patient_id)
+    procedure_data = procedurehistory.objects.all().filter(patientId=patient_id)
+    # Diagenostic Data
+    diagnostic_data = diagnostic.objects.all().filter(patientId=patient_id)
+    doctors_detail = []; lab_reports = []; image_reports = []
+    patient_detail = diagnostic_data[0].patientId
 
-        for data in range(0, len(diagnostic_data)):
-            doctors_detail.append(diagnostic_data[data].doctorId)
-            lab_reports.append(labreport.objects.get(diagnosticId=diagnostic_data[data].id))
-            image_reports.append(imagingexam.objects.get(diagnosticId=diagnostic_data[data].id))
-        
-        # print(illness_data[0].illness_name)
-        return render(request, 'patientsummary.html', {"illness_data":illness_data, "allergy_data":allergy_data, "procedure_data":procedure_data, "lab_report":lab_reports, "image_report":image_reports, "patient_details":patient_detail, "doctor_details":doctors_detail})
-    except:
-        return render(request, 'not_found_page.html')
+    for data in range(0, len(diagnostic_data)):
+        doctors_detail.append(diagnostic_data[data].doctorId)
+        lab_reports.append(labreport.objects.get(diagnosticId=diagnostic_data[data].id))
+        image_reports.append(imagingexam.objects.get(diagnosticId=diagnostic_data[data].id))
+    
+    # print(illness_data[0].illness_name)
+    return render(request, 'patientsummary.html', {"illness_data":illness_data, "allergy_data":allergy_data, "procedure_data":procedure_data, "lab_report":lab_reports, "image_report":image_reports, "patient_details":patient_detail, "doctor_details":doctors_detail})
+
     # return render()
 
 def imagereportcreation(request):
