@@ -248,7 +248,7 @@
                             <div   class="row  text-left">
                                 <div class="form-group col-sm-3 flex-column d-flex"> 
                                     <label class="form-control-label px-3">patientId  </label>
-                                    <input type="text"  id="patientId" name="patientId"  value="1" placeholder="enter " readonly> 
+                                    <input type="text"  id="patientId" name="patientId"  value="{{patientid}}" placeholder="enter " readonly> 
                                     <span id="patientId_error"></span>
                                 </div>
                                 <div class="form-group col-sm-3 flex-column d-flex"> 
@@ -398,11 +398,7 @@
    
 </div>
         `;
-//         let div = document.createElement('div');
-//   div.innerText = document.getElementById('getText').innerText;
-//   document.body.appendChild(div);
-//             var cm=document.createElemen
-        
+
         // document.getElementById("total_medicine").innerHTML=document.getElementById("total_medicine").innerHTML.append;
         document.getElementById("total_medicine").insertAdjacentHTML( 'beforeend', s );
     }

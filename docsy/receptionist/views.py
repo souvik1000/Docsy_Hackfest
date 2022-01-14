@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import doctor,problem,medicines,prescription
-from patient.models import patient
+from patient.models import patient,Appointment  
 
 def login(request):
     return render(request,'login.html')
@@ -28,11 +28,15 @@ def loginauth(request):
             return  HttpResponse(1)
     return HttpResponse(0)
 
-def doctorprescription(request):
+def doctorprescription(request,patientid,appointmentId):
     if 'doctor_id' in request.session:
-        return render(request,'prescription.html')
+
+        appointment=Appointment.objects.get(id=appointmentId)
+        appointment.status="1"
+        appointment.save()
+        return render(request,'prescription.html',{'patientid':patientid})
     else:
-        return redirect
+        return redirect("login")
 
 def prescriptionBackend(request):
     if 'doctor_id' in request.session:
@@ -90,8 +94,30 @@ def prescriptionBackend(request):
 
 
 def doctorsDashboard(request):
-    return render(request,'doctorsDashboard.html')
-    return HttpResponse("Doctors Dashboard")
+    doctor_id=request.session['doctor_id']
+    today_appointments=Appointment.objects.all()
+    # patient_id=Appointment.objects.values('patientId')
+
+    d=doctor.objects.get(id=doctor_id)
+    # a=Appointment.objects.select_related('patientId').filter(doctorId=d.id)
+    a=Appointment.objects.filter(doctorId=d.id,status=0)
+    ap=[]
+    for i in a:
+        x=i.patientId
+        ap.append([x.id,x.name,i.disease,i.appointmentTime,i.id])
+
+    b=Appointment.objects.filter(doctorId=d.id,status="1")
+    bp=[]
+    for i in b:
+        x=i.patientId
+        bp.append([x.id,x.name,i.disease,i.appointmentTime,i.id])
+    
+        
+    
+        
+    
+    return render(request,'doctorsDashboard.html',{"today_appointments":ap,"past_appointments":bp})
+    # return HttpResponse("Doctors Dashboard")
 
 def logout(request):
     if request.session.get('doctor_id', True):
