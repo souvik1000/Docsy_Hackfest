@@ -13,9 +13,9 @@
     <div>
         <form action="{% url 'patientSummaryView' %}" method="POST">
             {% csrf_token %}
-            <input type="text" name="patient_name" placeholder="Enter firstname" />
+            <!-- <input type="text" name="patient_name" placeholder="Enter firstname" />
             <input type="text" name="phone_number" placeholder="phone_number" />
-            <button type="submit">Search</button>
+            <button type="submit">Search</button> -->
         </form>
         <!-- <a href="{% url 'patientSummaryView' %}">Submit</a> -->
         <div id="Patient Data">

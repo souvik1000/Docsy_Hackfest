@@ -114,12 +114,12 @@ def prescriptionBackend(request):
 def doctorsDashboard(request):
 
     doctor_id=request.session['doctor_id']
+    # return HttpResponse(doctor_id)
     today_appointments=Appointment.objects.all()
     # patient_id=Appointment.objects.values('patientId')
-
     d=doctor.objects.get(id=doctor_id)
     # a=Appointment.objects.select_related('patientId').filter(doctorId=d.id)
-    a=Appointment.objects.filter(doctorId=d.id,status=0)
+    a=Appointment.objects.filter(doctorId=d.id,status="0")
     ap=[]
     for i in a:
         x=i.patientId
@@ -130,11 +130,6 @@ def doctorsDashboard(request):
     for i in b:
         x=i.patientId
         bp.append([x.id,x.name,i.disease,i.appointmentTime,i.id])
-    
-        
-    
-        
-    
     return render(request,'doctorsDashboard.html',{"today_appointments":ap,"past_appointments":bp})
     # return HttpResponse("Doctors Dashboard")
 
@@ -144,9 +139,6 @@ def doctorsDashboard(request):
 
 def procedure(request):
     return render(request,'procedure.html' )
-
-def patientSummary(request):
-    return render(request,'patientsummary.html')
 
 def createPatientData(request,patientid,appointmentId):
     return render(request, 'createPatientData.html',{'patientid':patientid,'appointmentId':appointmentId})
@@ -191,7 +183,12 @@ def patientIllnessCreation(request):
     submit_details = illnesshistory(patientId=pid, illness_name=illness_name, body_site=body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement)
     submit_details.save()
     return render(request, 'createPatientData.html')
+def add_reports(request,patientid,appointmentId):
+    add_reports.pid,add_reports.appid=patientid,appointmentId
+    # return HttpResponse(add_reports.pid)
+    return render(request, 'add_reports.html',{'patientid':patientid,'appointmentId':appointmentId})
 
+# doctordashboard-->add_reports/pid/apid-->add_reports.html--->diaganosisReportCreation
 def diaganosisReportCreation(request):
     # patient_name = request.POST['patient_name']
     # patient_number = request.POST['phone_number']
@@ -205,7 +202,8 @@ def diaganosisReportCreation(request):
     if request.session.get('doctor_id', True):
         #pa1
         # Change id(patient id) to desired id instead of 1
-        patient_id = patientid = patient.objects.get(id=1)#change 1 here 
+        # return HttpResponse(add_reports.pid)
+        patient_id = patient.objects.get(id=add_reports.pid)#change 1 here 
         did = request.session['doctor_id']
         doctor_id = doctor.objects.get(id=did)
         diagnostic_data = diagnostic(patientId=patient_id, doctorId=doctor_id)
@@ -239,14 +237,16 @@ def diaganosisReportCreation(request):
     else:
         return HttpResponse("please login!")
 # For Patient Data Views
-
-def patientSummaryView(request,pid):
+def patientSummary(request):
+    return render(request,'patientsummary.html')
+def patientSummaryView(request,pid,appid):
     # patient_name = request.POST['patient_name']
     # patient_number = request.POST['phone_number']
     # try:
     #     patient_data = patient.objects.filter(name=patient_name, phoneno=patient_number)
     try:
-        patient_id = pid
+        # patient_id = pid
+        patient_id = patientid = patient.objects.get(id=pid)
         illness_data = illnesshistory.objects.all().filter(patientId=patient_id)
         allergy_data = allergies.objects.all().filter(patientId=patient_id)
         procedure_data = procedurehistory.objects.all().filter(patientId=patient_id)
@@ -261,7 +261,7 @@ def patientSummaryView(request,pid):
             image_reports.append(imagingexam.objects.get(diagnosticId=diagnostic_data[data].id))
         
         # print(illness_data[0].illness_name)
-        return render(request, 'patientsummary.html', {"illness_data":illness_data, "allergy_data":allergy_data, "procedure_data":procedure_data, "lab_report":lab_reports, "image_report":image_reports, "patient_details":patient_detail, "doctor_details":doctors_detail})
+        return render(request, 'patientsummary.html', {"pid":pid,"appid":appid,"illness_data":illness_data, "allergy_data":allergy_data, "procedure_data":procedure_data, "lab_report":lab_reports, "image_report":image_reports, "patient_details":patient_detail, "doctor_details":doctors_detail})
     except:
         return render(request, 'not_found_page.html')
     # return render()
