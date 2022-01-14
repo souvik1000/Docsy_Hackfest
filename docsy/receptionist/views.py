@@ -211,6 +211,16 @@ def imagereportcreation(request):
 # def diagenosisLink(request):
 #     return render()
 
+def imagereportView(request):
+    patient_name = request.POST['patient_name']
+    patient_number = request.POST['phone_number']
+    patient_data = patient.objects.filter(name=patient_name, phoneno=patient_number)
+    patient_id = patient_data[0].id
+    # doctorid = doctor.objects.get(id=patient_id)
+    # print(patientid,doctorid)
+    # diagnostic_data = diagnostic(patientId=patientid, doctorId=doctorid)
+    diagnostic_data = diagnostic.objects.all().filter(patientId=patient_id)
+    # print(diagnos
 
 def logout(request):
     if request.session.get('doctor_id', True):
