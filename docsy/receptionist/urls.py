@@ -19,6 +19,7 @@ urlpatterns=[
     path('patientAllergiesCreation/', views.patientAllergiesCreation, name="patientAllergiesCreation"),
     path('patientSummaryView/', views.patientSummaryView, name="patientSummaryView"),
     path('diaganosisReportCreation', views.diaganosisReportCreation, name="diaganosisReportCreation"),
+    # path('labreportView/',views.labreportView, name="labreportView"),
     # path('patientIllnessView/', views.patientIllnessView, name="patientIllnessView"),
     # path('allergyview/', views.allergyview, name="allergyview"),
     path('logout/',views.logout,name="logout"),

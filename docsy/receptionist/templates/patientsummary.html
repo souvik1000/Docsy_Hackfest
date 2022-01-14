@@ -18,52 +18,87 @@
             <button type="submit">Search</button>
         </form>
         <!-- <a href="{% url 'patientSummaryView' %}">Submit</a> -->
-        <a href="#">Allergies</a>
-        <div class="card-group" style="height: 500px;">
-            {% for data in allergy_data %}
-            <div class="card">
-                <div class="card-body">
-                    <p class="card-text">{{data.substance}}</p>
-                    <p class="card-text">{{data.criticality}}</p>
-                    <p class="card-text">{{data.type}}</p>
-                    <p class="card-text">{{data.comment}}</p>
+        <div id="Patient Data">
+            <p>Allergies</p>
+            <div class="card-group">
+                {% for data in allergy_data %}
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">{{data.substance}}</p>
+                        <p class="card-text">{{data.criticality}}</p>
+                        <p class="card-text">{{data.type}}</p>
+                        <p class="card-text">{{data.comment}}</p>
+                    </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+            <br />
+            <p>History of Procedure</p>
+            <div class="card-group">
+                {% for data in procedure_data %}
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">{{data.procedure_name}}</p>
+                        <p class="card-text">{{data.body_site}}</p>
+                        <p class="card-text">{{data.severity}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <br />
+            <p>History of Illness</p>
+            <div class="card-group">
+                {% for data in illness_data %}
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">{{data.illness_name}}</p>
+                        <p class="card-text">{{data.body_site}}</p>
+                        <p class="card-text">{{data.severity}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
         <br />
-        <a href="#">History of Procedure</a>
-        <div class="card-group" style="height: 500px;">
-            {% for data in procedure_data %}
-            <div class="card">
-                <div class="card-body">
-                    <p class="card-text">{{data.procedure_name}}</p>
-                    <p class="card-text">{{data.body_site}}</p>
-                    <p class="card-text">{{data.severity}}</p>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        <br />
-        <a href="#">History of Illness</a>
-        <div class="card-group" style="height: 500px;">
-            {% for data in illness_data %}
-            <div class="card">
-                <div class="card-body">
-                    <p class="card-text">{{data.illness_name}}</p>
-                    <p class="card-text">{{data.body_site}}</p>
-                    <p class="card-text">{{data.severity}}</p>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        <br />
-        <a>Lab Report</a>
-        <a>Enter</a>
 
         <div>
-            <a href="#">View Diagnostics </a>
+            <p>View Diagnostics</p>
+            <div id="lab-report">
+                <p>View Lab Report</p>
+                <div class="card-group">
+                    {% for data in lab_report %}
+                    <div class="card">
+                        <div class="card-body">
 
+                            <p class="card-text">{{data.lab_event}}</p>
+                            <p class="card-text">{{data.lab_test_name}}</p>
+                            <p class="card-text">{{data.lab_specimen_type}}</p>
+                            <p class="card-text">{{data.lab_specimen_method}}</p>
+                            <p class="card-text">{{data.lab_specimen_body_site}}</p>
+                            <p class="card-text">{{data.lab_findings}}</p>
+                            <img src="">{{data.lab_document}}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="image-report">
+                <p>View Image Report</p>
+                <div class="card-group">
+                    {% for data in image_report %}
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">{{data.imaging_event}}</p>
+                            <p class="card-text">{{data.imaging_test_name}}</p>
+                            <p class="card-text">{{data.imaging_modality}}</p>
+                            <p class="card-text">{{data.imaging_body_site}}</p>
+                            <p class="card-text">{{data.imaging_findings}}</p>
+                            <p class="card-text">{{data.imaging_document}}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 </body>
