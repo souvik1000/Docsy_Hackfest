@@ -1,6 +1,7 @@
 from django.http.response import HttpResponse
-from django.shortcuts import render
-from .models import patient
+from django.shortcuts import render,redirect
+from .models import patient,Appointment
+from receptionist.models import doctor
 
 # Create your views here.
 def patientLogin(request):
@@ -39,15 +40,44 @@ def mobilealreadyexists(request):
     mobile=request.POST['a']
     patient_table=patient.objects.all()
     for i in patient_table:
-        if(i.mobileno==mobile):
+        if(i.phoneno==mobile):
             return  HttpResponse(0)
     return HttpResponse(1)
 def patientDashboard(request):
     if 'patient_id' in request.session:
         return HttpResponse(request.session['patient_id'])
     return HttpResponse("patient dashboard")
+def patientAppointment(request): 
+    all_specialization=doctor.objects.values('specalist')
+    # return HttpResponse(all_specialization)
+    return render(request,'patientAppointment.html',{'all_specialization':all_specialization})
+
+def getspecialiseddoctor(request):
+    specalization=request.POST['spec']
+    doctors_by_specalization=""
+    specialzed_doctors=doctor.objects.filter(specalist=specalization)
+    for i in specialzed_doctors:
+        doctors_by_specalization="<option value="+str(i.id)+">"+i.name+"</option>"
+    return HttpResponse(doctors_by_specalization)
+def patientAppointmentBackend(request):
+    patient_id=request.session['patient_id']
+    pid=patient.objects.get(id=patient_id)
+    specalization=request.POST['specalization']
+    Doctor=int(request.POST['Doctor'])
+    appointmentTime=request.POST['appointmentTime']
+    # return HttpResponse(patient_id)
+    submit_details=Appointment(patientId=pid,specalist=specalization,doctorId=Doctor,appointmentTime=appointmentTime)
+    submit_details.save()
+    return HttpResponse('Appointment booked at {}'.format(appointmentTime))
+
+def patientDashboard(request):
+    if 'patient_id' in request.session:
+        return HttpResponse("Patient dashboard "+str(request.session['patient_id'])) 
+    else:
+        return redirect(patientLogin)
+        # return HttpResponse("Please login.")
 
 def logout(request):
-    if request.session.get('doctor_id', True):
+    if request.session.get('patient_id', True):
             del request.session['doctor_id']
-            return redirect(login)
+            return redirect(patientLogin)

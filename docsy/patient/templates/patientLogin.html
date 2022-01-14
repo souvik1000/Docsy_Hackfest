@@ -230,20 +230,20 @@
 <script>
     function checkmobile() {
         var phone = document.getElementById('phone').value;
+        // alert(phone)
         var el = document.getElementsByName("csrfmiddlewaretoken");
         csrf_value = el[0].getAttribute("value");
         $.ajax({
             type: 'post',
-            
             url: "{% url 'mobilealreadyexists' %}",
             data: {
-                a: phone,
+                a: mobile,
                 csrfmiddlewaretoken: csrf_value
             },
             success: function(response) {
+                // alert(response)
                 if (response == 0) {
                     document.getElementById('phone_error').innerHTML = "Mobile Already Exists";
-            
                 } else {
                     document.getElementById('phone_error').innerHTML = "";
                 

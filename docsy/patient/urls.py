@@ -7,5 +7,7 @@ urlpatterns=[
     path('patientloginauth/',views.patientloginauth,name="patientloginauth"),
     path('patientDashboard/',views.patientDashboard,name="patientDashboard"),
     path("emailalreadyexists/",views.emailalreadyexists,name="emailalreadyexists"),
-    path("mobilealreadyexists/",views.mobilealreadyexists,name="mobilealreadyexists")
-]
+    path("mobilealreadyexists/",views.mobilealreadyexists,name="mobilealreadyexists"),
+    path('patientAppointment/',views.patientAppointment,name="patientAppointment"),
+    path('patientAppointmentBackend/',views.patientAppointmentBackend,name="patientAppointmentBackend"),
+    path('getspecialiseddoctor/',views.getspecialiseddoctor,name="getspecialiseddoctor")]
