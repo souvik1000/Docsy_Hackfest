@@ -63,42 +63,51 @@
 
         <div>
             <p>View Diagnostics</p>
-            <div id="lab-report">
-                <p>View Lab Report</p>
-                <div class="card-group">
-                    {% for data in lab_report %}
-                    <div class="card">
-                        <div class="card-body">
+            <p><span>Patient Name: {{patient_details.name}} </span> <span>Patient Age: {{patient_details.patient_age}}</span></p>
+            <!-- <div id="lab-report"> -->
 
-                            <p class="card-text">{{data.lab_event}}</p>
-                            <p class="card-text">{{data.lab_test_name}}</p>
-                            <p class="card-text">{{data.lab_specimen_type}}</p>
-                            <p class="card-text">{{data.lab_specimen_method}}</p>
-                            <p class="card-text">{{data.lab_specimen_body_site}}</p>
-                            <p class="card-text">{{data.lab_findings}}</p>
-                            <img src="">{{data.lab_document}}</p>
-                        </div>
-                    </div>
-                    {% endfor %}
+            {% for each_data in all_details %}
+
+            <div id="lab-report" class="card-group">
+                <div>
+                    <p>View Lab Report</p><br/>
+                    <p> Doctor Name: {{each_data.0.name}}</p>
                 </div>
-            </div>
-            <div id="image-report">
-                <p>View Image Report</p>
-                <div class="card-group">
-                    {% for data in image_report %}
-                    <div class="card">
-                        <div class="card-body">
-                            <p class="card-text">{{data.imaging_event}}</p>
-                            <p class="card-text">{{data.imaging_test_name}}</p>
-                            <p class="card-text">{{data.imaging_modality}}</p>
-                            <p class="card-text">{{data.imaging_body_site}}</p>
-                            <p class="card-text">{{data.imaging_findings}}</p>
-                            <p class="card-text">{{data.imaging_document}}</p>
-                        </div>
+                {% for lab in each_data.1 %}
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">{{lab.lab_event}}</p>
+                        <p class="card-text">{{lab.lab_test_name}}</p>
+                        <p class="card-text">{{lab.lab_specimen_type}}</p>
+                        <p class="card-text">{{lab.lab_specimen_method}}</p>
+                        <p class="card-text">{{lab.lab_specimen_body_site}}</p>
+                        <p class="card-text">{{lab.lab_findings}}</p>
+                        <img src="">{{lab.lab_document}}</p>
                     </div>
-                    {% endfor %}
                 </div>
+                {% endfor %}
+
             </div>
+
+            <div id="image-report" class="card-group">
+                <div>
+                    <p>View Image Report</p>
+                    <p> Doctor Name: {{each_data.0.name}}</p>
+                </div>
+                {% for image in each_data.2 %}
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">{{image.imaging_event}}</p>
+                        <p class="card-text">{{image.imaging_test_name}}</p>
+                        <p class="card-text">{{image.imaging_modality}}</p>
+                        <p class="card-text">{{image.imaging_body_site}}</p>
+                        <p class="card-text">{{image.imaging_findings}}</p>
+                        <p class="card-text">{{image.imaging_document}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
         </div>
     </div>
 </body>
