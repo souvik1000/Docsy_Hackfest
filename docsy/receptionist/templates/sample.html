@@ -1,33 +1,14 @@
 Lab
 <Section>
     <!-- {% for data in lab_report %} -->
-    <div class="card">
-        <div class="card-body">
-            <p class="card-text">{{i.1.lab_event}}</p>
-            <p class="card-text">{{i.1.lab_test_name}}</p>
-            <p class="card-text">{{i.1.lab_specimen_type}}</p>
-            <p class="card-text">{{i.1.lab_specimen_method}}</p>
-            <p class="card-text">{{i.1.lab_specimen_body_site}}</p>
-            <p class="card-text">{{i.1.lab_findings}}</p>
-            <img src="">{{i.1.lab_document}}</p>
-        </div>
-    </div>
+
     <!-- {% endfor %} -->
 </Section>
 
 Image
 <Section>
     <!-- {% for data in image_report %} -->
-    <div class="card">
-        <div class="card-body">
-            <p class="card-text">{{i.2.imaging_event}}</p>
-            <p class="card-text">{{i.2.imaging_test_name}}</p>
-            <p class="card-text">{{i.2.imaging_modality}}</p>
-            <p class="card-text">{{i.2.imaging_body_site}}</p>
-            <p class="card-text">{{i.2.imaging_findings}}</p>
-            <p class="card-text">{{i.2.imaging_document}}</p>
-        </div>
-    </div>
+
     <!-- {% endfor %} -->
     <!-- </div> -->
 </Section>
@@ -58,4 +39,17 @@ Image
 
     </div>
     {% endfor %}
+</div>
+
+
+<div id="lab-report" class="card-group">
+    <p>View Lab Report</p>
+    <p> Doctor Name: {{i.0.name}}</p>
+
+</div>
+
+<div id="image-report" class="card-group">
+    <p>View Image Report</p>
+    <p> Doctor Name: {{i.0.name}}</p>
+
 </div>

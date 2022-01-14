@@ -189,44 +189,46 @@ def diaganosisReportCreation(request):
     patient_number = request.POST['phone_number']
     doctor_name = request.POST['doctor_name']
     doctor_number = request.POST['doctor_number']
-    
-    patient_data = patient.objects.filter(name=patient_name, phoneno=patient_number)
-    patient_id = patient_data[0].id
-    doctor_data = doctor.objects.filter(name=doctor_name, phoneno=doctor_number)
-    doctor_id = doctor_data[0].id
-    patientid = patient.objects.get(id=patient_id)
-    doctorid = doctor.objects.get(id=doctor_id)
-    # print(patientid,doctorid)
-    diagnostic_data = diagnostic(patientId=patientid, doctorId=doctorid)
-    diagnostic_data.save()
-    diagnosticId = diagnostic.objects.get(id=diagnostic_data.id)
-    
-    # hidden counter
-    lab_counter = request.POST['lab_counter']
-    image_counter = request.POST['image_counter']
-    
-    for lc in range(1,int(lab_counter)+1):
-        i = str(lc)
-        lab_event = request.POST['lab_event'+i]
-        lab_test_name = request.POST['lab_test_name'+i]
-        lab_specimen_type = request.POST['lab_specimen_type'+i]
-        lab_specimen_method = request.POST['lab_specimen_method'+i]
-        lab_specimen_body_site = request.POST['lab_specimen_body_site'+i]
-        lab_findings = request.POST['lab_findings'+i]
-        lab_document = request.FILES['lab_document'+i]
-        labreport(diagnosticId=diagnosticId, lab_event=lab_event, lab_test_name=lab_test_name, lab_specimen_type=lab_specimen_type, lab_specimen_method=lab_specimen_method, lab_specimen_body_site=lab_specimen_body_site, lab_findings=lab_findings, lab_document=lab_document).save()
+    try:
+        patient_data = patient.objects.filter(name__istartswith=patient_name, phoneno=patient_number)
+        patient_id = patient_data[0].id
+        doctor_data = doctor.objects.filter(name__istartswith=doctor_name, phoneno=doctor_number)
+        doctor_id = doctor_data[0].id
+        patientid = patient.objects.get(id=patient_id)
+        doctorid = doctor.objects.get(id=doctor_id)
+        # print(patientid,doctorid)
+        diagnostic_data = diagnostic(patientId=patientid, doctorId=doctorid)
+        diagnostic_data.save()
+        diagnosticId = diagnostic.objects.get(id=diagnostic_data.id)
         
-    for xc in range(1,int(image_counter)+1):
-        i = str(xc)
-        imaging_event=request.POST['imaging_event'+i]
-        imaging_test_name=request.POST['imaging_test_name'+i]
-        imaging_modality=request.POST['imaging_modality'+i]
-        imaging_body_site=request.POST['imaging_body_site'+i]
-        imaging_findings=request.POST['imaging_findings'+i]
-        imaging_document= request.FILES['imaging_document'+i] 
-        imagingexam(diagnosticId=diagnosticId,imaging_event=imaging_event, imaging_test_name=imaging_test_name, imaging_modality=imaging_modality, imaging_body_site=imaging_body_site, imaging_findings=imaging_findings, imaging_document=imaging_document).save()
+        # hidden counter
+        lab_counter = request.POST['lab_counter']
+        image_counter = request.POST['image_counter']
         
-    return render(request, 'createPatientData.html')
+        for lc in range(1,int(lab_counter)+1):
+            i = str(lc)
+            lab_event = request.POST['lab_event'+i]
+            lab_test_name = request.POST['lab_test_name'+i]
+            lab_specimen_type = request.POST['lab_specimen_type'+i]
+            lab_specimen_method = request.POST['lab_specimen_method'+i]
+            lab_specimen_body_site = request.POST['lab_specimen_body_site'+i]
+            lab_findings = request.POST['lab_findings'+i]
+            lab_document = request.FILES['lab_document'+i]
+            labreport(diagnosticId=diagnosticId, lab_event=lab_event, lab_test_name=lab_test_name, lab_specimen_type=lab_specimen_type, lab_specimen_method=lab_specimen_method, lab_specimen_body_site=lab_specimen_body_site, lab_findings=lab_findings, lab_document=lab_document).save()
+            
+        for xc in range(1,int(image_counter)+1):
+            i = str(xc)
+            imaging_event=request.POST['imaging_event'+i]
+            imaging_test_name=request.POST['imaging_test_name'+i]
+            imaging_modality=request.POST['imaging_modality'+i]
+            imaging_body_site=request.POST['imaging_body_site'+i]
+            imaging_findings=request.POST['imaging_findings'+i]
+            imaging_document= request.FILES['imaging_document'+i] 
+            imagingexam(diagnosticId=diagnosticId,imaging_event=imaging_event, imaging_test_name=imaging_test_name, imaging_modality=imaging_modality, imaging_body_site=imaging_body_site, imaging_findings=imaging_findings, imaging_document=imaging_document).save()
+            
+        return render(request, 'createPatientData.html')
+    except:
+        return render(request, 'not_found_page.html', {"render_value":True})
 
 
 
@@ -235,40 +237,28 @@ def diaganosisReportCreation(request):
 def patientSummaryView(request):
     patient_name = request.POST['patient_name']
     patient_number = request.POST['phone_number']
-    # try:
-    patient_data = patient.objects.filter(name=patient_name, phoneno=patient_number)
-    patient_id = patient_data[0].id
-    illness_data = illnesshistory.objects.all().filter(patientId=patient_id)
-    allergy_data = allergies.objects.all().filter(patientId=patient_id)
-    procedure_data = procedurehistory.objects.all().filter(patientId=patient_id)
-    # Diagenostic Data
-    diagnostic_data = diagnostic.objects.all().filter(patientId=patient_id)
-    all_details = []; all =[]
-    patient_detail = diagnostic_data[0].patientId
-    
-    # born = patient_detail.dob
-    # today = date.today()
-    # patient_age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
-    
-    for data in range(0, len(diagnostic_data)):
-        # all_data = []
-        # doctor_data = diagnostic_data[data].doctorId; all_data.append(doctor_data)
-        # lab_report = labreport.objects.filter(diagnosticId=diagnostic_data[data].id); all_data.append(lab_report)
-        # image_report = imagingexam.objects.filter(diagnosticId=diagnostic_data[data].id); all_data.append(image_report)
-        sample_data = [diagnostic_data[data].doctorId, labreport.objects.filter(diagnosticId=diagnostic_data[data].id), imagingexam.objects.filter(diagnosticId=diagnostic_data[data].id)]
-        # all_details.append(all_data)
-        all_details.append(sample_data)
-        # doctors_detail = diagnostic_data[data].doctorId
-        # print(doctors_detail)
-        # lab_reports.append()
-        # image_reports.append()
-    # print(all_details)
-    print("\n\nSample Data: \n\n",all_details)
-    # print(illness_data[0].illness_name)
-    return render(request, 'patientsummary.html', {"all_details":all_details, "illness_data":illness_data, "allergy_data":allergy_data, "procedure_data":procedure_data, "patient_details":patient_detail})
-    # except:
-    #     return render(request, 'not_found_page.html')
-    # return render()
+    try:
+        patient_data = patient.objects.filter(name__istartswith=patient_name, phoneno=patient_number)
+        patient_id = patient_data[0].id
+        illness_data = illnesshistory.objects.all().filter(patientId=patient_id)
+        allergy_data = allergies.objects.all().filter(patientId=patient_id)
+        procedure_data = procedurehistory.objects.all().filter(patientId=patient_id)
+        # Diagenostic Data
+        diagnostic_data = diagnostic.objects.all().filter(patientId=patient_id)
+        all_details = []
+        patient_detail = diagnostic_data[0].patientId
+        # Age Calculator
+        born = patient_detail.dob
+        today = date.today()
+        patient_age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+        # Collecting data based on diagnostic_data
+        for data in range(0, len(diagnostic_data)):
+            sample_data = [diagnostic_data[data].doctorId, labreport.objects.filter(diagnosticId=diagnostic_data[data].id), imagingexam.objects.filter(diagnosticId=diagnostic_data[data].id)]
+            all_details.append(sample_data)
+            
+        return render(request, 'patientsummary.html', {"all_details":all_details, "patient_age":patient_age, "illness_data":illness_data, "allergy_data":allergy_data, "procedure_data":procedure_data, "patient_details":patient_detail})
+    except:
+        return render(request, 'not_found_page.html')
 
 
 
