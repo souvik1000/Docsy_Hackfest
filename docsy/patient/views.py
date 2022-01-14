@@ -68,8 +68,9 @@ def patientAppointmentBackend(request):
     specalization=request.POST['specalization']
     Doctor=int(request.POST['Doctor'])
     appointmentTime=request.POST['appointmentTime']
+    disease=request.POST['disease']
     # return HttpResponse(patient_id)
-    submit_details=Appointment(patientId=pid,specalist=specalization,doctorId=Doctor,appointmentTime=appointmentTime)
+    submit_details=Appointment(patientId=pid,specalist=specalization,doctorId=Doctor,appointmentTime=appointmentTime,disease=disease)
     submit_details.save()
     return HttpResponse('Appointment booked at {}'.format(appointmentTime))
 

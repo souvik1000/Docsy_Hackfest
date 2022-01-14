@@ -1,0 +1,38 @@
+<div class="container ">
+    <div class="row d-flex justify-content-center">
+        <div  id="each_problem" class="card">
+            <div   class="row  text-left">
+                <div class="form-group col-sm-3 flex-column d-flex">
+                    <input type="text"  id="patientId" name="patientId"  value="{{patientid}}" readonly> 
+                    <span id="patientId_error"></span>
+                </div>
+                <div class="form-group col-sm-3 flex-column d-flex">
+                    <input type="text" id="imaging_event` + c + `" name="imaging_event` + c + `" placeholder="enter imaging_event" >
+                    <span id="imaging_event` + c + `_error"></span>
+                </div>
+                <div class="form-group col-sm-3 flex-column d-flex">
+                    <input type="text" id="imaging_test_name` + c + `" name="imaging_test_name` + c + `" placeholder="enter imaging_test_name" > 
+                    <span id="imaging_test_name` + c + `_error"></span>
+                </div>
+                <div class="form-group col-sm-3 flex-column d-flex">
+                    <input type="text" id="imaging_modality` + c + `" name="imaging_modality` + c + `" placeholder="enter imaging_modality" > 
+                    <span id="imaging_modality` + c + `_error"></span>
+                </div>
+            </div>
+            <div   class="row  text-left">
+                <div class="form-group col-sm-3 flex-column d-flex">
+                    <input type="text"  id="imaging_body_site` + c + `" name="imaging_body_site` + c + `" placeholder="imaging_body_site "> 
+                    <span id="imaging_body_site` + c + `_error"></span>
+                </div>
+                <div class="form-group col-sm-3 flex-column d-flex">
+                    <input type="text" id="imaging_findings` + c + `" name="imaging_findings` + c + `" placeholder="enter imaging_findings" > 
+                    <span id="imaging_findings` + c + `_error"></span>
+                </div>
+                <div class="form-group col-sm-3 flex-column d-flex">
+                    <input type="file" id="imaging_document` + c + `" name="imaging_document` + c + `" placeholder="enter imaging_document" > 
+                    <span id="imaging_document` + c + `_error"></span>
+                </div>
+            </div>
+    </div>
+    </div>
+</div>

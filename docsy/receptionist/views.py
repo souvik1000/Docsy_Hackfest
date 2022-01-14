@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from datetime import date
+import json
+
 from .models import doctor,problem,medicines,prescription
 from patient.models import patient,Appointment  
 
@@ -49,9 +51,9 @@ def loginauth(request):
 
 def doctorprescription(request,patientid,appointmentId):
     if 'doctor_id' in request.session:
-
         appointment=Appointment.objects.get(id=appointmentId)
-        appointment.status="1"
+        #ekkada chudu
+        appointment.status="0"
         appointment.save()
         return render(request,'prescription.html',{'patientid':patientid})
     else:
@@ -108,16 +110,27 @@ def prescriptionBackend(request):
     else:
         return redirect(login)
 
+def add_reports(request,patientid,appointmentId):
+    add_reports.pid,add_reports.appid=patientid,appointmentId
+    # return HttpResponse(add_reports.pid)
+    return render(request, 'add_reports.html',{'patientid':patientid,'appointmentId':appointmentId})
+
+def checkstatus(requst,pid,appid):
+    appointment=Appointment.objects.get(id=appid)
+    #ekkada chudu
+    appointment.status="1"
+    appointment.save()
+    return redirect(doctorsDashboard)
 
 def doctorsDashboard(request):
 
     doctor_id=request.session['doctor_id']
+    # return HttpResponse(doctor_id)
     today_appointments=Appointment.objects.all()
     # patient_id=Appointment.objects.values('patientId')
-
     d=doctor.objects.get(id=doctor_id)
     # a=Appointment.objects.select_related('patientId').filter(doctorId=d.id)
-    a=Appointment.objects.filter(doctorId=d.id,status=0)
+    a=Appointment.objects.filter(doctorId=d.id,status="0")
     ap=[]
     for i in a:
         x=i.patientId
@@ -128,26 +141,18 @@ def doctorsDashboard(request):
     for i in b:
         x=i.patientId
         bp.append([x.id,x.name,i.disease,i.appointmentTime,i.id])
-    
-        
-    
-        
-    
     return render(request,'doctorsDashboard.html',{"today_appointments":ap,"past_appointments":bp})
     # return HttpResponse("Doctors Dashboard")
 
-    return render(request,'doctorsDashboard.html')
+ 
 
 
 
 def procedure(request):
     return render(request,'procedure.html' )
 
-def patientSummary(request):
-    return render(request,'patientsummary.html')
-
-def createPatientData(request):
-    return render(request, 'createPatientData.html')
+def createPatientData(request,patientid,appointmentId):
+    return render(request, 'createPatientData.html',{'patientid':patientid,'appointmentId':appointmentId})
 
 # For Creation 
 
@@ -184,6 +189,8 @@ def patientIllnessCreation(request):
     submit_details.save()
     return render(request, 'createPatientData.html')
 
+
+# doctordashboard-->add_reports/pid/apid-->add_reports.html--->diaganosisReportCreation
 def diaganosisReportCreation(request):
     patient_name = request.POST['patient_name']
     patient_number = request.POST['phone_number']
@@ -233,6 +240,8 @@ def diaganosisReportCreation(request):
 
 
 # For Patient Data Views
+def patientSummary(request):
+    return render(request,'patientsummary.html')
 
 def patientSummaryView(request):
     patient_name = request.POST['patient_name']
@@ -259,6 +268,7 @@ def patientSummaryView(request):
         return render(request, 'patientsummary.html', {"all_details":all_details, "patient_age":patient_age, "illness_data":illness_data, "allergy_data":allergy_data, "procedure_data":procedure_data, "patient_details":patient_detail})
     except:
         return render(request, 'not_found_page.html')
+
 
 
 
