@@ -109,126 +109,7 @@
         }
 
     </style>
-    
-      <script>
-          function validate()
-    {
-        var k=0;
-        var selected_category=document.getElementById('category_id').value;
-        var selected_sub_category=document.getElementById('subcategory_id').value;
-        var product_price=document.getElementById('price').value;
-        var striked_price=document.getElementById('striked_price').value;
-        var FileUploadPath = document.getElementById('product_image').value;
 
-        if((selected_category==""))
-        {   
-            console.log("1");
-            k=1;
-            document.getElementById('selected_category_error').innerHTML="Null value can't be accepted.";
-        }
-        else
-        {
-            k=0;
-            document.getElementById('selected_category_error').innerHTML="";
-        }
-        // sub_category
-        
-        console.log(selected_sub_category)
-        if((selected_sub_category==""))
-        {   
-            console.log("2");
-            k=1;
-            document.getElementById('selected_sub_category_error').innerHTML="Null value can't be accepted.";
-        }
-        else
-        {
-            k=0;
-            document.getElementById('selected_sub_category_error').innerHTML="";
-        }
-        var product_name=document.getElementById('product_name').value;
-        console.log(product_name)
-        if((product_name.length<1))
-        {   
-            console.log("3");
-            k=1;
-            document.getElementById('product_name_error').innerHTML="Null value can't be accepted.";
-        }
-        else
-        {
-            k=0;
-            document.getElementById('product_name_error').innerHTML="";
-        }
-        if(product_price=="")
-        {   
-            console.log("4");
-            k=1;
-            document.getElementById('product_price_error').innerHTML="Null value can't be accepted.";
-        }
-        else if((product_price<=0))
-        {   
-            console.log("5");
-            k=1;
-            document.getElementById('product_price_error').innerHTML="Product price cannot be less than or equal to zero";
-        }
-        else
-        {
-            k=0;
-            document.getElementById('product_price_error').innerHTML="";
-        }
-        if(striked_price=="")
-        {   
-            console.log("6");
-            k=1;
-            document.getElementById('striked_price_error').innerHTML="Null value can't be accepted.";
-        }
-        else if((striked_price<=0))
-        {   
-            console.log("7");
-            k=1;
-            document.getElementById('striked_price_error').innerHTML="striked price cannot be less than or equal to zero";
-        }
-        else if((striked_price<product_price))  
-        {   
-            console.log("8");
-            k=1;
-            document.getElementById('striked_price_error').innerHTML="striked price should be less than product price";
-        }
-        else
-        {
-            k=0;
-            document.getElementById('striked_price_error').innerHTML="";
-        }
-
-        if (FileUploadPath == '') 
-        {
-            console.log("9");
-            k=1;
-            document.getElementById('product_image_error').innerHTML="Upload an Image";
-        }
-        else
-        {
-
-            console.log("10");
-            var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
-            if (!(Extension == "gif" || Extension == "png" || Extension == "bmp"|| Extension == "jpeg" || Extension == "jpg"))
-            {
-                k=1;
-                document.getElementById('product_image_error').innerHTML="Upload only gif,png,bmp,jpeg or jpg";
-            }
-            else
-            {
-                k=0;
-                document.getElementById('product_image_error').innerHTML="";
-            }
-        }
-
-        if(k==0)
-        {
-          return true;
-        }
-        return false;
-    }
-      </script>
   </head>
   <body>
     <!-- <h1>Hello, world!</h1> -->
@@ -267,7 +148,7 @@
                                     <span id="severity_unit_error"></span>
                                 </div>
                             </div>
-                        </div>
+                    </div>
                         <p>Total Medicines are:<span id="medicine_count_val">0</span></p>
                         <input type="submit"  style="text-align: center;"class="btn btn-danger" value="Submit Prescription">
 
@@ -282,15 +163,18 @@
 
                        
                 </form>
-      
-                        
-               
-
-            
-       
     </div>
 
 <button onclick=get_medicine() >Add medicine</button>
+<script>
+    function deleterow(c){
+        var l=document.getElementById("total_medicine")
+        document.getElementById("each_medicine"+c).style.display="none";
+        var c=parseInt(document.getElementById('medicine_count').value)-1
+        document.getElementById('medicine_count').value=c
+        document.getElementById('medicine_count_val').innerHTML=c 
+    }
+</script>
 
 <script>
     function get_medicine(){
@@ -299,13 +183,20 @@
         document.getElementById('medicine_count_val').innerHTML=c
 
         var s=`
-        <div  id="each_medicine" class="card">
+
+        <div  id="each_medicine`+c+`" class="card" style="display:block;">
         <!-- product name and image -->
+       
+       
         <div   class="row  text-left">
+
+            
+            <h2>Medicine`+c+`  <b class="btn btn-danger btn-sm" style="float:right;" onclick="deleterow(`+c+`)"><span style="color:white;">×</span></b></h2>
+
             <div class="form-group col-sm-3 flex-column d-flex"> 
                 <label class="form-control-label px-3">Medicine Name </label>
                 <input type="text" id="medicine_name`+c+`" name="medicine_name`+c+`" placeholder="enter medicine_name" > 
-                <span id="medicine_name_error`+c+`"></span>
+                <span id="medicine_name_errorC"></span>
             </div>
             <div class="form-group col-sm-3 flex-column d-flex"> 
                 <label class="form-control-label px-3">Form </label>
@@ -401,6 +292,7 @@
 
         // document.getElementById("total_medicine").innerHTML=document.getElementById("total_medicine").innerHTML.append;
         document.getElementById("total_medicine").insertAdjacentHTML( 'beforeend', s );
+        
     }
 </script>
 
