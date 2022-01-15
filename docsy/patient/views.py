@@ -3,8 +3,6 @@ from django.shortcuts import render,redirect
 from .models import patient,Appointment
 from receptionist.models import doctor
 
-# Create your views here.
-
 def patientPrescription(request):
     return render(request,'patientAppointment.html')
 
