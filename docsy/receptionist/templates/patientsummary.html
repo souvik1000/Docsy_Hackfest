@@ -14,7 +14,7 @@
 
     <style>
         .collapsible {
-            background-color: #777;
+            background-color: #48bdc5;
             color: white;
             cursor: pointer;
             padding: 18px;
@@ -27,7 +27,7 @@
         
         .active,
         .collapsible:hover {
-            background-color: #555;
+            background-color: #319aa1;
         }
         
         .content {
@@ -40,23 +40,17 @@
 </head>
 
 <body>
-    <div>
-        <form action="{% url 'patientSummaryView' %}" method="POST">
-            {% csrf_token %}
-            <!-- <input type="text" name="patient_name" placeholder="Enter firstname" />
-            <input type="text" name="phone_number" placeholder="phone_number" />
-            <button type="submit">Search</button> -->
-        </form>
+    <div id="main-section">
         <!-- <a href="{% url 'patientSummaryView' %}">Submit</a> -->
-        <div id="Patient Data">
+        <div id="Patient-data">
             <button type="button" class="collapsible">Previous prescriptions</button>
             <div class="content">
-                <div class="card-group">
+                <div class="card-group table-responsive">
 
                     {% for each_data in problem_with_medicines %}
                     <br>
                     <h4>Disease Name: {{each_data.0.problem_name}}</h4>
-                    <table id="example1" class="table table-striped table-bordered" style="width:100%; margin: auto;">
+                    <table id="example1" class="table table-striped table-bordered" style="width:80%; margin: auto;">
                         <thead>
                             <tr>
                                 <td>medicine_name</td>
@@ -101,7 +95,7 @@
                 <br>
             </div>
             <button type="button" class="collapsible">Allergies</button>
-            <div class="content">
+            <div class="content table-responsive">
                 <div class="card-group">
                     <table id="example1" class="table table-striped table-bordered" style="width:100%">
                         <thead>
@@ -129,7 +123,7 @@
             </div>
 
             <button type="button" class="collapsible">History of Procedure</button>
-            <div class="content">
+            <div class="content table-responsive">
                 <div class="card-group">
                     <table id="example1" class="table table-striped table-bordered" style="width:100%">
                         <thead>
@@ -154,7 +148,7 @@
             </div>
 
             <button type="button" class="collapsible">History of Illness</button>
-            <div class="content">
+            <div class="content table-responsive">
                 <div class="card-group">
                     <table id="example1" class="table table-striped table-bordered" style="width:100%">
                         <thead>
@@ -178,13 +172,86 @@
                 </div>
             </div>
         </div>
-        <div>
-            <!-- <p>View Diagnostics</p> -->
-            <div>
-                <p>View Diagnostics</p>
-                <p><span>Patient Name: {{patient_details.name}} </span> <span>Patient Age: {{patient_age}}</span></p>
 
+        <div id="diagnostic-data">
+            <button type="button" class="collapsible">History of Diagnostics Data</button>
+            <div class="content overflow-auto" style="margin-left: 50px; padding:0; height:300px">
                 {% for each_data in all_details %}
+                <h4>Doctor Name: {{each_data.0.name}}</h4>
+                <button type="button" class="collapsible">Previous Lab Report</button>
+                <div class="content table-responsive-md">
+                    <div class="card-group">
+                        <table id="example1" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <td>lab_event</td>
+                                    <td>lab_test_name</td>
+                                    <td>lab_specimen_type</td>
+                                    <td>lab_specimen_method</td>
+                                    <td>lab_specimen_body_site</td>
+                                    <td>lab_findings</td>
+                                    <td>lab_document</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for lab in each_data.1 %}
+                                <tr>
+                                    <td>{{lab.lab_event}}</td>
+                                    <td>{{lab.lab_test_name}}</td>
+                                    <td>{{lab.lab_specimen_type}}</td>
+                                    <td>{{lab.lab_specimen_method}}</td>
+                                    <td>{{lab.lab_specimen_body_site}}</td>
+                                    <td>{{lab.lab_findings}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <!-- </div> -->
+                    </div>
+                </div>
+
+                <button type="button" class="collapsible">Previous Image Report</button>
+                <div class="content">
+                    <div class="card-group">
+                        <table id="example1" class="table table-striped table-bordered table-responsive" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <td>imaging_event</td>
+                                    <td>imaging_test_name</td>
+                                    <td>imaging_modality</td>
+                                    <td>imaging_body_site</td>
+                                    <td>imaging_findings</td>
+                                    <td>imaging_document</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for image in each_data.2 %}
+                                <tr>
+                                    <td>{{image.imaging_event}}</td>
+                                    <td>{{image.imaging_test_name}}</td>
+                                    <td>{{image.imaging_modality}}</td>
+                                    <td>{{image.imaging_body_site}}</td>
+                                    <td>{{image.imaging_findings}}</td>
+                                    <td>
+                                        <div class="text-center">
+                                            <a class="btn btn-primary" href="imageView/{{image.imaging_document}}">View Report</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <!-- </div> -->
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+
+            <div>
+                <!-- <p><span>Patient Name: {{patient_details.name}} </span> <span>Patient Age: {{patient_age}}</span></p> -->
+
+                <!-- {% for each_data in all_details %}
 
                 <div id="lab-report" class="card-group">
                     <div>
@@ -237,7 +304,7 @@
 
                     {% endfor %}
                 </div>
-                {% endfor %}
+                {% endfor %} -->
             </div>
 
 

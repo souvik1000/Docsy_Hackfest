@@ -22,8 +22,6 @@ urlpatterns=[
     path("doctormobilealreadyexists/",views.doctormobilealreadyexists,name="doctormobilealreadyexists"),
     path('doctorsDashboard/checkstatus/<str:pid>/<str:appid>', views.checkstatus, name="checkstatus"),
     
-    
-    
     path('patientSummary/',views.patientSummary,name="patientSummary"),
     path('createPatientData/',views.createPatientData,name="createPatientData"),
     
@@ -34,7 +32,8 @@ urlpatterns=[
     path('logout/',views.logout,name="logout"),
     # path('viewpresciptions',views.viewpresciption,name="prescription"),
     path("doctoremailalreadyexists/",views.doctoremailalreadyexists,name="doctoremailalreadyexists"),
-    path("doctormobilealreadyexists/",views.doctormobilealreadyexists,name="doctormobilealreadyexists")
+    path("doctormobilealreadyexists/",views.doctormobilealreadyexists,name="doctormobilealreadyexists"),
+    path('doctorsDashboard/patientSummaryView/<str:pid>/<str:imagepath>/<str:dirname>/<str:data>', views.imageView, name="imageView"),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

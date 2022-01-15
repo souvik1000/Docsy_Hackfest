@@ -149,9 +149,6 @@ def doctorsDashboard(request):
     return render(request,'doctorsDashboard.html',{"today_appointments":ap,"past_appointments":bp})
     # return HttpResponse("Doctors Dashboard")
 
- 
-
-
 def procedure(request):
     return render(request,'procedure.html' )
 
@@ -194,6 +191,10 @@ def patientIllnessCreation(request):
     submit_details = illnesshistory(patientId=pid, illness_name=illness_name, body_site=body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement)
     submit_details.save()
     return render(request, 'createPatientData.html')
+
+def imageView(request,pid, imagepath, dirname, data):
+    concatedImagePath = dirname + "/" + data
+    return render(request, "imageViewPage.html", {"imageData":str(concatedImagePath)})
 
 
 # doctordashboard-->add_reports/pid/apid-->add_reports.html--->diaganosisReportCreation
@@ -253,48 +254,37 @@ def patientSummary(request):
     return render(request,'patientsummary.html')
 
 def patientSummaryView(request,pid,appid):
-    # patient_name = request.POST['patient_name']
-    # patient_number = request.POST['phone_number']
-    # try:    
-    # patient_data = patient.objects.filter(name__istartswith=patient_name, phoneno=patient_number)
-    # patient_id = patient_data[0].id
-    patient_id=patient.objects.get(id=pid)
-    illness_data = illnesshistory.objects.all().filter(patientId=patient_id)
-    allergy_data = allergies.objects.all().filter(patientId=patient_id)
-    procedure_data = procedurehistory.objects.all().filter(patientId=patient_id)
-    prescription_data=prescription.objects.all().filter(patientId=patient_id)
-    diagnostic_data = diagnostic.objects.all().filter(patientId=patient_id)
-    medicines_data=[]
-    problem_data=[]
-    for i in prescription_data:
-        a=problem.objects.all().filter(prescriptionId=i.id)
-        problem_data.append(a)
-        b=medicines.objects.all().filter(prescriptionId=i.id)
-        medicines_data.append(b)
-    for i in problem_data:
-        print(i[0])
-    # return HttpResponse(problem_data)
-    # print()
-    # print(medicines_data[1].medicine_name)
-    all_details = []
-    # Age Calculator
-    born = patient_id.dob
-    today = date.today()
-    patient_age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+    try:
+        # Gathering Current To Previous Data
+        patient_id=patient.objects.get(id=pid)
+        illness_data = illnesshistory.objects.all().filter(patientId=patient_id)[::-1]
+        allergy_data = allergies.objects.all().filter(patientId=patient_id)[::-1]
+        procedure_data = procedurehistory.objects.all().filter(patientId=patient_id)[::-1]
+        prescription_data=prescription.objects.all().filter(patientId=patient_id)[::-1]
+        diagnostic_data = diagnostic.objects.all().filter(patientId=patient_id)[::-1]
+        
+        # Collecting Medicine based on problems
+        problem_with_medicines = [];
+        
+        for i in prescription_data:
+            sample_data = [problem.objects.get(prescriptionId=i.id), medicines.objects.filter(prescriptionId=i.id)]
+            problem_with_medicines.append(sample_data)
+        
+        # Age Calculator
+        born = patient_id.dob
+        today = date.today()
+        patient_age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
-    # Collecting data based on diagnostic_data
-    for data in range(0, len(diagnostic_data)   ):
-        # sample_data = [diagnostic_data[data].doctorId, labreport.objects.filter(diagnosticId=diagnostic_data[data].id), imagingexam.objects.filter(diagnosticId=diagnostic_data[data].id)]
-        sample_data = [diagnostic_data[data].doctorId, labreport.objects.filter(diagnosticId=diagnostic_data[data].id), imagingexam.objects.filter(diagnosticId=diagnostic_data[data].id)]
-        all_details.append(sample_data)
-    # print(all_details)
-    # return HttpResponse(all_details)
-    return render(request, 'patientsummary.html', {'problem_data':problem_data,'medicines_data':medicines_data,"all_details":all_details, "patient_age":patient_age, "illness_data":illness_data, "allergy_data":allergy_data, "procedure_data":procedure_data, "patient_details":patient_id})
-    # except:
-    #     return render(request, 'not_found_page.html')
-
-
-
+        # Collecting data based on diagnostic_data
+        all_details = []
+        
+        for data in range(0, len(diagnostic_data)   ):
+            sample_data = [diagnostic_data[data].doctorId, labreport.objects.filter(diagnosticId=diagnostic_data[data].id), imagingexam.objects.filter(diagnosticId=diagnostic_data[data].id)]
+            all_details.append(sample_data)
+            
+        return render(request, 'patientsummary.html', {"problem_with_medicines":problem_with_medicines, "all_details":all_details, "patient_age":patient_age, "illness_data":illness_data, "allergy_data":allergy_data, "procedure_data":procedure_data, "patient_details":patient_id})
+    except:
+        return render(request, 'not_found_page.html')
 
 def logout(request):
     if request.session.get('doctor_id', True):
