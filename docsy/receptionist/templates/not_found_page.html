@@ -11,7 +11,9 @@
 <body>
     <div id="error">
         <h1>NO DATA FOUND</h1>
-        <a href="{% url 'patientSummary' %}">GO Back</a>
+        {% if render_value %}
+        <a href="{% url 'createPatientData' %}">GO Back</a> {% else %}
+        <a href="{% url 'patientSummary' %}">GO Back</a> {% endif %}
     </div>
 </body>
 

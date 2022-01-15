@@ -1,14 +1,12 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
+from datetime import date
 import json
 
-from .models import doctor,problem,medicines,prescription
+# from .models import doctor,problem,medicines,prescription
 from patient.models import patient,Appointment  
-
-
+from .models import prescription
 from .models import doctor,problem,medicines,prescription, illnesshistory,allergies,procedurehistory,diagnostic,labreport,imagingexam
-
-
 
 def login(request):
     return render(request,'login.html')
@@ -20,6 +18,7 @@ def doctoremailalreadyexists(request):
         if(i.email==email):
             return  HttpResponse(0)
     return HttpResponse(1)
+
 def doctormobilealreadyexists(request):
     mobile=request.POST['a']
     patient_table=patient.objects.all()
@@ -111,6 +110,17 @@ def prescriptionBackend(request):
     else:
         return redirect(login)
 
+def add_reports(request,patientid,appointmentId):
+    add_reports.pid,add_reports.appid=patientid,appointmentId
+    # return HttpResponse(add_reports.pid)
+    return render(request, 'add_reports.html',{'patientid':patientid,'appointmentId':appointmentId})
+
+def checkstatus(requst,pid,appid):
+    appointment=Appointment.objects.get(id=appid)
+    #ekkada chudu
+    appointment.status="1"
+    appointment.save()
+    return redirect(doctorsDashboard)
 
 def doctorsDashboard(request):
 
@@ -134,7 +144,7 @@ def doctorsDashboard(request):
     return render(request,'doctorsDashboard.html',{"today_appointments":ap,"past_appointments":bp})
     # return HttpResponse("Doctors Dashboard")
 
-    return render(request,'doctorsDashboard.html')
+ 
 
 
 
@@ -145,13 +155,7 @@ def createPatientData(request,patientid,appointmentId):
     return render(request, 'createPatientData.html',{'patientid':patientid,'appointmentId':appointmentId})
 
 # For Creation 
-def checkstatus(requst,pid,appid):
-    appointment=Appointment.objects.get(id=appid)
-    #ekkada chudu
-    appointment.status="1"
-    appointment.save()
-    return redirect(doctorsDashboard)
-    
+
 def patientAllergiesCreation(request):
     patientId = request.POST['patientId']
     substance = request.POST['substance']
@@ -184,35 +188,30 @@ def patientIllnessCreation(request):
     submit_details = illnesshistory(patientId=pid, illness_name=illness_name, body_site=body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement)
     submit_details.save()
     return render(request, 'createPatientData.html')
-def add_reports(request,patientid,appointmentId):
-    add_reports.pid,add_reports.appid=patientid,appointmentId
-    # return HttpResponse(add_reports.pid)
-    return render(request, 'add_reports.html',{'patientid':patientid,'appointmentId':appointmentId})
+
 
 # doctordashboard-->add_reports/pid/apid-->add_reports.html--->diaganosisReportCreation
 def diaganosisReportCreation(request):
-    # patient_name = request.POST['patient_name']
-    # patient_number = request.POST['phone_number']
-    # doctor_name = request.POST['doctor_name']
-    # doctor_number = request.POST['doctor_number']
-    # patient_data = patient.objects.filter(name=patient_name, phoneno=patient_number)
-    # doctor_data = doctor.objects.filter(name=doctor_name, phoneno=doctor_number)
-    # patientid = patient.objects.get(id=patient_id)
-    # doctorid = doctor.objects.get(id=doctor_id)
-    # print(patientid,doctorid)
-    if request.session.get('doctor_id', True):
-        #pa1
-        # Change id(patient id) to desired id instead of 1
-        # return HttpResponse(add_reports.pid)
-        patient_id = patient.objects.get(id=add_reports.pid)#change 1 here 
-        did = request.session['doctor_id']
-        doctor_id = doctor.objects.get(id=did)
-        diagnostic_data = diagnostic(patientId=patient_id, doctorId=doctor_id)
+    patient_name = request.POST['patient_name']
+    patient_number = request.POST['phone_number']
+    doctor_name = request.POST['doctor_name']
+    doctor_number = request.POST['doctor_number']
+    try:
+        patient_data = patient.objects.filter(name__istartswith=patient_name, phoneno=patient_number)
+        patient_id = patient_data[0].id
+        doctor_data = doctor.objects.filter(name__istartswith=doctor_name, phoneno=doctor_number)
+        doctor_id = doctor_data[0].id
+        patientid = patient.objects.get(id=patient_id)
+        doctorid = doctor.objects.get(id=doctor_id)
+        # print(patientid,doctorid)
+        diagnostic_data = diagnostic(patientId=patientid, doctorId=doctorid)
         diagnostic_data.save()
         diagnosticId = diagnostic.objects.get(id=diagnostic_data.id)
+        
         # hidden counter
         lab_counter = request.POST['lab_counter']
         image_counter = request.POST['image_counter']
+        
         for lc in range(1,int(lab_counter)+1):
             i = str(lc)
             lab_event = request.POST['lab_event'+i]
@@ -233,107 +232,61 @@ def diaganosisReportCreation(request):
             imaging_findings=request.POST['imaging_findings'+i]
             imaging_document= request.FILES['imaging_document'+i] 
             imagingexam(diagnosticId=diagnosticId,imaging_event=imaging_event, imaging_test_name=imaging_test_name, imaging_modality=imaging_modality, imaging_body_site=imaging_body_site, imaging_findings=imaging_findings, imaging_document=imaging_document).save()
-        # return render(request, 'createPatientData.html')
-        return HttpResponse('load lab')
-    else:
-        return HttpResponse("please login!")
+            
+        return render(request, 'createPatientData.html')
+    except:
+        return render(request, 'not_found_page.html', {"render_value":True})
+
+
+
 # For Patient Data Views
 def patientSummary(request):
     return render(request,'patientsummary.html')
+
 def patientSummaryView(request,pid,appid):
     # patient_name = request.POST['patient_name']
     # patient_number = request.POST['phone_number']
-    # try:
-    #     patient_data = patient.objects.filter(name=patient_name, phoneno=patient_number)
-    try:
-        # patient_id = pid
-        patient_id = patientid = patient.objects.get(id=pid)
+    try:    
+        # patient_data = patient.objects.filter(name__istartswith=patient_name, phoneno=patient_number)
+        # patient_id = patient_data[0].id
+        patient_id=patient.objects.get(id=pid)
         illness_data = illnesshistory.objects.all().filter(patientId=patient_id)
         allergy_data = allergies.objects.all().filter(patientId=patient_id)
         procedure_data = procedurehistory.objects.all().filter(patientId=patient_id)
-        # Diagenostic Data
+        prescription_data=prescription.objects.all().filter(patientId=patient_id)
         diagnostic_data = diagnostic.objects.all().filter(patientId=patient_id)
-        doctors_detail = []; lab_reports = []; image_reports = []
-        patient_detail = diagnostic_data[0].patientId
+        medicines_data=[]
+        problem_data=[]
+        for i in prescription_data:
+            a=problem.objects.all().filter(prescriptionId=i.id)
+            problem_data.append(a)
+            b=medicines.objects.all().filter(prescriptionId=i.id)
+            medicines_data.append(b)
+        for i in problem_data:
+            a=i[0].problem_name
+            print(a)
+        # return HttpResponse(problem_data)
+        # print()
+        # print(medicines_data[1].medicine_name)
+        all_details = []
+        # Age Calculator
+        born = patient_id.dob
+        today = date.today()
+        patient_age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
+        # Collecting data based on diagnostic_data
         for data in range(0, len(diagnostic_data)):
-            doctors_detail.append(diagnostic_data[data].doctorId)
-            lab_reports.append(labreport.objects.get(diagnosticId=diagnostic_data[data].id))
-            image_reports.append(imagingexam.objects.get(diagnosticId=diagnostic_data[data].id))
-        
-        # print(illness_data[0].illness_name)
-        return render(request, 'patientsummary.html', {"pid":pid,"appid":appid,"illness_data":illness_data, "allergy_data":allergy_data, "procedure_data":procedure_data, "lab_report":lab_reports, "image_report":image_reports, "patient_details":patient_detail, "doctor_details":doctors_detail})
+            # sample_data = [diagnostic_data[data].doctorId, labreport.objects.filter(diagnosticId=diagnostic_data[data].id), imagingexam.objects.filter(diagnosticId=diagnostic_data[data].id)]
+            sample_data = [diagnostic_data[data].doctorId, labreport.objects.filter(diagnosticId=diagnostic_data[data].id), imagingexam.objects.filter(diagnosticId=diagnostic_data[data].id)]
+            all_details.append(sample_data)
+        # print(all_details)
+        # return HttpResponse(all_details)
+        return render(request, 'patientsummary.html', {'problem_data':problem_data,'medicines_data':medicines_data,"all_details":all_details, "patient_age":patient_age, "illness_data":illness_data, "allergy_data":allergy_data, "procedure_data":procedure_data, "patient_details":patient_id})
     except:
         return render(request, 'not_found_page.html')
-    # return render()
-
-def imagereportcreation(request):
-    return render(request, 'createPartionData.html')
-def viewpresciption(request):
-    l1=[]
-    medicines_data=[]
-    p=prescription.objects.all().values_list('patientId')
-    presciption_data=prescription.objects.values('patientId','doctorId','comment')
-    #patient_id=presciption_data[0].patientId
-    #presciption_Id=presciption_data['patientId']
-    for i in range(len(p)):
-        #print(p[i][0])
-        problem_data=problem.objects.values().filter(prescriptionId=p[i][0])
-        l1.append(problem_data)
-        #print(l1)
-        medicines_data=medicines.objects.values().filter(prescriptionId=p[i])
-    print(list(l1))
-    return HttpResponse(l1)
-
-
-# def labreportView(request):
-#     patient_name = request.POST['patient_name']
-#     patient_number = request.POST['phone_number']
-#     patient_data = patient.objects.filter(name=patient_name, phoneno=patient_number)
-#     patient_id = patient_data[0].id
-#     diagnostic_data = diagnostic.objects.all().filter(patientId=patient_id)
-#     doctors_detail = []; lab_reports = []; image_reports = []
-#     patient_detail = diagnostic_data[0].patientId
-    
-#     for data in range(0, len(diagnostic_data)):
-#         doctors_detail.append(diagnostic_data[data].doctorId)
-#         lab_reports.append(labreport.objects.get(diagnosticId=diagnostic_data[data].id))
-#         image_reports.append(imagingexam.objects.get(diagnosticId=diagnostic_data[data].id))
-#     # print(lab_reports,"\n", image_reports,"\n", patient_detail,"\n", doctors_detail)
-    
-#     return render(request, 'patientsummary.html', {"lab_report":lab_reports, "image_report":image_reports, "patient_details":patient_detail, "doctor_details":doctors_detail})
-    
-    
-    
 
 
 
-
-# def imagereportcreation(request):
-#     return render(request, 'createPartionData.html')
-# def digenosisCreation(request):
-#     lab_event = 
-#     lab_test_name = 
-#     lab_specimen_type = 
-#     lab_specimen_method = 
-#     lab_specimen_body_site = 
-#     lab_findings = 
-#     upload_file = 
-
-
-# def diagenosisLink(request):
-#     return render()
-
-def imagereportView(request):
-    patient_name = request.POST['patient_name']
-    patient_number = request.POST['phone_number']
-    patient_data = patient.objects.filter(name=patient_name, phoneno=patient_number)
-    patient_id = patient_data[0].id
-    # doctorid = doctor.objects.get(id=patient_id)
-    # print(patientid,doctorid)
-    # diagnostic_data = diagnostic(patientId=patientid, doctorId=doctorid)
-    diagnostic_data = diagnostic.objects.all().filter(patientId=patient_id)
-    # print(diagnos
 
 
 def logout(request):

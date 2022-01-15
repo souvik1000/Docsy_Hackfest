@@ -18,7 +18,6 @@ def patientregistrationValidation(request):
     submit_details.save()
     return render(request,'patientLogin.html',{'message':'register success'})
     
-
 def patientloginauth(request):
     email=request.POST['a']
     passw=request.POST['b']
@@ -36,6 +35,7 @@ def emailalreadyexists(request):
         if(i.email==email):
             return  HttpResponse(0)
     return HttpResponse(1)
+
 def mobilealreadyexists(request):
     mobile=request.POST['a']
     patient_table=patient.objects.all()
@@ -43,10 +43,12 @@ def mobilealreadyexists(request):
         if(i.phoneno==mobile):
             return  HttpResponse(0)
     return HttpResponse(1)
+
 def patientDashboard(request):
     if 'patient_id' in request.session:
         return HttpResponse(request.session['patient_id'])
     return HttpResponse("patient dashboard")
+
 def patientAppointment(request): 
     all_specialization=doctor.objects.values('specalist')
     # return HttpResponse(all_specialization)
@@ -59,6 +61,7 @@ def getspecialiseddoctor(request):
     for i in specialzed_doctors:
         doctors_by_specalization="<option value="+str(i.id)+">"+i.name+"</option>"
     return HttpResponse(doctors_by_specalization)
+
 def patientAppointmentBackend(request):
     patient_id=request.session['patient_id']
     pid=patient.objects.get(id=patient_id)
