@@ -17,9 +17,11 @@ urlpatterns=[
     path('procedurecreation/',views.procedurecreation,name="procedurecreation"),
     path('doctorsDashboard/patientSummaryView/<str:pid>/<str:appid>', views.patientSummaryView, name="patientSummaryView"),
     path('doctorsDashboard/add_reports/<str:patientid>/<str:appointmentId>', views.add_reports, name="add_reports"),
+    
     path("doctoremailalreadyexists/",views.doctoremailalreadyexists,name="doctoremailalreadyexists"),
     path("doctormobilealreadyexists/",views.doctormobilealreadyexists,name="doctormobilealreadyexists"),
     path('doctorsDashboard/checkstatus/<str:pid>/<str:appid>', views.checkstatus, name="checkstatus"),
+    
     
     
     path('patientSummary/',views.patientSummary,name="patientSummary"),
