@@ -86,15 +86,13 @@
                         <p class="card-text">{{lab.lab_specimen_method}}</p>
                         <p class="card-text">{{lab.lab_specimen_body_site}}</p>
                         <p class="card-text">{{lab.lab_findings}}</p>
-                        <!-- <img src="">{{lab.lab_document}}</p> -->
-                        
                     </div>
-                    
+
                     <button class="btn btn-success" onclick="getPDF()" id="downloadbtn" style="display: inline-block;"><b>Click to Download lab report</b></button>
                     <button class="btn btn-success" onclick="getPDFforlabimage()" id="downloadbtn" style="display: inline-block;"><b>Click to Download Lab report image</b></button>
                 </div>
                 {% endfor %}
-               
+
             </div>
 
             <div id="image-report" class="card-group">
@@ -111,13 +109,12 @@
                         <p class="card-text">{{image.imaging_modality}}</p>
                         <p class="card-text">{{image.imaging_body_site}}</p>
                         <p class="card-text">{{image.imaging_findings}}</p>
-                        <!-- <p class="card-text">{{image.imaging_document}}</p> -->
                     </div>
                     <button class="btn btn-success" onclick="getPDFforimagereport()" id="downloadbtn" style="display: inline-block;"><b>Click to Download HTML as PDF</b></button>
-                <button class="btn btn-success" onclick="getPDFforimage()" id="downloadbtn" style="display: inline-block;"><b>Click to Download HTML as PDF</b></button>
+                    <button class="btn btn-success" onclick="getPDFforimage()" id="downloadbtn" style="display: inline-block;"><b>Click to Download HTML as PDF</b></button>
                 </div>
                 {% endfor %}
-                
+
             </div>
             {% endfor %}
         </div>
@@ -156,6 +153,7 @@
                 pdf.save("HTML-Document.pdf");
             });
         };
+
         function getPDFforlabimage() {
             var HTML_Width = $(".canvas_div_pdflabimage").width();
             var HTML_Height = $(".canvas_div_pdflabimage").height();
@@ -189,7 +187,8 @@
                 pdf.save("HTML-Document.pdf");
             });
         };
-        function getPDFforimagereport(){
+
+        function getPDFforimagereport() {
             var HTML_Width = $(".canvas_div_pdfimagereport").width();
             var HTML_Height = $(".canvas_div_pdfimagereport").height();
             var top_left_margin = 15;
@@ -222,7 +221,8 @@
                 pdf.save("HTML-Document.pdf");
             });
         };
-        function getPDFforimage(){
+
+        function getPDFforimage() {
             var HTML_Width = $(".canvas_div_pdfimage").width();
             var HTML_Height = $(".canvas_div_pdfimage").height();
             var top_left_margin = 15;

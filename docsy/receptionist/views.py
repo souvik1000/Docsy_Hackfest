@@ -158,7 +158,6 @@ def procedure(request):
 def createPatientData(request):
     return render(request, 'createPatientData.html')
 
-
 def patientAllergiesCreation(request):
     patientId = request.POST['patientId']
     substance = request.POST['substance']
