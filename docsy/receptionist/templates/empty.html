@@ -89,3 +89,80 @@
     </div>
     </div>
 </div>`; -->
+
+{% for each_data in all_details %}
+
+<div id="lab-report" class="card-group">
+    <div>
+        <!-- <p>View Lab Report</p><br/> -->    
+        <p><span>Patient Name: {{patient_details.name}} </span> <span>Patient Age: {{patient_age}}</span></p>
+        <p> Doctor Name: {{each_data.0.name}}</p>
+    </div>
+    {% for lab in each_data.1 %}
+    <div class="card ">
+        <div class="card-body canvas_div_pdf ">
+            <div class="canvas_div_pdflabimage"><img src="{{lab.lab_document.url}}" class="card-img-top " alt="Lab Report"></div>
+            <p class="card-text">{{lab.lab_event}}</p>
+            <p class="card-text">{{lab.lab_test_name}}</p>
+            <p class="card-text">{{lab.lab_specimen_type}}</p>
+            <p class="card-text">{{lab.lab_specimen_method}}</p>
+            <p class="card-text">{{lab.lab_specimen_body_site}}</p>
+            <p class="card-text">{{lab.lab_findings}}</p>
+            <!-- <img src="">{{lab.lab_document}}</p> -->
+            
+        </div>
+        
+        <button class="btn btn-success" onclick="getPDF()" id="downloadbtn" style="display: inline-block;"><b>Click to Download lab report</b></button>
+        <button class="btn btn-success" onclick="getPDFforlabimage()" id="downloadbtn" style="display: inline-block;"><b>Click to Download Lab report image</b></button>
+    </div>
+    {% endfor %}
+   
+</div>
+<div id="image-report" class="card-group">
+    <div>
+        <p>View Image Report</p>
+        <p> Doctor Name: {{each_data.0.name}}</p>
+    </div>
+    {% for image in each_data.2 %}
+    <div class="card ">
+        <div class="card-body canvas_div_pdfimagereport">
+            <div class="canvas_div_pdfimage"><img src="{{image.imaging_document.url}}" class="card-img-top" alt="Lab Report"></div>
+            <p class="card-text">{{image.imaging_event}}</p>
+            <p class="card-text">{{image.imaging_test_name}}</p>
+            <p class="card-text">{{image.imaging_modality}}</p>
+            <p class="card-text">{{image.imaging_body_site}}</p>
+            <p class="card-text">{{image.imaging_findings}}</p>
+            <p class="card-text">{{image.imaging_document}}</p>
+<div>
+    <button onclick="getPDF()" id="downloadbtn" style="display: inline-block;"><b>Click to Download HTML as PDF</b></button>
+</div>
+<div id="image-report">
+    <p>View Image Report</p>
+    <div class="card-group">
+        {% for data in image_report %}
+        <div class="card canvas_div_pdf">
+            <div class="card-body">
+                <p class="card-text">{{data.imaging_event}}</p>
+                <p class="card-text">{{data.imaging_test_name}}</p>
+                <p class="card-text">{{data.imaging_modality}}</p>
+                <p class="card-text">{{data.imaging_body_site}}</p>
+                <p class="card-text">{{data.imaging_findings}}</p>
+                <p class="card-text">{{data.imaging_document}}</p>
+            </div>
+            <!-- <p class="card-text">{{image.imaging_document}}</p> -->
+        </div>
+        <button class="btn btn-success" onclick="getPDFforimagereport()" id="downloadbtn" style="display: inline-block;"><b>Click to Download HTML as PDF</b></button>
+    <button class="btn btn-success" onclick="getPDFforimage()" id="downloadbtn" style="display: inline-block;"><b>Click to Download HTML as PDF</b></button>
+    </div>
+    {% endfor %}
+    
+</div>
+{% endfor %}
+</div>
+
+<form action="{% url 'patientSummaryView' %}" method="POST">
+    {% csrf_token %}
+    <!-- <input type="text" name="patient_name" placeholder="Enter firstname" />
+    <input type="text" name="phone_number" placeholder="phone_number" />
+    <button type="submit">Search</button> -->
+<!-- <a href="{% url 'patientSummaryView' %}">Submit</a> -->

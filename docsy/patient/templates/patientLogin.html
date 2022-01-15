@@ -4,15 +4,14 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Doctors Login</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Bootstrap Ecommerce Template" name="keywords">
     <meta content="Bootstrap Ecommerce Template Free Download" name="description">
     <title> Patient SignIn | SignUp Page</title>
     <!--  <link rel="stylesheet" href="./style.css">-->
     <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css" />
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -24,7 +23,7 @@
             var name = document.getElementById('name').value;
             var dob = document.getElementById('dob').value;
             var phone = document.getElementById('phone').value;
-            var email=document.getElementById('email').value;
+            var email = document.getElementById('email').value;
             var gender = document.getElementById('gender').value;
             var pass = document.getElementById('password').value;
             var cpass = document.getElementById('cpassword').value;
@@ -47,8 +46,7 @@
             if (dob.length == 0) {
                 document.getElementById("dob_error").innerHTML = "Enter Your dob";
                 k = 1;
-            } 
-            else
+            } else
                 document.getElementById("dob_error").innerHTML = "";
 
 
@@ -65,17 +63,14 @@
             } else
                 document.getElementById("gender_error").innerHTML = "";
 
-            if(email.length==0){
-                 document.getElementById("emailid1").innerHTML="Enter EmailID";
-                 k=1;
-             }
-            else if(!email.match(check))
-            {
-                document.getElementById("emailid1").innerHTML="Enter a Correct Mail";
-                k=1;
-            }
-            else{
-                document.getElementById("emailid1").innerHTML="";
+            if (email.length == 0) {
+                document.getElementById("emailid1").innerHTML = "Enter EmailID";
+                k = 1;
+            } else if (!email.match(check)) {
+                document.getElementById("emailid1").innerHTML = "Enter a Correct Mail";
+                k = 1;
+            } else {
+                document.getElementById("emailid1").innerHTML = "";
             }
             if (pass.length == 0) {
                 document.getElementById("pass1").innerHTML = "Enter Password";
@@ -175,88 +170,88 @@
         }
     </script>
 
-<script>
-    function checkemail(form1) {
-        var mail = document.getElementById('email').value;
-    
+    <script>
+        function checkemail(form1) {
+            var mail = document.getElementById('email').value;
 
-        var el = document.getElementsByName("csrfmiddlewaretoken");
-        csrf_value = el[0].getAttribute("value");
-        $.ajax({
-            type: 'post',
-            url: "{% url 'emailalreadyexists' %}",
-            data: {
-                a: mail,
-                csrfmiddlewaretoken: csrf_value
-            },
-            success: function(response) {
-                if (response == 0) {
-                    document.getElementById('emailid1').innerHTML = "Email Already Exists";
-            
-                } else {
-                    document.getElementById('incorrect').innerHTML = "";
-                
-                }
-            }
-        });
-    }
-</script>
-<script>
-    function checkemail() {
-        var mail = document.getElementById('email').value;
-    
 
-        var el = document.getElementsByName("csrfmiddlewaretoken");
-        csrf_value = el[0].getAttribute("value");
-        $.ajax({
-            type: 'post',
-            url: "{% url 'emailalreadyexists' %}",
-            data: {
-                a: mail,
-                csrfmiddlewaretoken: csrf_value
-            },
-            success: function(response) {
-                if (response == 0) {
-                    document.getElementById('emailid1').innerHTML = "Email Already Exists";
-            
-                } else {
-                    document.getElementById('emailid1').innerHTML = "";
-                
+            var el = document.getElementsByName("csrfmiddlewaretoken");
+            csrf_value = el[0].getAttribute("value");
+            $.ajax({
+                type: 'post',
+                url: "{% url 'emailalreadyexists' %}",
+                data: {
+                    a: mail,
+                    csrfmiddlewaretoken: csrf_value
+                },
+                success: function(response) {
+                    if (response == 0) {
+                        document.getElementById('emailid1').innerHTML = "Email Already Exists";
+
+                    } else {
+                        document.getElementById('incorrect').innerHTML = "";
+
+                    }
                 }
-            }
-        });
-    }
-</script>
-<script>
-    function checkmobile() {
-        var phone = document.getElementById('phone').value;
-        // alert(phone)
-        var el = document.getElementsByName("csrfmiddlewaretoken");
-        csrf_value = el[0].getAttribute("value");
-        $.ajax({
-            type: 'post',
-            url: "{% url 'mobilealreadyexists' %}",
-            data: {
-                a: phone,
-                csrfmiddlewaretoken: csrf_value
-            },
-            success: function(response) {
-                // alert(response)
-                if (response == 0) {
-                    document.getElementById('phone_error').innerHTML = "Mobile Already Exists";
-                } else {
-                    document.getElementById('phone_error').innerHTML = "";
-                
+            });
+        }
+    </script>
+    <script>
+        function checkemail() {
+            var mail = document.getElementById('email').value;
+
+
+            var el = document.getElementsByName("csrfmiddlewaretoken");
+            csrf_value = el[0].getAttribute("value");
+            $.ajax({
+                type: 'post',
+                url: "{% url 'emailalreadyexists' %}",
+                data: {
+                    a: mail,
+                    csrfmiddlewaretoken: csrf_value
+                },
+                success: function(response) {
+                    if (response == 0) {
+                        document.getElementById('emailid1').innerHTML = "Email Already Exists";
+
+                    } else {
+                        document.getElementById('emailid1').innerHTML = "";
+
+                    }
                 }
-            }
-        });
-    }
-</script>
+            });
+        }
+    </script>
+    <script>
+        function checkmobile() {
+            var phone = document.getElementById('phone').value;
+            // alert(phone)
+            var el = document.getElementsByName("csrfmiddlewaretoken");
+            csrf_value = el[0].getAttribute("value");
+            $.ajax({
+                type: 'post',
+                url: "{% url 'mobilealreadyexists' %}",
+                data: {
+                    a: phone,
+                    csrfmiddlewaretoken: csrf_value
+                },
+                success: function(response) {
+                    // alert(response)
+                    if (response == 0) {
+                        document.getElementById('phone_error').innerHTML = "Mobile Already Exists";
+                    } else {
+                        document.getElementById('phone_error').innerHTML = "";
+
+                    }
+                }
+            });
+        }
+    </script>
     {% if message %}
-   
+
     <div class="alert alert-success alert-dismissible " role="alert">
-      {{ message }}
-     
+        {{ message }}
+
     </div>
     {% endif %}
 
@@ -268,7 +263,7 @@
                 <input type="text" placeholder="Name" name="name" id="name" />
                 <span id="uname1"></span>
 
-                <input type="date"  name="dob" id="dob" />
+                <input type="date" name="dob" id="dob" />
                 <span id="dob_error"></span>
 
                 <input type="email" placeholder="Email" name="email" id="email" onchange=checkemail() />
@@ -289,7 +284,7 @@
                 <input type="password" placeholder="Conform Password" name="cpassword" id="cpassword" />
                 <span id="cpass1"></span>
 
-                
+
 
                 <button onclick="return validate(this)">Sign Up</button>
             </form>
