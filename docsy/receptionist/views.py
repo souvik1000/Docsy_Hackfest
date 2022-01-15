@@ -151,10 +151,13 @@ def doctorsDashboard(request):
 def procedure(request):
     return render(request,'procedure.html' )
 
-def createPatientData(request,patientid,appointmentId):
-    return render(request, 'createPatientData.html',{'patientid':patientid,'appointmentId':appointmentId})
+# def createPatientData(request,patientid,appointmentId):
+#     return render(request, 'createPatientData.html',{'patientid':patientid,'appointmentId':appointmentId})
 
 # For Creation 
+def createPatientData(request):
+    return render(request, 'createPatientData.html')
+
 
 def patientAllergiesCreation(request):
     patientId = request.POST['patientId']
