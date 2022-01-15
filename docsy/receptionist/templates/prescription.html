@@ -150,7 +150,7 @@
                             </div>
                     </div>
                         <p>Total Medicines are:<span id="medicine_count_val">0</span></p>
-                        <input type="submit" class="btn btn-danger" value="submit">
+                        <input type="submit"  style="text-align: center;"class="btn btn-danger" value="Submit Prescription">
 
                             <div  id="total_medicine" class="text-center">
 
@@ -166,6 +166,15 @@
     </div>
 
 <button onclick=get_medicine() >Add medicine</button>
+<script>
+    function deleterow(c){
+        var l=document.getElementById("total_medicine")
+        document.getElementById("each_medicine"+c).style.display="none";
+        var c=parseInt(document.getElementById('medicine_count').value)-1
+        document.getElementById('medicine_count').value=c
+        document.getElementById('medicine_count_val').innerHTML=c 
+    }
+</script>
 
 <script>
     function get_medicine(){
@@ -174,13 +183,20 @@
         document.getElementById('medicine_count_val').innerHTML=c
 
         var s=`
-        <div  id="each_medicine" class="card">
+
+        <div  id="each_medicine`+c+`" class="card" style="display:block;">
         <!-- product name and image -->
+       
+       
         <div   class="row  text-left">
+
+            
+            <h2>Medicine`+c+`  <b class="btn btn-danger btn-sm" style="float:right;" onclick="deleterow(`+c+`)"><span style="color:white;">×</span></b></h2>
+
             <div class="form-group col-sm-3 flex-column d-flex"> 
                 <label class="form-control-label px-3">Medicine Name </label>
                 <input type="text" id="medicine_name`+c+`" name="medicine_name`+c+`" placeholder="enter medicine_name" > 
-                <span id="medicine_name_error`+c+`"></span>
+                <span id="medicine_name_errorC"></span>
             </div>
             <div class="form-group col-sm-3 flex-column d-flex"> 
                 <label class="form-control-label px-3">Form </label>
@@ -276,6 +292,7 @@
 
         // document.getElementById("total_medicine").innerHTML=document.getElementById("total_medicine").innerHTML.append;
         document.getElementById("total_medicine").insertAdjacentHTML( 'beforeend', s );
+        
     }
 </script>
 

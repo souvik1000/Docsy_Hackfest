@@ -8,6 +8,10 @@ from patient.models import patient,Appointment
 
 from .models import doctor,problem,medicines,prescription, illnesshistory,allergies,procedurehistory,diagnostic,labreport,imagingexam
 
+
+
+
+
 def login(request):
     return render(request,'login.html')
 
@@ -147,7 +151,6 @@ def doctorsDashboard(request):
  
 
 
-
 def procedure(request):
     return render(request,'procedure.html' )
 
@@ -245,32 +248,27 @@ def diaganosisReportCreation(request):
 def patientSummary(request):
     return render(request,'patientsummary.html')
 
-def patientSummaryView(request):
-    patient_name = request.POST['patient_name']
-    patient_number = request.POST['phone_number']
+def patientSummaryView(request,pid,appid):
     try:
-        patient_data = patient.objects.filter(name__istartswith=patient_name, phoneno=patient_number)
-        patient_id = patient_data[0].id
+        # patient_id = pid
+        patient_id = patientid = patient.objects.get(id=pid)
         illness_data = illnesshistory.objects.all().filter(patientId=patient_id)
         allergy_data = allergies.objects.all().filter(patientId=patient_id)
         procedure_data = procedurehistory.objects.all().filter(patientId=patient_id)
         # Diagenostic Data
         diagnostic_data = diagnostic.objects.all().filter(patientId=patient_id)
-        all_details = []
+        doctors_detail = []; lab_reports = []; image_reports = []
         patient_detail = diagnostic_data[0].patientId
-        # Age Calculator
-        born = patient_detail.dob
-        today = date.today()
-        patient_age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
-        # Collecting data based on diagnostic_data
+
         for data in range(0, len(diagnostic_data)):
-            sample_data = [diagnostic_data[data].doctorId, labreport.objects.filter(diagnosticId=diagnostic_data[data].id), imagingexam.objects.filter(diagnosticId=diagnostic_data[data].id)]
-            all_details.append(sample_data)
-            
-        return render(request, 'patientsummary.html', {"all_details":all_details, "patient_age":patient_age, "illness_data":illness_data, "allergy_data":allergy_data, "procedure_data":procedure_data, "patient_details":patient_detail})
+            doctors_detail.append(diagnostic_data[data].doctorId)
+            lab_reports.append(labreport.objects.get(diagnosticId=diagnostic_data[data].id))
+            image_reports.append(imagingexam.objects.get(diagnosticId=diagnostic_data[data].id))
+        
+        # print(illness_data[0].illness_name)
+        return render(request, 'patientsummary.html', {"pid":pid,"appid":appid,"illness_data":illness_data, "allergy_data":allergy_data, "procedure_data":procedure_data, "lab_report":lab_reports, "image_report":image_reports, "patient_details":patient_detail, "doctor_details":doctors_detail})
     except:
         return render(request, 'not_found_page.html')
-
 
 
 

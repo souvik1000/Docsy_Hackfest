@@ -30,7 +30,13 @@ urlpatterns=[
     path('patientSummaryView/', views.patientSummaryView, name="patientSummaryView"),
     path('diaganosisReportCreation', views.diaganosisReportCreation, name="diaganosisReportCreation"),
     path('logout/',views.logout,name="logout"),
+<<<<<<< HEAD
+    # path('viewpresciptions',views.viewpresciption,name="prescription"),
+    path("doctoremailalreadyexists/",views.doctoremailalreadyexists,name="doctoremailalreadyexists"),
+    path("doctormobilealreadyexists/",views.doctormobilealreadyexists,name="doctormobilealreadyexists")
+=======
 ]
+>>>>>>> a0395c5f9076fa1913630f70a4c28b4f8f0798f5
 
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
