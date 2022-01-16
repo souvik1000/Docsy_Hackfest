@@ -128,7 +128,11 @@ def checkstatus(requst,pid,appid):
     return redirect(doctorsDashboard)
 
 def homePage(request):
-    return render(request,'index.html')
+    if 'doctor_id' in request.session:
+        doctor_id=doctor.objects.get(id=request.session['doctor_id'])
+        return render(request, 'index.html', {"doctor_id":doctor_id})
+    else:
+        return redirect("login")
 
 def doctorsDashboard(request):
 
@@ -291,7 +295,7 @@ def patientSummary(request):
     return render(request,'patientsummary.html')
 
 def patientSummaryView(request,pid,appid):
-    doctor_id=request.session['doctor_id']
+    doctor_id=doctor.objects.get(id=request.session['doctor_id'])
     try:
         # Gathering Current To Previous Data
         patient_id=patient.objects.get(id=pid)
