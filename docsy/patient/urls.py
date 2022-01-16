@@ -12,5 +12,6 @@ urlpatterns=[
     path('patientAppointment/',views.patientAppointment,name="patientAppointment"),
     path('patientAppointmentBackend/',views.patientAppointmentBackend,name="patientAppointmentBackend"),
     path('getspecialiseddoctor/',views.getspecialiseddoctor,name="getspecialiseddoctor"),
-    path('patient/patientPrescription/',views.patientPrescription,name="patientPrescription")
+   
+    path('patientlogout/',views.patientlogout,name="patientlogout")
     ]

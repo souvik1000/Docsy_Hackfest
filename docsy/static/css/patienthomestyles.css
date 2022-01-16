@@ -545,7 +545,7 @@ body {
   
   .feature-section .image-content .item {
     position: relative;
-    margin-top: 40px;
+    /* margin-top: 40px; */
     padding: 0 30px;
   }
   

@@ -33,10 +33,13 @@ urlpatterns=[
     path('logout/',views.logout,name="logout"),
     # path('viewpresciptions',views.viewpresciption,name="prescription"),
     path("doctoremailalreadyexists/",views.doctoremailalreadyexists,name="doctoremailalreadyexists"),
+
+    path("doctormobilealreadyexists/",views.doctormobilealreadyexists,name="doctormobilealreadyexists"),
     path("doctormobilealreadyexists/",views.doctormobilealreadyexists,name="doctormobilealreadyexists"),
     path('doctorsDashboard/patientSummaryView/<str:pid>/<str:imagepath>/<str:dirname>/<str:data>', views.imageView, name="imageView"),
     path('patientDetails', views.patientDetails, name="patientDetails")
 ]
+
 
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
