@@ -110,20 +110,16 @@
 </head>
 
 <body>
-    <div id="main">
-        <div id="features-creation">
-            <form method="post" action="{% url 'diaganosisReportCreation' %}" enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="hidden" id="lab_counter" name="lab_counter" value="0" />
-                <input type="hidden" id="image_counter" name="image_counter" value="0" />
-                <div id="labreport">
-
-                </div>
-                <div id="imagereport">
-
-                </div>
-                <button type="submit">Submit Reports</button>
-            </form>
+    <div id="main ">
+        <div id="features-creation ">
+                <form method="post " action="{% url 'diaganosisReportCreation' %} " enctype="multipart/form-data ">
+                    {% csrf_token %}
+                    <input type="hidden" id="lab_counter" name="lab_counter" value="0 " />
+                    <input type="hidden" id="image_counter" name="image_counter" value="0 " />
+                    <div id="labreport"></div>
+                    <div id="imagereport"></div>
+                    <button type="submit ">Submit Reports</button>
+                </form>
 
             <button onclick=get_labreport() class="btn btn-secondary">Add LabReport</button>
             <button onclick=get_imagereport() class="btn btn-secondary">Add ImageReport</button>
@@ -132,7 +128,8 @@
     </div>
     </div>
     <script>
-        function get_labreport() {
+        function get_labreport() {  
+            // alert("inside lab report")
             var c = parseInt(document.getElementById('lab_counter').value) + 1;
             document.getElementById('lab_counter').value = c;
             // lab_report = `
@@ -189,10 +186,12 @@
                         </div>
                         </div>
                     </div>`;
+            
             document.getElementById("labreport").insertAdjacentHTML('beforeend', lab_report);
         }
 
         function get_imagereport() {
+            // alert("inside image report")
             var c = parseInt(document.getElementById('image_counter').value) + 1;
             document.getElementById('image_counter').value = c;
             // image_report = `
