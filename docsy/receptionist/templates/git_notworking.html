@@ -88,6 +88,8 @@ button:focus {
 
 
     <div class="page-wrapper">
+
+
       <!--Main Header-->
       <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
@@ -126,9 +128,10 @@ button:focus {
 
       <br><br><br><br>
 
-        <h3 class="text-center">Patient Details form</h3>
-        <!-- form section -->
-        <div class="container-fluid px-1 py-5 mx-auto" >
+      <h3 class="text-center">Patient Details form</h3>
+      <!-- form section -->
+
+      <div class="container-fluid px-1 py-5 mx-auto" >
 
         <div class="row d-flex justify-content-center">
 
@@ -138,151 +141,98 @@ button:focus {
                 <!-- <p style="color: #00BCD4;">Welcome to PAAS<br> Add your awesome products here.</p> -->
                 
                 <div class="card">
-                    <!-- form start -->
+
+                <!-- form start -->
                     <form class="form-card" method="post" action="{% url 'patientDetails' %}" enctype="multipart/form-data" >
-                        {%csrf_token%}
-                            <div class="row justify-content-between text-left">
-                                
-                            <div class="form-group col-sm-6 flex-column d-flex">
-                                <label class="form-control-label px-3">Patient name:</label> 
-                                <input type="text" id="patient_name" name="patient_name" placeholder="Patient name" > 
-                            </div>
+                    {%csrf_token%}
+                      <div class="row justify-content-between text-left">
+                            
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-control-label px-3">Patient name:</label> 
+                            <input type="text" id="patient_name" name="patient_name" placeholder="Patient name" > 
+                        </div>
+                        
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-control-label px-3">Patient phone number:</label> 
+                            <input type="text" id="phone_number" name="phone_number" placeholder="Patient phone number" > 
+                        </div>
+
+                      </div>
+                      <br>
+
+                        <!-- allergies and Intolerance -->
+                        <h4>Allergies and Intolerance</h4>
+                        <hr>
+                        <br>
+
+                        <div class="row justify-content-between text-left">
                             
                             <div class="form-group col-sm-6 flex-column d-flex">
-                                <label class="form-control-label px-3">Patient phone number:</label> 
-                                <input type="text" id="phone_number" name="phone_number" placeholder="Patient phone number" > 
-                            </div>
-
-                            </div>
-                            <br>
-
-                            <!-- allergies and Intolerance -->
-                            <h4>Allergies and Intolerance</h4>
-                            <hr>
-                            <br>
-
-                            <div class="row justify-content-between text-left">
+                                <label class="form-control-label px-3">Type</label> 
                                 
-                                <div class="form-group col-sm-6 flex-column d-flex">
-                                    <label class="form-control-label px-3">Type</label> 
-                                    
-                                    <select name="type" id="type" class="form-control">
-                                        <option  >Choose one of the types</option>
-                                        <option  >Allergy</option>
-                                        <option  >Intolerance</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="form-group col-sm-6 flex-column d-flex">
-                                    <label class="form-control-label px-3">Criticality</label> 
-                                    <select name="criticality" id="criticality" class="form-control">
-                                        <option  >Choose level of criticality</option>
-                                        <option  >High</option>
-                                        <option  >Medium</option>
-                                        <option  >Low</option>
-                                    </select>
-                                </div>
-
-                            </div>
-                            <br>
-                            <!--  -->
-                            <div class="row justify-content-between text-left">
-                                <div class="form-group col-sm-6 flex-column d-flex"> 
-                                    <label class="form-control-label px-3">Substance</label>
-                                    <input type="text" id="substance" name="substance" placeholder="substance" > 
-                                </div>
-                            </div>
-                            <br>
-                            <!-- Description -->
-                            <div class="row justify-content-between text-left">
-                                <div class="form-group col-12 flex-column d-flex"> 
-                                    <label class="form-control-label px-3">Comments</label> 
-                                    <input type="text" id="comment" name="comment" placeholder="comment" onblur=""> 
-                                </div>
-                            </div>
-
-                            <!-- submit button -->
-                            <!-- <div class="row justify-content-end">
-                                <div class="form-group col-sm-6"> <button type="submit" class="btn-block" style="background-color: #ff4c68; color: white;">Submit</button> </div>
-                            </div> -->
-
-                            <br><br><br><br>
-                            <h4>History of Procedures</h4>
-                            <hr>
-                            <br>
-                            <div class="row justify-content-between text-left">
-                                <div class="form-group col-sm-6 flex-column d-flex"> 
-                                    <label class="form-control-label px-3">Procedure name</label>
-                                    <input type="text" id="procedure_name" name="procedure_name" placeholder="procedure name" > 
-                                </div>
-                                <div class="form-group col-sm-6 flex-column d-flex"> 
-                                    <label class="form-control-label px-3">Body site</label>
-                                    <input type="text" id="body_site" name="body_site" placeholder="body site" > 
-                                </div>
-                            </div>
-                            <br>
-                            
-                            <div class="row justify-content-between text-left">
-                                <div class="form-group col-sm-6 flex-column d-flex"> 
-                                    <label class="form-control-label px-3">Date of procedure</label>
-                                    <input type="date" id="date_of_procedure" name="date_of_procedure" placeholder="Date of procedure" > 
-                                </div>
+                                <select name="type" id="type" class="form-control">
+                                    <option  >Choose one of the types</option>
+                                    <option  >Allergy</option>
+                                    <option  >Intolerance</option>
+                                </select>
                             </div>
                             
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label class="form-control-label px-3">Criticality</label> 
+                                <select name="criticality" id="criticality" class="form-control">
+                                    <option  >Choose level of criticality</option>
+                                    <option  >High</option>
+                                    <option  >Medium</option>
+                                    <option  >Low</option>
+                                </select>
+                            </div>
 
-                            <br><br><br><br>
-                            <h4>Add patient illness record</h4>
-                            <hr>
-                            <br>
-                            <div class="row justify-content-between text-left">
-                                <div class="form-group col-sm-6 flex-column d-flex"> 
-                                    <label class="form-control-label px-3">Illness</label>
-                                    <input type="text" id="illness_name" name="illness_name" placeholder="illness_name" > 
-                                </div>
-                                <div class="form-group col-sm-6 flex-column d-flex"> 
-                                    <label class="form-control-label px-3">Body site</label>
-                                    <input type="text" id="body_site" name="body_site" placeholder="body_site" > 
-                                </div>
+                        </div>
+                        <br>
+                        <!--  -->
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">Substance</label>
+                                <input type="text" id="substance" name="substance" placeholder="substance" > 
                             </div>
-                            <br>
-                            <div class="row justify-content-between text-left">
-                                
-                                <div class="form-group col-sm-6 flex-column d-flex">
-                                    <label class="form-control-label px-3">Severity</label> 
-                                    <select name="severity" id="severity" class="form-control">
-                                        <option  >Choose severity</option>
-                                        <option  >High</option>
-                                        <option  >Medium</option>
-                                        <option  >Low</option>
-                                    </select>
-                                </div>
+                        </div>
+                        <br>
+                        <!-- Description -->
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-12 flex-column d-flex"> 
+                                <label class="form-control-label px-3">Comments</label> 
+                                <input type="text" id="comment" name="comment" placeholder="comment" onblur=""> 
+                            </div>
+                        </div>
 
+                        <!-- submit button -->
+                        <!-- <div class="row justify-content-end">
+                            <div class="form-group col-sm-6"> <button type="submit" class="btn-block" style="background-color: #ff4c68; color: white;">Submit</button> </div>
+                        </div> -->
+
+                        <br><br><br><br>
+
+                        
+
+
+                        <br><br>
+
+                        <!-- submit button -->
+                        <div class="row justify-content-center">
+                            <div class="form-group col-sm-6"> 
+                              <input class="btn btn-primary" type="submit" value="Submit">
+                              <!-- <input type="submit" class="btn-block" style="background-color: #00BCD4; color: white;"> -->
                             </div>
-                            <br>
-                            <br>
-                            <div class="row justify-content-between text-left">
-                                <div class="form-group col-sm-6 flex-column d-flex"> 
-                                    <label class="form-control-label px-3">Date/time of onset</label>
-                                    <input type="datetime-local" id="illness_date_onset" name="illness_date_onset" placeholder="Date/time of onset" > 
-                                </div>
-                                <div class="form-group col-sm-6 flex-column d-flex"> 
-                                    <label class="form-control-label px-3">Date of abatement</label>
-                                    <input type="date" id="illness_date_abatement" name="illness_date_abatement" placeholder="illness_date_abatement" > 
-                                </div>
-                            </div>
-                            <br><br>
-                            <!-- submit button -->
-                            <div class="row justify-content-center">
-                                <div class="form-group col-sm-6"> 
-                                    <input class="btn btn-primary" type="submit" value="Submit">
-                                    <!-- <input type="submit" class="btn-block" style="background-color: #00BCD4; color: white;"> -->
-                                </div>
-                            </div>
-                        </form>
+                        </div>
+
+                    </form>
+
                 </div>
+
+               
             </div>
         </div>
-    </div>
+      </div>
 
       <!-- form section end -->
 

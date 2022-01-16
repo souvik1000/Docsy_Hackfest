@@ -39,7 +39,8 @@ def registrationValidation(request):
     clinic_address = request.POST['clinic_address']
     submit_details=doctor(name=name,specalist=specalist,email=email,gender=gender,phoneno=phone,password=password,clinic_address=clinic_address)
     submit_details.save()
-    return render(request, 'login.html')
+    # return HttpResponse("Registration Successful")
+    return render(request,'login.html')
 
 def loginauth(request):
     phone=request.POST['a']
@@ -159,31 +160,32 @@ def registerPatient(request):
 #     return render(request, 'createPatientData.html',{'patientid':patientid,'appointmentId':appointmentId})
 
 # For Creation 
-def createPatientData(request):
-    return render(request, 'createPatientData.html')
-
+# def createPatientData(request):
+#     return render(request, 'createPatientData.html')
 def patientDetail(request):
     if 'doctor_id' in request.session:
         doctor_id=doctor.objects.get(id=request.session['doctor_id'])
         return render(request, 'patientDetailsForm.html', {"doctor_id":doctor_id})
     else:
         return redirect("login")
-
+        
 def patientDetails(request):
     patient_name = request.POST['patient_name']
     patient_number = request.POST['phone_number']
     patient_id = patient.objects.filter(name__istartswith=patient_name, phoneno=patient_number)
-    # patient_id = patient_data[0].id
-    # pid = patient.objects.get(id=patient_id)
+    pid = patient_id[0].id
+    patient_id= patient.objects.get(id=pid)
+    # return HttpResponse(patient_id)
     
     substance = request.POST['substance']
     criticality = request.POST['criticality']
     type = request.POST['type']
     comment = request.POST['comment']
-    
-    procedure_name=request.POST['Procedure']
-    body_site=request.POST['BodySite']
-    date_of_procedure=request.POST['DateofProcedure']
+    # return HttpResponse("added allergy")
+
+    procedure_name=request.POST['procedure_name']
+    body_site=request.POST['body_site']
+    date_of_procedure=request.POST['date_of_procedure']
     
     illness_name = request.POST['illness_name']
     body_site = request.POST['body_site']
@@ -192,13 +194,13 @@ def patientDetails(request):
     illness_date_abatement = request.POST['illness_date_abatement']
     
     # Adding to DB based on data provided by receptionist
-    if (substance!=''):
+    if substance!='':
         allergies(patientId=patient_id, substance=substance, criticality=criticality, type=type, comment=comment).save()
         
-    if (procedure_name != '') and (date_of_procedure != ''):
+    if procedure_name!='':# and date_of_procedure!='':
         procedurehistory(patientId=patient_id,procedure_name=procedure_name ,body_site=body_site,procedure_date=date_of_procedure).save()
         
-    if (illness_name != '') and (illness_date_onset != '') and (illness_date_abatement != ''):
+    if (illness_name!=''):# and (illness_date_onset!='') and (illness_date_abatement!=''):
         illnesshistory(patientId=patient_id, illness_name=illness_name, body_site=body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement).save()
         
     return render(request, 'patientDetailsForm.html')

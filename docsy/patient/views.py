@@ -115,12 +115,21 @@ def patientDashboard(request):
     return HttpResponse("patient dashboard")
 
 def patientAppointment(request): 
-    all_specialization=doctor.objects.values('specalist')
+    result=doctor.objects.values('specalist')
+    all_specialization = [dict(tupleized) for tupleized in set(tuple(each.items()) for each in result)]
+    # print(all_specialization)
+    patient_id=request.session['patient_id']
     # return HttpResponse(all_specialization)
     return render(request,'patientAppointment.html',{'all_specialization':all_specialization})
 
+# def yourAppointments(request):
+    # patient_id=request.session['patient_id']
+    # all_appointments=Appointment.objects.get(patientId=patient_id)
+
 def getspecialiseddoctor(request):
     specalization=request.POST['spec']
+    print(specalization)
+    # return HttpResponse(specalization)
     doctors_by_specalization=""
     specialzed_doctors=doctor.objects.filter(specalist=specalization)
     for i in specialzed_doctors:

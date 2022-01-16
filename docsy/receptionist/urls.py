@@ -25,7 +25,7 @@ urlpatterns=[
     path('doctorsDashboard/checkstatus/<str:pid>/<str:appid>', views.checkstatus, name="checkstatus"),
     
     path('patientSummary/',views.patientSummary,name="patientSummary"),
-    path('createPatientData/',views.createPatientData,name="createPatientData"),
+    # path('createPatientData/',views.createPatientData,name="createPatientData"),
     
     # path('patientIllnessCreation/', views.patientIllnessCreation, name="patientIllnessCreation"),
     # path('patientAllergiesCreation/', views.patientAllergiesCreation, name="patientAllergiesCreation"),
