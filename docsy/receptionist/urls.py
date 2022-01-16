@@ -25,7 +25,7 @@ urlpatterns=[
     path('doctorsDashboard/checkstatus/<str:pid>/<str:appid>', views.checkstatus, name="checkstatus"),
     
     path('patientSummary/',views.patientSummary,name="patientSummary"),
-    path('createPatientData/',views.createPatientData,name="createPatientData"),
+    # path('createPatientData/',views.createPatientData,name="createPatientData"),
     
     # path('patientIllnessCreation/', views.patientIllnessCreation, name="patientIllnessCreation"),
     # path('patientAllergiesCreation/', views.patientAllergiesCreation, name="patientAllergiesCreation"),
@@ -38,6 +38,7 @@ urlpatterns=[
     path("doctormobilealreadyexists/",views.doctormobilealreadyexists,name="doctormobilealreadyexists"),
     path("doctormobilealreadyexists/",views.doctormobilealreadyexists,name="doctormobilealreadyexists"),
     path('doctorsDashboard/patientSummaryView/<str:pid>/<str:imagepath>/<str:dirname>/<str:data>', views.imageView, name="imageView"),
+    path('patientDetail',views.patientDetail, name="patientDetail"),
     path('patientDetails', views.patientDetails, name="patientDetails")
 ]
 
