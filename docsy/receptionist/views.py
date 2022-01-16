@@ -153,11 +153,11 @@ def doctorsDashboard(request):
     for i in b:
         x=i.patientId
         bp.append([x.id,x.name,i.disease,i.appointmentTime,i.id])
-    return render(request,'doctorsDashboard.html',{"today_appointments":ap,"past_appointments":bp})
+    return render(request,'doctorsDashboard.html',{"today_appointments":ap,"past_appointments":bp, "doctor_id":d})
     # return HttpResponse("Doctors Dashboard")
 
 def procedure(request):
-    return render(request,'procedure.html' )
+    return render(request,'procedure.html')
 
 # def createPatientData(request,patientid,appointmentId):
 #     return render(request, 'createPatientData.html',{'patientid':patientid,'appointmentId':appointmentId})
@@ -165,6 +165,13 @@ def procedure(request):
 # For Creation 
 def createPatientData(request):
     return render(request, 'createPatientData.html')
+
+def patientDetail(request):
+    if 'doctor_id' in request.session:
+        doctor_id=doctor.objects.get(id=request.session['doctor_id'])
+        return render(request, 'patientDetailsForm.html', {"doctor_id":doctor_id})
+    else:
+        return redirect("login")
 
 def patientDetails(request):
     patient_name = request.POST['patient_name']
@@ -189,13 +196,13 @@ def patientDetails(request):
     illness_date_abatement = request.POST['illness_date_abatement']
     
     # Adding to DB based on data provided by receptionist
-    if substance is not None:
+    if (substance!=''):
         allergies(patientId=patient_id, substance=substance, criticality=criticality, type=type, comment=comment).save()
         
-    if procedure_name is not None:
+    if (procedure_name != '') and (date_of_procedure != ''):
         procedurehistory(patientId=patient_id,procedure_name=procedure_name ,body_site=body_site,procedure_date=date_of_procedure).save()
         
-    if illness_name is not None:
+    if (illness_name != '') and (illness_date_onset != '') and (illness_date_abatement != ''):
         illnesshistory(patientId=patient_id, illness_name=illness_name, body_site=body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement).save()
         
     return render(request, 'patientDetailsForm.html')

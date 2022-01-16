@@ -15,6 +15,7 @@ urlpatterns=[
     path('prescriptionBackend/',views.prescriptionBackend,name="prescriptionBackend"),
     path('patientSummary/procedure',views.procedure,name="procedure"),
     path('home/', views.homePage, name="homePage"),
+    path('patientDetail',views.patientDetail, name="patientDetail"),
     # path('procedurecreation/',views.procedurecreation,name="procedurecreation"),
     path('doctorsDashboard/patientSummaryView/<str:pid>/<str:appid>', views.patientSummaryView, name="patientSummaryView"),
     path('doctorsDashboard/add_reports/<str:patientid>/<str:appointmentId>', views.add_reports, name="add_reports"),
