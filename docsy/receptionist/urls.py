@@ -14,7 +14,8 @@ urlpatterns=[
     path('prescription/<str:patientid>/<str:appointmentId>',views.doctorprescription,name="doctorprescription"),
     path('prescriptionBackend/',views.prescriptionBackend,name="prescriptionBackend"),
     path('patientSummary/procedure',views.procedure,name="procedure"),
-    path('procedurecreation/',views.procedurecreation,name="procedurecreation"),
+    path('home/', views.homePage, name="homePage"),
+    # path('procedurecreation/',views.procedurecreation,name="procedurecreation"),
     path('doctorsDashboard/patientSummaryView/<str:pid>/<str:appid>', views.patientSummaryView, name="patientSummaryView"),
     path('doctorsDashboard/add_reports/<str:patientid>/<str:appointmentId>', views.add_reports, name="add_reports"),
     
@@ -25,8 +26,8 @@ urlpatterns=[
     path('patientSummary/',views.patientSummary,name="patientSummary"),
     path('createPatientData/',views.createPatientData,name="createPatientData"),
     
-    path('patientIllnessCreation/', views.patientIllnessCreation, name="patientIllnessCreation"),
-    path('patientAllergiesCreation/', views.patientAllergiesCreation, name="patientAllergiesCreation"),
+    # path('patientIllnessCreation/', views.patientIllnessCreation, name="patientIllnessCreation"),
+    # path('patientAllergiesCreation/', views.patientAllergiesCreation, name="patientAllergiesCreation"),
     path('patientSummaryView/', views.patientSummaryView, name="patientSummaryView"),
     path('diaganosisReportCreation', views.diaganosisReportCreation, name="diaganosisReportCreation"),
     path('logout/',views.logout,name="logout"),
@@ -34,6 +35,7 @@ urlpatterns=[
     path("doctoremailalreadyexists/",views.doctoremailalreadyexists,name="doctoremailalreadyexists"),
     path("doctormobilealreadyexists/",views.doctormobilealreadyexists,name="doctormobilealreadyexists"),
     path('doctorsDashboard/patientSummaryView/<str:pid>/<str:imagepath>/<str:dirname>/<str:data>', views.imageView, name="imageView"),
+    path('patientDetails', views.patientDetails, name="patientDetails")
 ]
 
 urlpatterns += staticfiles_urlpatterns()

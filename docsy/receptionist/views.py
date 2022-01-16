@@ -127,6 +127,9 @@ def checkstatus(requst,pid,appid):
     appointment.save()
     return redirect(doctorsDashboard)
 
+def homePage(request):
+    return render(request,'index.html')
+
 def doctorsDashboard(request):
 
     doctor_id=request.session['doctor_id']
@@ -159,38 +162,72 @@ def procedure(request):
 def createPatientData(request):
     return render(request, 'createPatientData.html')
 
-def patientAllergiesCreation(request):
-    patientId = request.POST['patientId']
+def patientDetails(request):
+    patient_name = request.POST['patient_name']
+    patient_number = request.POST['phone_number']
+    patient_id = patient.objects.filter(name__istartswith=patient_name, phoneno=patient_number)
+    # patient_id = patient_data[0].id
+    # pid = patient.objects.get(id=patient_id)
+    
     substance = request.POST['substance']
     criticality = request.POST['criticality']
     type = request.POST['type']
     comment = request.POST['comment']
-    pid = patient.objects.get(id=patientId)
-    submit_allergies = allergies(patientId=pid, substance=substance, criticality=criticality, type=type, comment=comment)
-    submit_allergies.save()
-    return render(request, 'createPatientData.html')
-
-def procedurecreation(request):
-    patientId = request.POST['patientId']
-    patientId=patient.objects.get(id=patientId)
+    
     procedure_name=request.POST['Procedure']
     body_site=request.POST['BodySite']
     date_of_procedure=request.POST['DateofProcedure']
-    submit_procedure=procedurehistory(patientId=patientId,procedure_name=procedure_name ,body_site=body_site,procedure_date=date_of_procedure)
-    submit_procedure.save()
-    return render(request, 'createPatientData.html')
-
-def patientIllnessCreation(request):
-    patientno = request.POST['patientno']
+    
     illness_name = request.POST['illness_name']
     body_site = request.POST['body_site']
     severity = request.POST['severity']
     illness_date_onset = request.POST['illness_date_onset']
     illness_date_abatement = request.POST['illness_date_abatement']
-    pid = patient.objects.get(id=patientno)
-    submit_details = illnesshistory(patientId=pid, illness_name=illness_name, body_site=body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement)
-    submit_details.save()
-    return render(request, 'createPatientData.html')
+    
+    # Adding to DB based on data provided by receptionist
+    if substance is not None:
+        allergies(patientId=patient_id, substance=substance, criticality=criticality, type=type, comment=comment).save()
+        
+    if procedure_name is not None:
+        procedurehistory(patientId=patient_id,procedure_name=procedure_name ,body_site=body_site,procedure_date=date_of_procedure).save()
+        
+    if illness_name is not None:
+        illnesshistory(patientId=patient_id, illness_name=illness_name, body_site=body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement).save()
+        
+    return render(request, 'patientDetailsForm.html')
+
+# def patientAllergiesCreation(request):
+#     patientId = request.POST['patientId']
+#     substance = request.POST['substance']
+#     criticality = request.POST['criticality']
+#     type = request.POST['type']
+#     comment = request.POST['comment']
+#     pid = patient.objects.get(id=patientId)
+#     submit_allergies = allergies(patientId=pid, substance=substance, criticality=criticality, type=type, comment=comment)
+#     submit_allergies.save()
+#     return render(request, 'createPatientData.html')
+
+# def procedurecreation(request):
+#     patientId = request.POST['patientId']
+#     patientId=patient.objects.get(id=patientId)
+#     procedure_name=request.POST['Procedure']
+#     body_site=request.POST['BodySite']
+#     date_of_procedure=request.POST['DateofProcedure']
+#     submit_procedure=procedurehistory(patientId=patientId,procedure_name=procedure_name ,body_site=body_site,procedure_date=date_of_procedure)
+#     submit_procedure.save()
+#     return render(request, 'createPatientData.html')
+
+# def patientIllnessCreation(request):
+#     patientno = request.POST['patientno']
+#     illness_name = request.POST['illness_name']
+#     body_site = request.POST['body_site']
+#     severity = request.POST['severity']
+#     illness_date_onset = request.POST['illness_date_onset']
+#     illness_date_abatement = request.POST['illness_date_abatement']
+#     pid = patient.objects.get(id=patientno)
+#     submit_details = illnesshistory(patientId=pid, illness_name=illness_name, body_site=body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement)
+#     submit_details.save()
+#     return render(request, 'createPatientData.html')
 
 def imageView(request,pid, imagepath, dirname, data):
     concatedImagePath = dirname + "/" + data
@@ -254,6 +291,7 @@ def patientSummary(request):
     return render(request,'patientsummary.html')
 
 def patientSummaryView(request,pid,appid):
+    doctor_id=request.session['doctor_id']
     try:
         # Gathering Current To Previous Data
         patient_id=patient.objects.get(id=pid)
@@ -282,7 +320,7 @@ def patientSummaryView(request,pid,appid):
             sample_data = [diagnostic_data[data].doctorId, labreport.objects.filter(diagnosticId=diagnostic_data[data].id), imagingexam.objects.filter(diagnosticId=diagnostic_data[data].id)]
             all_details.append(sample_data)
             
-        return render(request, 'patientsummary.html', {"problem_with_medicines":problem_with_medicines, "all_details":all_details, "patient_age":patient_age, "illness_data":illness_data, "allergy_data":allergy_data, "procedure_data":procedure_data, "patient_details":patient_id})
+        return render(request, 'patientsummary.html', {"doctor_id":doctor_id, "problem_with_medicines":problem_with_medicines, "all_details":all_details, "patient_age":patient_age, "illness_data":illness_data, "allergy_data":allergy_data, "procedure_data":procedure_data, "patient_details":patient_id})
     except:
         return render(request, 'not_found_page.html')
 
