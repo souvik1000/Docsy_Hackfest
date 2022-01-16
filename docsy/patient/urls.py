@@ -14,5 +14,7 @@ urlpatterns=[
     path('getspecialiseddoctor/',views.getspecialiseddoctor,name="getspecialiseddoctor"),
     path('patientPrescription/',views.patientPrescription,name="patientPrescription"),
     path('patientprescription/<str:prescription_id>',views.patientprescription,name="patientprescription"),
+    
+    path('downloadLabReports/<str:report>/<str:reportid>',views.downloadLabReports,name="downloadLabReports"),
     path('patientlogout/',views.patientlogout,name="patientlogout")
     ]
