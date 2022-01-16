@@ -8,6 +8,7 @@ from receptionist.models import doctor,diagnostic,labreport,imagingexam, medicin
 
 def patientPrescription(request):
     return render(request,'patientAppointment.html')
+
 def patientPrescription(request):
     if 'patient_id' in request.session:
         patient_id=request.session['patient_id']
@@ -49,14 +50,6 @@ def downloadLabReports(request,report,reportid):
             examinereport=imagingexam.objects.filter(id=reportid)
             return render(request,'download_lab_reports.html',{"labreports":examinereport,"patient_details":patient_details})
        
-            
-
-
-
-
-            
-    
-
 def patientHomePage(request):
     if 'patient_id' in request.session:
         patient_id=request.session['patient_id']
@@ -66,8 +59,6 @@ def patientHomePage(request):
             prescription_id=prescription_data[0].id
         else:
             prescription_id=""
-
-       
         diagnostic_data = diagnostic.objects.all().filter(patientId=patient_id)
         lab_reports = []
         image_reports=[]
@@ -77,6 +68,7 @@ def patientHomePage(request):
         return render(request,'patientHomePage.html',{"patient_data":patient_data,"diagnostic_data":diagnostic_data,"lab_reports":lab_reports,"image_reports":image_reports,"prescription_id":prescription_id})
     else:
         return redirect(patientLogin)
+    
 def patientLogin(request):
     return render(request,'patientLogin.html')
 

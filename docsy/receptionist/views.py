@@ -2,6 +2,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from datetime import date
+from patient.views import patientLogin
 
 # from .models import doctor,problem,medicines,prescription
 from patient.models import patient,Appointment  
@@ -150,6 +151,9 @@ def doctorsDashboard(request):
 
 def procedure(request):
     return render(request,'procedure.html')
+
+def registerPatient(request):
+    return redirect(patientLogin)
 
 # def createPatientData(request,patientid,appointmentId):
 #     return render(request, 'createPatientData.html',{'patientid':patientid,'appointmentId':appointmentId})

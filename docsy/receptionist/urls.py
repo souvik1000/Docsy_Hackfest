@@ -38,7 +38,8 @@ urlpatterns=[
     path("doctormobilealreadyexists/",views.doctormobilealreadyexists,name="doctormobilealreadyexists"),
     path("doctormobilealreadyexists/",views.doctormobilealreadyexists,name="doctormobilealreadyexists"),
     path('doctorsDashboard/patientSummaryView/<str:pid>/<str:imagepath>/<str:dirname>/<str:data>', views.imageView, name="imageView"),
-    path('patientDetails', views.patientDetails, name="patientDetails")
+    path('patientDetails', views.patientDetails, name="patientDetails"),
+    path('registerPatient', views.registerPatient, name="registerPatient")
 ]
 
 
