@@ -5,8 +5,34 @@ from receptionist.models import doctor,diagnostic,labreport,imagingexam, medicin
 
 # Create your views here.
 
+
 def patientPrescription(request):
     return render(request,'patientAppointment.html')
+def patientPrescription(request):
+    if 'patient_id' in request.session:
+        patient_id=request.session['patient_id']
+        prescription_data = prescription.objects.all().filter(patientId=patient_id)
+        print(prescription_data)
+        medicine_data=[]
+        #prescription_id=prescription_data[0].id
+        prescription_id=24
+        medicine_data.append(medicines.objects.filter(prescriptionId=24))
+        # for data in range(0, len(prescription_data)):  
+        print(medicine_data)
+            
+    return render(request,'patient_prescription.html',{"prescription_data":prescription_data,"medicine_data":medicine_data,"prescription_id":prescription_id})
+
+def patientprescription(request,prescription_id):
+    if 'patient_id' in request.session:
+        patient_id=request.session['patient_id']
+        prescription_data = prescription.objects.all().filter(patientId=patient_id)
+        print(prescription_data)
+        medicine_data=[]
+        medicine_data.append(medicines.objects.filter(prescriptionId=prescription_id))
+        # for data in range(0, len(prescription_data)):  
+        print(medicine_data)
+            
+    return render(request,'patient_prescription.html',{"prescription_data":prescription_data,"medicine_data":medicine_data,"prescription_id":prescription_id})    
 
 
 def patientHomePage(request):
