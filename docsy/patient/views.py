@@ -11,15 +11,16 @@ def patientPrescription(request):
 def patientPrescription(request):
     if 'patient_id' in request.session:
         patient_id=request.session['patient_id']
-        prescription_data = prescription.objects.all().filter(patientId=patient_id)
-        print(prescription_data)
-        medicine_data=[]
-        #prescription_id=prescription_data[0].id
-        prescription_id=24
-        medicine_data.append(medicines.objects.filter(prescriptionId=24))
-        # for data in range(0, len(prescription_data)):  
-        print(medicine_data)
-            
+        prescription_data = prescription.objects.all().filter(patientId=patient_id).order_by('id')
+       
+        if prescription_data:
+            prescription_id=prescription_data[0].id
+            medicine_data=[]
+            medicine_data.append(medicines.objects.filter(prescriptionId=prescription_id))
+            return render(request,'patient_prescription.html',{"prescription_data":prescription_data,"medicine_data":medicine_data,"prescription_id":prescription_id})
+        else:
+            return render(request,'patient_prescription.html',{"prescription_data":prescription_data,"prescription_id":0})
+
     return render(request,'patient_prescription.html',{"prescription_data":prescription_data,"medicine_data":medicine_data,"prescription_id":prescription_id})
 
 def patientprescription(request,prescription_id):
@@ -28,24 +29,52 @@ def patientprescription(request,prescription_id):
         prescription_data = prescription.objects.all().filter(patientId=patient_id)
         print(prescription_data)
         medicine_data=[]
-        medicine_data.append(medicines.objects.filter(prescriptionId=prescription_id))
-        # for data in range(0, len(prescription_data)):  
-        print(medicine_data)
-            
-    return render(request,'patient_prescription.html',{"prescription_data":prescription_data,"medicine_data":medicine_data,"prescription_id":prescription_id})    
+        m=medicines.objects.filter(prescriptionId=prescription_id)
+        if m:
+            medicine_data=[]
+            medicine_data.append(medicines.objects.filter(prescriptionId=prescription_id))
+            return render(request,'patient_prescription.html',{"prescription_data":prescription_data,"medicine_data":medicine_data,"prescription_id":prescription_id})
+        else:
+            return render(request,'patient_prescription.html',{"prescription_data":prescription_data,"prescription_id":0})
 
+def downloadLabReports(request,report,reportid):
+     if 'patient_id' in request.session:
+        patient_id=request.session['patient_id']
+        patient_details=patient.objects.filter(id=patient_id)[0]
+        if report=="lab":
+            labreports=labreport.objects.filter(id=reportid)
+            return render(request,'download_lab_reports.html',{"labreports":labreports,"patient_details":patient_details,"report":"lab"})
+        else:
+            
+            examinereport=imagingexam.objects.filter(id=reportid)
+            return render(request,'download_lab_reports.html',{"labreports":examinereport,"patient_details":patient_details})
+       
+            
+
+
+
+
+            
+    
 
 def patientHomePage(request):
     if 'patient_id' in request.session:
         patient_id=request.session['patient_id']
         patient_data=patient.objects.get(id=patient_id)
+        prescription_data = prescription.objects.all().filter(patientId=patient_id).order_by('id')
+        if prescription_data:
+            prescription_id=prescription_data[0].id
+        else:
+            prescription_id=""
+
+       
         diagnostic_data = diagnostic.objects.all().filter(patientId=patient_id)
         lab_reports = []
         image_reports=[]
         for data in range(0, len(diagnostic_data)):
-            lab_reports.append(labreport.objects.get(diagnosticId=diagnostic_data[data].id))
-            image_reports.append(imagingexam.objects.get(diagnosticId=diagnostic_data[data].id))
-        return render(request,'patientHomePage.html',{"patient_data":patient_data,"diagnostic_data":diagnostic_data,"lab_reports":lab_reports,"image_reports":image_reports})
+            lab_reports.append(labreport.objects.filter(diagnosticId=diagnostic_data[data].id))
+            image_reports.append(imagingexam.objects.filter(diagnosticId=diagnostic_data[data].id))
+        return render(request,'patientHomePage.html',{"patient_data":patient_data,"diagnostic_data":diagnostic_data,"lab_reports":lab_reports,"image_reports":image_reports,"prescription_id":prescription_id})
     else:
         return redirect(patientLogin)
 def patientLogin(request):

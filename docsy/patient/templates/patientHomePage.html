@@ -12,6 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="{% static 'css/patienthomestyles.css' %}">
+    
     <title>Patient Home Page</title>
 
 
@@ -56,15 +57,18 @@
                 <a href="index.html">
                   <img loading="lazy"  src="{% static 'HomePageImages/logo.jpeg' %}"  alt="logo" style="height: 120px;">
                 </a>
+                <span id="appointment_error" style="color: red;"> </span>
               </div>
             </div>
+            
             <div class="col-xl-7 col-lg-9">
               <div class="right-side">
                 <ul class="contact-info pl-0 mb-4 mb-md-0">
                   <li class="item text-left">
                    
                     <!-- <strong>Email</strong> -->
-                    <br>
+                    
+                    
                     
                   </li>
                   <li class="item text-left">
@@ -76,20 +80,30 @@
                     </a>
                     
                   </li>
-                  
+                 
                 </ul>
                 <div class="link-btn text-center text-lg-right">
-                   <a href="{% url 'patientAppointment'   %}"  class="btn-style-one"> Book Appointment</a>
+                   <a href="{% url 'patientAppointment'   %}"  class="btn-style-one"> Book Appointment</a></br>
                    
                    
+ 
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <span id="appointment_error" style="color: red;"> </span>
       </section>
+      
       <!--Header Upper-->
+      <script>
+        function  prescriptionErrorMessage(){
+          var a=document.getElementById('appointment_error');
+          a.innerHTML="No prescriptions are There"
+          setTimeout(() => {  a.innerHTML="" }, 1500);
 
+        }
+      </script>
 
       <!--Main Header-->
       <nav class="navbar navbar-expand-lg navbar-dark">
@@ -104,7 +118,11 @@
                 <a class="nav-link" href="{% url 'patientHomePage' %}">Home</a>
               </li>
               <li class="nav-item @@about">
+                {% if prescription_id %}
                 <a class="nav-link" href="patientPrescription/">Prescriptions</a>
+                {% else %}
+                <a class="nav-link" onclick="prescriptionErrorMessage()">Prescriptions</a>
+                {% endif %}
               </li>
               <li class="nav-item @@service">
                 <a class="nav-link" href="#lab-result">Lab results</a>
@@ -161,7 +179,12 @@
 
             <div class="col-lg-4 col-md-6 emmergency item text-center"   >
               <h2>All Detailed Prescriptions</h2>
-              <a href="patientPrescription/" class="btn btn-main">Click here</a>
+              {% if prescription_id %}
+              <a class="btn btn-main"href="patientPrescription/">Prescriptions</a>
+              {% else %}
+              <a class="btn btn-main" onclick="prescriptionErrorMessage()">Prescriptions</a>
+              {% endif %}
+              <!-- <a href="prescription.html" >Click here</a> -->
               <p>you can see all your detailed prescription with medicines and dosages instructions.</p>
             </div>
 
@@ -185,10 +208,11 @@
 
       <!-- Start Slider-->
       {% if lab_reports %}
+      
       <section class="feature-section section bg-gray" id="lab-result">
         <div class="container">
           <div class="section-title text-center">
-            <h3>Lab Results</h3>
+            <h3>Lab Results </h3>
             <p class="mb-0"></p>
           </div>
   
@@ -197,7 +221,9 @@
           <div class="row">
         <div class="slider owl-carousel">
         
-          {% for i in lab_reports %}
+          {% for j in lab_reports %}
+              {% for i in j %}
+                
     
               <div class="item "  style="margin-top: 5%;margin-bottom: 5%;margin-right:20px;" >
                 <div class="card" style="width: 100%; height:100%;" >
@@ -249,13 +275,14 @@
                       <!-- <img src="{{i.lab_document.url}}" style="width:105px;height:50px" /> -->
                           
                       <br><br>
-                    <a href="#" class="btn" style="float:right; background-color:cadetblue; color: white;">Download</a>
+                    <a href="downloadLabReports/lab/{{i.id}}" class="btn" style="float:right; background-color:cadetblue; color: white;">Download</a>
                   </div>
                 </div>
               </div>
            
-           
+              
           {% endfor %}
+        {% endfor %}
        
    
         </div>
@@ -277,11 +304,11 @@
       
 
       <!--imaging result-section-->
-      {% if image_reports %}
+      {% if image_reports|length > 0 %}
       <section class="feature-section section bg-gray" id="imaging-result" >
         <div class="container">
           <div class="section-title text-center">
-            <h3>Imaging Results</h3>
+            <h3>Imaging Results </h3>
             <p class="mb-0"></p>
           </div>
   
@@ -290,8 +317,8 @@
           <div class="row">
         <div class="slider owl-carousel">
        
-          {% for i in image_reports %}
-      
+          {% for j in image_reports %}
+              {% for i in j %}
     
               <div class="item"  style="margin-top: 5%;margin-bottom: 5%;margin-right:20px;" >
                 <div class="card" style="width: 100%; height:100%;" >
@@ -340,12 +367,12 @@
                       <!-- <img src="{{i.lab_document.url}}" style="width:105px;height:50px" /> -->
                           
                       <br><br>
-                    <a href="#" class="btn" style="float:right; background-color:cadetblue; color: white;">Download</a>
+                    <a href="downloadLabReports/examine/{{i.id}}"class="btn" style="float:right; background-color:cadetblue; color: white;">Download</a>
                   </div>
                 </div>
               </div>
            
-           
+              {% endfor %}
           {% endfor %}
        
   
@@ -358,7 +385,7 @@
                    
     </div>
   
-</section> 
+      </section> 
 {% endif %}
       <script>
         $(".slider").owlCarousel({
