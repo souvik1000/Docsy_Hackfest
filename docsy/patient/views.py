@@ -4,6 +4,11 @@ from .models import patient,Appointment
 from receptionist.models import doctor,diagnostic,labreport,imagingexam, medicines, prescription
 
 # Create your views here.
+
+def patientPrescription(request):
+    return render(request,'patientAppointment.html')
+
+
 def patientHomePage(request):
     if 'patient_id' in request.session:
         patient_id=request.session['patient_id']
