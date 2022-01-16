@@ -1,18 +1,22 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render,redirect
 from .models import patient,Appointment
-from receptionist.models import doctor
+from receptionist.models import doctor,diagnostic,labreport,imagingexam, medicines, prescription
 
 # Create your views here.
-
-def patientPrescription(request):
-    return render(request,'patientAppointment.html')
-
 def patientHomePage(request):
-    patient_id=request.session['patient_id']
-    patient_data=patient.objects.get(id=patient_id)
-    return render(request,'patientHomePage.html',{"patient_data":patient_data})
-
+    if 'patient_id' in request.session:
+        patient_id=request.session['patient_id']
+        patient_data=patient.objects.get(id=patient_id)
+        diagnostic_data = diagnostic.objects.all().filter(patientId=patient_id)
+        lab_reports = []
+        image_reports=[]
+        for data in range(0, len(diagnostic_data)):
+            lab_reports.append(labreport.objects.get(diagnosticId=diagnostic_data[data].id))
+            image_reports.append(imagingexam.objects.get(diagnosticId=diagnostic_data[data].id))
+        return render(request,'patientHomePage.html',{"patient_data":patient_data,"diagnostic_data":diagnostic_data,"lab_reports":lab_reports,"image_reports":image_reports})
+    else:
+        return redirect(patientLogin)
 def patientLogin(request):
     return render(request,'patientLogin.html')
 
@@ -90,7 +94,7 @@ def patientDashboard(request):
         return redirect(patientLogin)
         # return HttpResponse("Please login.")
 
-def logout(request):
+def patientlogout(request):
     if request.session.get('patient_id', True):
-            del request.session['doctor_id']
+            del request.session['patient_id']
             return redirect(patientLogin)
