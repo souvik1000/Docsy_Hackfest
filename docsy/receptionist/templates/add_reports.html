@@ -319,13 +319,13 @@
 
     <script>
         function labdeleterow(c) {
-            document.getElementById("each_report" + c).style.display = "none";
+            document.getElementById("each_lab_report" + c).style.display = "none";
             var c = parseInt(document.getElementById('lab_counter').value) - 1
             document.getElementById('lab_counter').value = c
         }
 
         function imagedeleterow(c) {
-            document.getElementById("each_report" + c).style.display = "none";
+            document.getElementById("each_image_report" + c).style.display = "none";
             var c = parseInt(document.getElementById('image_counter').value) - 1
             document.getElementById('image_counter').value = c
         }
@@ -336,13 +336,13 @@
             document.getElementById('lab_counter').value = c;
 
             lab_report = `
-                <div  id="each_report` + c + `" class="card" style="display:block;">
+                <div  id="each_lab_report` + c + `" class="card" style="display:block;">
                     <div class="container">
                         <div class="row d-flex justify-content-center">
                             <div  id="each_problem" class="card">
                                 <div   class="row text-left">
                                     <!-- <h2>Lab report ` + c + `</h2> -->
-                                    <p class="h3 text-center" style="padding-bottom:50px">Lab Report ` + c + `  <b class="btn btn-danger btn-sm" style="float:right;" onclick="deleterow(` + c + `)"><span style="color:white;">X</span></b></p>
+                                    <p class="h3 text-center" style="padding-bottom:50px">Lab Report ` + c + `  <b class="btn btn-danger btn-sm" style="float:right;" onclick="labdeleterow(` + c + `)"><span style="color:white;">X</span></b></p>
                                     <div class="form-group col-sm-3 flex-column d-flex">
                                         <input type="text"  id="patientId" name="patientId"  value="{{patientid}}" readonly> 
                                         <span id="patientId_error"></span>
@@ -391,13 +391,13 @@
             document.getElementById('image_counter').value = c;
 
             image_report = `
-            <div  id="each_report` + c + `" class="card" style="display:block;">
+            <div  id="each_image_report` + c + `" class="card" style="display:block;">
             <div class="container">
                         <div class="row d-flex justify-content-center">
                             <div  id="each_problem" class="card">
                                 <div   class="row text-left">
                                     <!-- <h2>Imaging report ` + c + `</h2> -->
-                                    <p class="h3 text-center" style="padding-bottom:50px">Image Report ` + c + `  <b class="btn btn-danger btn-sm" style="float:right;" onclick="deleterow(` + c + `)"><span style="color:white;">X</span></b></p>
+                                    <p class="h3 text-center" style="padding-bottom:50px">Image Report ` + c + `  <b class="btn btn-danger btn-sm" style="float:right;" onclick="imagedeleterow(` + c + `)"><span style="color:white;">X</span></b></p>
                                     <div class="form-group col-sm-3 flex-column d-flex">
                                         <input type="text"  id="patientId" name="patientId"  value="{{patientid}}" readonly> 
                                         <span id="patientId_error"></span>
