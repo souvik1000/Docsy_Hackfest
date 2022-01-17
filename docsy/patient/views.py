@@ -6,6 +6,8 @@ from receptionist.models import doctor,diagnostic,labreport,imagingexam, medicin
 # Create your views here.
 
 
+
+
 def patientPrescription(request):
     return render(request,'patientAppointment.html')
 def patientPrescription(request):
@@ -74,7 +76,7 @@ def patientHomePage(request):
         for data in range(0, len(diagnostic_data)):
             lab_reports.append(labreport.objects.filter(diagnosticId=diagnostic_data[data].id))
             image_reports.append(imagingexam.objects.filter(diagnosticId=diagnostic_data[data].id))
-        return render(request,'patientHomePage.html',{"patient_data":patient_data,"diagnostic_data":diagnostic_data,"lab_reports":lab_reports,"image_reports":image_reports,"prescription_id":prescription_id})
+        return render(request,'patientHomePage.html',{"patient_data":patient_data,"diagnostic_data":diagnostic_data,"lab_reports":lab_reports,"image_reports":image_reports,"prescription_id":prescription_id,"patient_id":patient_id})
     else:
         return redirect(patientLogin)
 def patientLogin(request):

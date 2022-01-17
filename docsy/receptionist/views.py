@@ -12,7 +12,6 @@ from .models import doctor,problem,medicines,prescription, illnesshistory,allerg
 
 
 
-
 def login(request):
     return render(request,'login.html')
 
@@ -124,6 +123,12 @@ def checkstatus(requst,pid,appid):
     appointment=Appointment.objects.get(id=appid)
     #ekkada chudu
     appointment.status="1"
+    appointment.save()
+    return redirect(doctorsDashboard)
+def markstatus(requst,pid,appid):
+    appointment=Appointment.objects.get(id=appid)
+    #ekkada chudu
+    appointment.status="0"
     appointment.save()
     return redirect(doctorsDashboard)
 

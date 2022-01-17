@@ -206,7 +206,7 @@
                         </td>
                         <td width="150">
                             <div class="text-center">
-                                <a href="/prescription/{{row.0}}/{{row.4}}" class="btn-success btn" style="font-size: 12px;;">Add prescription</a>
+                                <a href="prescription/{{row.0}}/{{row.4}}" class="btn-success btn" style="font-size: 12px;;">Add prescription</a>
                             </div>
                         </td>
                         <td width="150">
@@ -240,6 +240,7 @@
                         <td> Patient Problem</td>
                         <td>Appointment time</td>
                         <td>Action</td>
+                        <td>status</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -249,9 +250,14 @@
                         <td>{{row.1}}</td>
                         <td>{{row.2}}</td>
                         <td>{{row.3}}</td>
-                        </td>
-                        <td width="200">
+                        
+                        <td width="180">
                             <a href="/addPrescription/{{row.patientId.id}}" class="btn-warning btn-sm" style="font-size: 12px;;">View Prescription</a>
+                        </td>
+                        <td width="150">
+                            <div class="text-center">
+                                <a href="markstatus/{{row.0}}/{{row.4}}" class="btn-success btn" style="font-size: 12px;;">Mark as Not done</a>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
