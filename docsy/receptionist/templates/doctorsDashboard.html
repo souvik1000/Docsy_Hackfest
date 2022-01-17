@@ -58,6 +58,7 @@
                     [3, 5, 10, 25],
                     [3, 5, 10, 25, "All"]
                 ],
+                "order": [],
                 "iDisplayLength": 5
             });
         });
@@ -67,6 +68,7 @@
                     [3, 5, 10, 25],
                     [3, 5, 10, 25, "All"]
                 ],
+                "order": [],
                 "iDisplayLength": 5
             });
         });
@@ -76,6 +78,7 @@
                     [3, 5, 10, 25],
                     [3, 5, 10, 25, "All"]
                 ],
+                "order": [],
                 "iDisplayLength": 5
             });
         });
@@ -283,11 +286,6 @@
                         </td>
                         <td>
                             <div class="text-center">
-                                View
-                            </div>
-                        </td>
-                        <td>
-                            <div class="text-center">
                                 Status
                             </div>
                         </td>
@@ -295,12 +293,10 @@
                 </thead>
                 <tbody>
                     {% for row in past_appointments %}
-                    <tr>                        
-                        
-                        <td>
-                            <div class="text-center">
-                                {{row.0}}
-                            </div>
+                    <tr>
+                        <div class="text-center">
+                            {{row.0}}
+                        </div>
                         </td>
                         <td>
                             <div class="text-center">

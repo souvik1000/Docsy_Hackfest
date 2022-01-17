@@ -49,7 +49,7 @@
                     <div class="col-xl-5 col-lg-3 mt-3 mb-3">
                         <div class="logo">
                             <a href="index.html">
-                                <img loading="lazy" src="{% static 'HomePageImages/logo.jpeg' %}" alt="logo" style="height: 80px; width:150px;">
+                                <img loading="lazy" src="{% static 'image/logo.jpeg' %}" alt="logo" style="height: 80px; width:150px;">
                             </a>
                             <span id="appointment_error" style="color: red;"> </span>
                         </div>
@@ -72,9 +72,6 @@
                             </ul>
                             <div class="link-btn text-center text-lg-right">
                                 <a href="{% url 'patientAppointment'   %}" class="btn-style-one"> Book Appointment</a></br>
-
-
-
                             </div>
                         </div>
                     </div>
@@ -176,7 +173,7 @@
                         {% if prescription_id %}
                         <a class="btn btn-main" href="patientPrescription/">Prescriptions</a> {% else %}
                         <a class="btn btn-main" onclick="prescriptionErrorMessage()">Prescriptions</a>
-                        <br /><span id="appointment_error1" class="text-danger"></span> {% endif %}
+                        <br><span id="appointment_error1" style="color: red;"></span> {% endif %}
                         <!-- <a href="prescription.html" >Click here</a> -->
                         <p>you can see all your detailed prescription with medicines and dosages instructions.</p>
                     </div>
@@ -199,79 +196,9 @@
 
         <!-- end three cards -->
 
-        <!-- Start Slider-->
-        {% if lab_reports %}
 
-        <section class="feature-section section bg-gray" id="lab-result">
-            <div class="container">
-                <div class="section-title text-center">
-                    <h3>Lab Results </h3>
-                    <p class="mb-0"></p>
-                </div>
-                <div class="row">
-                    <div class="slider owl-carousel">
-                        {% for j in lab_reports %} {% for i in j %}
-                        <div class="item " style="margin-top: 5%;margin-bottom: 5%;margin-right:20px;">
-                            <div class="card" style="width: 100%; height:100%;">
-                                <div class="card-body" style="align-items: center;">
-                                    <table>
-                                        <tr>
-                                            <th>My events :</th>
-                                            <td> {{i.lab_event}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Test name : </th>
-                                            <td> {{i.lab_test_name}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Specimen : </th>
-                                            <td>
-                                                <table>
-                                                    <tr>
-                                                        <td>Type - </td>
-                                                        <td>{{i.lab_specimen_type}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Method - </td>
-                                                        <td>{{i.lab_specimen_method}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Body site - </td>
-                                                        <td>{{i.lab_specimen_body_site}}</td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Findings : </th>
-                                            <td> {{i.lab_findings}}</td>
-                                        </tr>
-                                    </table>
-                                    <!-- <img src="{{i.lab_document.url}}" style="width:105px;height:50px" /> -->
-                                    <br><br>
-                                    <a href="downloadLabReports/lab/{{i.id}}" class="btn" style="float:right; background-color:cadetblue; color: white;">Download</a>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %} {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </section>
-        {% endif %}
-        <script>
-            $(".slider").owlCarousel({
-                loop: true,
-                autoplay: true,
-                autoplayTimeout: 1500, //2000ms = 2s;
-                autoplayHoverPause: true,
-            });
-        </script>
-        <!--End slider-->
-
-
-        <!-- Start New Slider-->
-        {% if lab_reports %}
+        <!-- Start Lab Slider-->
+        {% if lab_reports|length > 0 %}
         <section class="feature-section section bg-gray" id="lab-result">
             <div class="container">
                 <div class="section-title text-center">
@@ -283,258 +210,263 @@
                 <div id="body" style="height: 40%;width: 100%;">
                     <div style="height: 100%;" class="swiper mySwiper">
                         <div class="swiper-wrapper">
-                            <div class="row">
-                                {% for j in lab_reports %} {% for i in j %}
-                                <div class="swiper-slide">
-                                    <div style="margin-top: 5%;margin-bottom: 5%;width: 120%; height:100%;" class="item">
-                                        <div class="card">
-                                            <div class="card-body" style="align-items: center;">
-                                                <table>
-                                                    <tr>
-                                                        <th>My events :</th>
-                                                        <td> {{i.lab_event}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Test name : </th>
-                                                        <td> {{i.lab_test_name}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Specimen : </th>
-                                                        <td>
-                                                            <table>
-                                                                <tr>
-                                                                    <td>Type - </td>
-                                                                    <td>{{i.lab_specimen_type}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Method - </td>
-                                                                    <td>{{i.lab_specimen_method}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Body site - </td>
-                                                                    <td>{{i.lab_specimen_body_site}}</td>
-                                                                </tr>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Findings : </th>
-                                                        <td> {{i.lab_findings}}</td>
-                                                    </tr>
-                                                </table>
-                                                <br/><br/>
-                                                <a href="downloadLabReports/lab/{{i.id}}" class="btn" style="float:right; background-color:cadetblue; color: white;">Download</a>
-                                            </div>
+                            {% for j in lab_reports %} {% for i in j %}
+                            <div class="swiper-slide">
+                                <div style="margin-top: 5%;margin-bottom: 5%;width: 120%; height:100%;" class="item">
+                                    <div style="height: 100%;width: 100%;" class="card">
+                                        <div class="card-body" style="align-items: center;">
+                                            <table>
+
+                                                <tr>
+                                                    <th>My events :</th>
+                                                    <td> {{i.lab_event}}</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>Test name : </th>
+                                                    <td> {{i.lab_test_name}}</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>Specimen : </th>
+                                                    <td>
+                                                        <table>
+                                                            <tr>
+                                                                <td>Type - </td>
+                                                                <td>{{i.lab_specimen_type}}</td>
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <td>Method - </td>
+                                                                <td>{{i.lab_specimen_method}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Body site - </td>
+                                                                <td>{{i.lab_specimen_body_site}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>Findings : </th>
+                                                    <td> {{i.lab_findings}}</td>
+                                                </tr>
+
+
+
+
+
+                                            </table>
+                                            <br>
+                                            <a href="downloadLabReports/lab/{{i.id}}" class="btn" style="float:right; background-color:cadetblue; color: white;">Download</a>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                             {% endfor %} {% endfor %}
+
+
                         </div>
                     </div>
+                    <div style="color: #48bdc5;" class="swiper-button-next"></div>
+                    <div style="color: #48bdc5;" class="swiper-button-prev"></div>
+                    <div class="visually-hidden" style="color: #48bdc5;" class="swiper-pagination"></div>
                 </div>
-                <div style="color: #48bdc5;" class="swiper-button-next"></div>
-                <div style="color: #48bdc5;" class="swiper-button-prev"></div>
-                <div style="color: #48bdc5;" class="swiper-pagination"></div>
+
             </div>
-    </div>
-    </section>
-    {% endif %}
-    <!--End slider-->
-
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-    <!-- Initialize Swiper -->
-    <script>
-        var swiper = new Swiper(".mySwiper", {
-            slidesPerView: 3,
-            spaceBetween: 30,
-            slidesPerGroup: 3,
-            loop: true,
-            loopFillGroupWithBlank: true,
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-        });
-    </script>
+        </section>
+        {% endif %}
+        <!--End Lab slider-->
 
 
-
-    <!--imaging result-section-->
-    {% if image_reports|length > 0 %}
-    <section class="feature-section section bg-gray" id="imaging-result">
-        <div class="container">
-            <div class="section-title text-center">
-                <h3>Imaging Results </h3>
-                <p class="mb-0"></p>
-            </div>
-
-
-
-            <div class="row">
-                <div class="slider owl-carousel">
-
-                    {% for j in image_reports %} {% for i in j %}
-
-                    <div class="item" style="margin-top: 5%;margin-bottom: 5%;margin-right:20px;">
-                        <div class="card" style="width: 100%; height:100%;">
-                            <div class="card-body" style="align-items: center;">
-                                <table>
-
-                                    <tr>
-                                        <th>My events :</th>
-                                        <td> {{i.imaging_event}}</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>Test name : </th>
-                                        <td> {{i.imaging_test_name}}</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>Specimen : </th>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    <td>Modality - </td>
-                                                    <td>{{i.imaging_modality}}</td>
-                                                </tr>
-
-
-
-                                                <tr>
-                                                    <td>Body site - </td>
-                                                    <td>{{i.imaging_body_site}}</td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>Findings : </th>
-                                        <td> {{i.imaging_findings}}</td>
-                                    </tr>
-
-
-
-
-
-                                </table>
-                                <!-- <img src="{{i.lab_document.url}}" style="width:105px;height:50px" /> -->
-
-                                <br><br>
-                                <a href="downloadLabReports/examine/{{i.id}}" class="btn" style="float:right; background-color:cadetblue; color: white;">Download</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    {% endfor %} {% endfor %}
-
-
-
-
-
-
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-    {% endif %}
-    <script>
-        $(".slider").owlCarousel({
-            loop: true,
-            autoplay: true,
-            autoplayTimeout: 1500, //2000ms = 2s;
-            autoplayHoverPause: true,
-        });
-    </script>
-    <!--End testimonial-section-->
-
-
-    <!--footer-main-->
-    <footer class="footer-main" id="footer">
-        <div class="footer-top">
+        <!-- Start Lab Slider-->
+        {% if image_reports|length > 0 %}
+        <section class="feature-section section bg-gray" id="lab-result">
             <div class="container">
-                <div class="row justify-content-between">
-                    <div class="col-lg-4 mb-5 mb-lg-0">
-                        <div class="about-widget">
-                            <div class="footer-logo">
-                                <figure>
-                                    <a href="index.html">
-                                        <img loading="lazy" class="img-fluid" src="{% static 'HomePageImages/logo.jpeg' %}" alt="medic" style="width: 100px;">
-                                    </a>
-                                </figure>
-                            </div>
-                            <p style="font-size:16px">Medicines cure diseases, but only doctors can cure patients</p>
-                            <ul class="location-link">
+                <div class="section-title text-center">
+                    <h3>Image Results</h3>
+                    <p class="mb-0"></p>
+                </div>
+                <br><br><br>
 
-                                <li class="item">
-                                    <i class="far fa-envelope" aria-hidden="true"></i>
-                                    <a>
-                                        <p>abc@docsy.com</p>
-                                    </a>
-                                </li>
-                                <li class="item">
-                                    <i class="fas fa-phone" aria-hidden="true"></i>
-                                    <p>+(91) 1234567890</p>
-                                </li>
-                            </ul>
+                <div id="body" style="height: 40%;width: 100%;">
+                    <div style="height: 100%;" class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            {% for j in image_reports %} {% for i in j %}
+                            <div class="swiper-slide">
+                                <div style="margin-top: 5%;margin-bottom: 5%;width: 120%; height:100%;" class="item">
+                                    <div style="height: 100%;width: 100%;" class="card">
+                                        <div class="card-body" style="align-items: center;">
+                                            <table>
+
+                                                <tr>
+                                                    <th>My events :</th>
+                                                    <td> {{i.imaging_event}}</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>Test name : </th>
+                                                    <td> {{i.imaging_test_name}}</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>Specimen : </th>
+                                                    <td>
+                                                        <table>
+                                                            <tr>
+                                                                <td>Modality - </td>
+                                                                <td>{{i.imaging_modality}}</td>
+                                                            </tr>
+
+
+
+                                                            <tr>
+                                                                <td>Body site - </td>
+                                                                <td>{{i.imaging_body_site}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>Findings : </th>
+                                                    <td> {{i.imaging_findings}}</td>
+                                                </tr>
+
+
+
+
+
+                                            </table>
+                                            <br>
+                                            <a href="downloadLabReports/examine/{{i.id}}" class="btn" style="float:right; background-color:cadetblue; color: white;">Download</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            {% endfor %} {% endfor %}
+
 
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-5 mb-3 mb-md-0">
-                        <h2 style="font-weight: bold;">Team</h2>
-                        <ul class="menu-link">
-                            <li>
-                                <h6>Akanksha Kushwaha(Front-end)</h6>
-                            </li>
-                            <li>
-                                <h6>Kirti Garg(Back-end)</h6>
-                            </li>
-                            <li>
-                                <h6>Sushanth Anantabhotala(Back-end)</h6>
-                            </li>
-                            <li>
-                                <h6>Souvik Ghosh(Back-end)</h6>
-                            </li>
-                            <li>
-                                <h6>Kunnathu Pavan Kumar(Back-end)</h6>
-                            </li>
-                            <li>
-                                <h6>Suraj Pratap Singh(Back-end)</h6>
-                            </li>
-                            <li>
-                                <h6>Shailesh Kumar Sharma(Front-end)</h6>
-                            </li>
-                            <li>
-                                <h6>Raghib Shams(DevOps)</h6>
-                            </li>
+                    <div style="color: #48bdc5;" class="swiper-button-next"></div>
+                    <div style="color: #48bdc5;" class="swiper-button-prev"></div>
+                    <div class="visually-hidden" style="color: #48bdc5;" class="swiper-pagination"></div>
+                </div>
 
-                        </ul>
+            </div>
+        </section>
+        {% endif %}
+        <!--End Lab slider-->
+
+
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+        <!-- Initialize Swiper -->
+        <script>
+            var swiper = new Swiper(".mySwiper", {
+                slidesPerView: 3,
+                spaceBetween: 30,
+                slidesPerGroup: 3,
+                loop: true,
+                loopFillGroupWithBlank: true,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+            });
+        </script>
+
+
+
+        <!--footer-main-->
+        <footer class="footer-main" id="footer">
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="col-lg-4 mb-5 mb-lg-0">
+                            <div class="about-widget">
+                                <div class="footer-logo">
+                                    <figure>
+                                        <a href="index.html">
+                                            <img loading="lazy" class="img-fluid" src="{% static 'HomePageImages/logo.jpeg' %}" alt="medic" style="width: 100px;">
+                                        </a>
+                                    </figure>
+                                </div>
+                                <p style="font-size:16px">Medicines cure diseases, but only doctors can cure patients</p>
+                                <ul class="location-link">
+
+                                    <li class="item">
+                                        <i class="far fa-envelope" aria-hidden="true"></i>
+                                        <a>
+                                            <p>abc@docsy.com</p>
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <i class="fas fa-phone" aria-hidden="true"></i>
+                                        <p>+(91) 1234567890</p>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-5 mb-3 mb-md-0">
+                            <h2 style="font-weight: bold;">Team</h2>
+                            <ul class="menu-link">
+                                <li>
+                                    <h6>Akanksha Kushwaha(Front-end)</h6>
+                                </li>
+                                <li>
+                                    <h6>Kirti Garg(Back-end)</h6>
+                                </li>
+                                <li>
+                                    <h6>Sushanth Anantabhotala(Back-end)</h6>
+                                </li>
+                                <li>
+                                    <h6>Souvik Ghosh(Back-end)</h6>
+                                </li>
+                                <li>
+                                    <h6>Kunnathu Pavan Kumar(Back-end)</h6>
+                                </li>
+                                <li>
+                                    <h6>Suraj Pratap Singh(Back-end)</h6>
+                                </li>
+                                <li>
+                                    <h6>Shailesh Kumar Sharma(Front-end)</h6>
+                                </li>
+                                <li>
+                                    <h6>Raghib Shams(DevOps)</h6>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="container clearfix">
+                    <div class="copyright-text">
+                        <p>&copy; Copyright 2022. Designed &amp; Developed by <a href="">Docsy Team</a></p>
                     </div>
 
                 </div>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="container clearfix">
-                <div class="copyright-text">
-                    <p>&copy; Copyright 2022. Designed &amp; Developed by <a href="">Docsy Team</a></p>
-                </div>
+        </footer>
+        <!--End footer-main-->
 
-            </div>
-        </div>
-    </footer>
-    <!--End footer-main-->
+        <!--End footer-main-->
 
-    <!--End footer-main-->
+
+
 
 
     </div>
