@@ -94,7 +94,10 @@
         function  prescriptionErrorMessage(){
           var a=document.getElementById('appointment_error');
           a.innerHTML="No prescriptions are There"
+          var b=document.getElementById('appointment_error1');
+          b.innerHTML="No prescriptions are There"
           setTimeout(() => {  a.innerHTML="" }, 1500);
+          setTimeout(() => {  b.innerHTML="" }, 1500);
 
         }
       </script>
@@ -179,6 +182,7 @@
               <a class="btn btn-main"href="patientPrescription/">Prescriptions</a>
               {% else %}
               <a class="btn btn-main" onclick="prescriptionErrorMessage()">Prescriptions</a>
+              <br><span id="appointment_error1" style="color: red;"></span>
               {% endif %}
               <!-- <a href="prescription.html" >Click here</a> -->
               <p>you can see all your detailed prescription with medicines and dosages instructions.</p>
