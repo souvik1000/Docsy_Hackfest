@@ -158,7 +158,7 @@
 
                             <label for="appointmentTime"><b>Appointment (date and time):</b></label><br>
                             <div>
-                                <input type="datetime-local" id="appointmentTime" name="appointmentTime">
+                                <input type="datetime-local" id="dateControl" name="appointmentTime">
                             </div>
                             
                         </div>
@@ -187,29 +187,37 @@
 </body>
 
 <script>
-    // var today = new Date().toISOString().split('T')[0];
-    // document.getElementsByName("appointmentTime").innerHTML=today;
+    $(document).ready(function() {
+            var today = new Date();
+            var month = today.getMonth()+1;
+            // console.log(month);
+            var day = today.getDate();
+            // console.log(day);
+            var year = today.getFullYear();
+            // console.log(year)
 
-//     var today = new Date();
-// var dd = today.getDate();
-// var mm = today.getMonth() + 1; //January is 0!
-// var yyyy = today.getFullYear();
+            var hours= today.getHours()+1;
+            var min = today.getMinutes();
+            var milliseconds = today.getMilliseconds();
 
-// if (dd < 10) {
-//    dd = '0' + dd;
-// }
+            if(hours < 10)
+                hours = '0'+hours.toString();
 
-// if (mm < 10) {
-//    mm = '0' + mm;
-// } 
-    
-// today = yyyy + '-' + mm + '-' + dd;
+            if(min < 10)
+                min = '0'+min.toString();
+            
 
-// var today = new Date().toISOString().split('T')[0];
-// var today="25-01-2022"
-// alert(today)
-// document.getElementById("appointmentTime").setAttribute("min", today);
-</script>
+            if(month < 10)
+                month = '0' + month.toString();
+
+            if(day < 10)
+                day = '0' + day.toString();
+
+            var maxDate = year + '-' + month + '-' + day +'T'+hours+ ":" + min;
+            console.log(maxDate)
+            $('#dateControl').attr('min', maxDate);
+        })   
+       </script>
 <script>
     function myFunction() {
         let text="Are you sure taking  this appointment?";
