@@ -229,13 +229,9 @@
                 <thead>
                     <tr>
 <<<<<<< HEAD
-                        <td>PatientID</td>
-                        <td>PatientName</td>
-                        <td> Patient Problem</td>
-                        <td>Appointment time</td>
-                        <td>Action</td>
-                        <td>status</td>
+
 =======
+>>>>>>> 8792f949a11e3693b28cb1fee6bca1993a3d7213
                         <td>
                             <div class="text-center">
                                 PatientID
@@ -261,13 +257,23 @@
                                 Action
                             </div>
                         </td>
->>>>>>> 858cb93e304887b572ae84d2098057892bee436e
+<<<<<<< HEAD
+                        <td>
+                            <div class="text-center">
+                                Status
+                            </div>
+                        </td>
+
+=======
+>>>>>>> 8792f949a11e3693b28cb1fee6bca1993a3d7213
                     </tr>
                 </thead>
                 <tbody>
                     {% for row in past_appointments %}
                     <tr>
 <<<<<<< HEAD
+
+=======
                         <td>{{row.0}}</td>
                         <td>{{row.1}}</td>
                         <td>{{row.2}}</td>
@@ -275,7 +281,7 @@
                         
                         <td width="180">
                             <a href="/addPrescription/{{row.patientId.id}}" class="btn-warning btn-sm" style="font-size: 12px;;">View Prescription</a>
-=======
+>>>>>>> 8792f949a11e3693b28cb1fee6bca1993a3d7213
                         <td>
                             <div class="text-center">
                                 {{row.0}}
@@ -300,12 +306,12 @@
                             <div class="text-center">
                                 <a href="/addPrescription/{{row.patientId.id}}" class="btn-warning btn" style="font-size: 12px;;">View Prescription</a>
                             </div>
->>>>>>> 858cb93e304887b572ae84d2098057892bee436e
                         </td>
                         <td width="150">
                             <div class="text-center">
                                 <a href="markstatus/{{row.0}}/{{row.4}}" class="btn-success btn" style="font-size: 12px;;">Mark as Not done</a>
                             </div>
+                            <a href="patientSummaryView/{{row.0}}/{{row.4}}" class="btn-warning btn-sm" style="font-size: 12px;;">View medical data</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -413,7 +419,6 @@
         </footer>
         <!--End footer-main-->
     </div>
-
 
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
 
