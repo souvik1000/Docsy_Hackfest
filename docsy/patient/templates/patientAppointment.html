@@ -36,6 +36,7 @@
     textarea,
     button {
         padding: 8px 15px;
+        width:100%;
         border-radius: 5px !important;
         margin: 5px 0px;
         box-sizing: border-box;
@@ -113,14 +114,15 @@
 <div class="page-wrapper">
     <div class="container-fluid px-1 py-5 mx-auto">
         <div class="row d-flex justify-content-center">
-            <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+            <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-left">
                 <div class="card">
-                    <h3>Take Appointment </h3> 
+                    <center><h3>Take Appointment </h3> </center><br>
                     <form class="form-card" method="POST" action="{% url 'patientAppointmentBackend' %}">
                         {% csrf_token %}
                         <div class="form-group">
-                            <label class="control-label" for="id_appointment">Choose specalist</label>
-                            <div class="">
+                            <label class="form-control-label" for="id_appointment"></label>
+                            <b>Choose specalist</b>
+                            <div class="control-label">
                                 <select name="specalization" placeholder="Choose specalization" class=" form-control" required="" id="specalization" onchange="getSpecs()">
                                     <option value="">choose specalization</option>
                                     {% for i in all_specialization %}
@@ -128,26 +130,36 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                        
-                            <label class="control-label  " for="id_appointment">Choose Your Doctor</label>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="control-label  " for="id_appointment"><b>Choose Your Doctor</b></label>
                             <div>
                                 <select name="Doctor" placeholder="Choose Your Doctor" class=" form-control" required="" id="Doctor">
                                     <option value="">choose Doctor</option>
                                 </select>
                             </div>
                         </div>
-                        
+                        <br>
                         <div class="form-group">
-                            <label for="appointmentTime">Appointment (date and time):</label><br>
-                            <input type="datetime-local" id="appointmentTime" name="appointmentTime">
+                            <label for="appointmentTime"><b>Appointment (date and time):</b></label><br>
+                            <div>
+                                <input type="datetime-local" id="appointmentTime" name="appointmentTime">
+                            </div>
+                            
                         </div>
-                        <label class="control-label  " for="id_appointment">Describe problem</label>
-                        <div>
-                            <input type="text" name="disease" id="disease" cols="30" rows="10">
+                        <br>
+                        <div class="form-group">
+                            <label class="control-label " for="disease"><b>Describe problem</b></label>
+                            <div>
+                                <input type="text" name="disease" id="disease" cols="30" rows="10">
+                            </div>
                         </div>
-                        <div class="row form-group">
-                            <div class="col-md-12">
-                                <input onclick="myFunction()" type="submit" value="Submit">
+                        
+                        <div class="row form-group" style="float: center;">
+                           
+                            <div class="col-md-4" style="float:right;;">
+                                <input onclick="myFunction()" type="submit" value="Book Appointment" class="btn btn-success">
                             </div>
                         </div>
                         </div>

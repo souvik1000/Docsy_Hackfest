@@ -228,14 +228,7 @@
             <table id="example2" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
-<<<<<<< HEAD
-                        <td>PatientID</td>
-                        <td>PatientName</td>
-                        <td> Patient Problem</td>
-                        <td>Appointment time</td>
-                        <td>Action</td>
-                        <td>status</td>
-=======
+
                         <td>
                             <div class="text-center">
                                 PatientID
@@ -261,21 +254,18 @@
                                 Action
                             </div>
                         </td>
->>>>>>> 858cb93e304887b572ae84d2098057892bee436e
+                        <td>
+                            <div class="text-center">
+                                Status
+                            </div>
+                        </td>
+
                     </tr>
                 </thead>
                 <tbody>
                     {% for row in past_appointments %}
                     <tr>
-<<<<<<< HEAD
-                        <td>{{row.0}}</td>
-                        <td>{{row.1}}</td>
-                        <td>{{row.2}}</td>
-                        <td>{{row.3}}</td>
-                        
-                        <td width="180">
-                            <a href="/addPrescription/{{row.patientId.id}}" class="btn-warning btn-sm" style="font-size: 12px;;">View Prescription</a>
-=======
+
                         <td>
                             <div class="text-center">
                                 {{row.0}}
@@ -300,7 +290,6 @@
                             <div class="text-center">
                                 <a href="/addPrescription/{{row.patientId.id}}" class="btn-warning btn" style="font-size: 12px;;">View Prescription</a>
                             </div>
->>>>>>> 858cb93e304887b572ae84d2098057892bee436e
                         </td>
                         <td width="150">
                             <div class="text-center">
