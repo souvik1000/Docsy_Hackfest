@@ -82,7 +82,8 @@ def patientregistrationValidation(request):
     password = request.POST['password']
     submit_details=patient(name=name,dob=dob,email=email,gender=gender,phoneno=phone,password=password)
     submit_details.save()
-    return render(request,'patientLogin.html',{'message':'register success'})
+    # return render(request,'patientLogin.html',{'message':'register success'})
+    return redirect(patientLogin)
     
 def patientloginauth(request):
     email=request.POST['a']

@@ -1,0 +1,57 @@
+1642426214340	geckodriver	INFO	Listening on 127.0.0.1:41841
+1642426214345	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "54885" "-no-remote" "-profile" "/tmp/rust_mozprofileP7BZJk"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1642426215194	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileP7BZJk/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:54885/devtools/browser/44e6952c-7abd-4618-b4f4-3d87bc8bf8fd
+1642426216831	Marionette	INFO	Listening on port 33751
+1642426216870	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[Child 564830, MediaDecoderStateMachine #1] WARNING: Decoder=7f73b4bc0d00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - Error no decoder found for audio/mp4a-latm: file /build/firefox-BVyW0E/firefox-95.0.1+build2/dom/media/MediaDecoderStateMachine.cpp:3568
+[Child 564830, MediaDecoderStateMachine #1] WARNING: Decoder=7f73b4bc0d00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - Error no decoder found for video/avc: file /build/firefox-BVyW0E/firefox-95.0.1+build2/dom/media/MediaDecoderStateMachine.cpp:3568
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1642426230464	Marionette	INFO	Stopped listening on port 33751
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1642426275434	geckodriver	INFO	Listening on 127.0.0.1:52023
+1642426275440	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "47745" "-no-remote" "-profile" "/tmp/rust_mozprofile9b2hzp"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1642426276361	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile9b2hzp/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:47745/devtools/browser/7965cd7b-1d14-45b1-b482-3f971b607ddf
+1642426277908	Marionette	INFO	Listening on port 34387
+1642426277962	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[Child 568970, MediaDecoderStateMachine #1] WARNING: Decoder=7f07528cb600 state=DECODING_METADATA Decode metadata failed, shutting down decoder: file /build/firefox-BVyW0E/firefox-95.0.1+build2/dom/media/MediaDecoderStateMachine.cpp:367
+[Child 568970, MediaDecoderStateMachine #1] WARNING: Decoder=7f07528cb600 Decode error: NS_ERROR_DOM_MEDIA_METADATA_ERR (0x806e0006): file /build/firefox-BVyW0E/firefox-95.0.1+build2/dom/media/MediaDecoderStateMachine.cpp:3568
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1642426297216	Marionette	INFO	Stopped listening on port 34387
+1642427403850	geckodriver	INFO	Listening on 127.0.0.1:42367
+1642427403856	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "50225" "-no-remote" "-profile" "/tmp/rust_mozprofileOCi43T"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1642427404869	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileOCi43T/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:50225/devtools/browser/bb03fbb6-c6ba-4675-be5f-da0e402d77ce
+1642427406712	Marionette	INFO	Listening on port 44087
+1642427406786	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[Child 635706, MediaDecoderStateMachine #1] WARNING: Decoder=7fc09c3dcd00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - Error no decoder found for audio/mp4a-latm: file /build/firefox-BVyW0E/firefox-95.0.1+build2/dom/media/MediaDecoderStateMachine.cpp:3568
+[Child 635706, MediaDecoderStateMachine #1] WARNING: Decoder=7fc09c3dcd00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - Error no decoder found for video/avc: file /build/firefox-BVyW0E/firefox-95.0.1+build2/dom/media/MediaDecoderStateMachine.cpp:3568
+1642427415794	Marionette	INFO	Stopped listening on port 44087
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+1642427415912	geckodriver::marionette	ERROR	Failed to close browser connection: Socket not connected (os error 107)
+JavaScript error: resource://gre/modules/AsyncShutdown.jsm, line 575: uncaught exception: Object
+[2022-01-17T13:50:16Z ERROR glean] Can't persist ping lifetime data: Error { kind: Rkv(IoError(Os { code: 2, kind: NotFound, message: "No such file or directory" })) }
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+

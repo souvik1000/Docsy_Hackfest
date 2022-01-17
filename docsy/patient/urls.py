@@ -11,7 +11,7 @@ urlpatterns=[
     path("mobilealreadyexists/",views.mobilealreadyexists,name="mobilealreadyexists"),
     path('patientAppointment/',views.patientAppointment,name="patientAppointment"),
     path('patientAppointmentBackend/',views.patientAppointmentBackend,name="patientAppointmentBackend"),
-    path('getspecialiseddoctor/',views.getspecialiseddoctor,name="getspecialiseddoctor"),
+    path('getspecialiseddoctor/',views.getspecialiseddoctor,name="getspecialiseddoctor"),    
     path('patientPrescription/',views.patientPrescription,name="patientPrescription"),
     path('patientprescription/<str:prescription_id>',views.patientprescription,name="patientprescription"),
     
