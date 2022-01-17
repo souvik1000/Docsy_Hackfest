@@ -29,10 +29,16 @@
     }
     
     .form-control-label {
-        margin-bottom: 0
+        margin-bottom: 0;
     }
+
+    /* .form-control{
+        width: 40%;
+        align-items: center;
+    } */
     
     input,
+    select,
     textarea,
     button {
         padding: 8px 15px;
@@ -45,6 +51,7 @@
     }
     
     input:focus,
+    select:focus
     textarea:focus {
         -moz-box-shadow: none !important;
         -webkit-box-shadow: none !important;
@@ -113,16 +120,16 @@
 <div class="page-wrapper">
     <div class="container-fluid px-1 py-5 mx-auto">
         <div class="row d-flex justify-content-center">
-            <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+            <div class="col-xl-3 col-lg-4 col-md-7 col-12 text-center">
                 <div class="card">
                     <h3>Take Appointment </h3> 
                     <form class="form-card" method="POST" action="{% url 'patientAppointmentBackend' %}">
                         {% csrf_token %}
                         <div class="form-group">
                             <label class="control-label" for="id_appointment">Choose specalist</label>
-                            <div class="">
-                                <select name="specalization" placeholder="Choose specalization" class=" form-control" required="" id="specalization" onchange="getSpecs()">
-                                    <option value="">choose specalization</option>
+                            <div class="col-xs-3">
+                                <select name="specalization" placeholder="Choose specalization" class=" form-control form-control-sm" required="" id="specalization" onchange="getSpecs()">
+                                    <option value="">Choose specalization</option>
                                     {% for i in all_specialization %}
                                     <option value="{{i.specalist}}">{{i.specalist}}</option>
                                     {% endfor %}
@@ -139,25 +146,50 @@
                         
                         <div class="form-group">
                             <label for="appointmentTime">Appointment (date and time):</label><br>
-                            <input type="datetime-local" id="appointmentTime" name="appointmentTime">
+                            <!-- <input type="datetime-local" name="date" class="form-control datepicker" autocomplete="off"> -->
+                            <input type="datetime-local" id="appointmentTime" name="appointmentTime" class="form-control" required>
                         </div>
-                        <label class="control-label  " for="id_appointment">Describe problem</label>
+                        <label class="control-label  " for="id_appointment">Describe problem or Illness</label>
                         <div>
-                            <input type="text" name="disease" id="disease" cols="30" rows="10">
+                            <input type="text" class="form-control" name="disease" id="disease" cols="30" rows="10">
                         </div>
                         <div class="row form-group">
                             <div class="col-md-12">
                                 <input onclick="myFunction()" type="submit" value="Submit">
                             </div>
                         </div>
-                        </div>
                     </form>
                 </div>
+            </div>
         </div>
     </div>
 </div> 
 </body>
 
+<script>
+    // var today = new Date().toISOString().split('T')[0];
+    // document.getElementsByName("appointmentTime").innerHTML=today;
+
+//     var today = new Date();
+// var dd = today.getDate();
+// var mm = today.getMonth() + 1; //January is 0!
+// var yyyy = today.getFullYear();
+
+// if (dd < 10) {
+//    dd = '0' + dd;
+// }
+
+// if (mm < 10) {
+//    mm = '0' + mm;
+// } 
+    
+// today = yyyy + '-' + mm + '-' + dd;
+
+// var today = new Date().toISOString().split('T')[0];
+// var today="25-01-2022"
+// alert(today)
+// document.getElementById("appointmentTime").setAttribute("min", today);
+</script>
 <script>
     function myFunction() {
         confirm("Are you sure taking  this appointment?");

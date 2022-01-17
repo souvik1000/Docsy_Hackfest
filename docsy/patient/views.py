@@ -23,7 +23,6 @@ def patientPrescription(request):
             return render(request,'patient_prescription.html',{"prescription_data":prescription_data,"medicine_data":medicine_data,"prescription_id":prescription_id})
         else:
             return render(request,'patient_prescription.html',{"prescription_data":prescription_data,"prescription_id":0})
-
     return render(request,'patient_prescription.html',{"prescription_data":prescription_data,"medicine_data":medicine_data,"prescription_id":prescription_id})
 
 def patientprescription(request,prescription_id):
@@ -148,7 +147,8 @@ def patientAppointmentBackend(request):
     # return HttpResponse(patient_id)
     submit_details=Appointment(patientId=pid,specalist=specalization,doctorId=Doctor,appointmentTime=appointmentTime,disease=disease)
     submit_details.save()
-    return HttpResponse('Appointment booked at {}'.format(appointmentTime))
+    return redirect(patientHomePage)
+    # return HttpResponse('Appointment booked at {}'.format(appointmentTime))
 
 def patientDashboard(request):
     if 'patient_id' in request.session:

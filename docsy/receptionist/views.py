@@ -116,6 +116,7 @@ def prescriptionBackend(request):
 def add_reports(request,patientid,appointmentId):
     doctor_id=doctor.objects.get(id=request.session['doctor_id'])
     add_reports.pid,add_reports.appid=patientid,appointmentId
+    # return HttpResponse(add_reports.pid)
     return render(request, 'add_reports.html',{'patientid':patientid, "doctor_id":doctor_id, 'appointmentId':appointmentId})
 
 def checkstatus(requst,pid,appid):
@@ -146,6 +147,8 @@ def doctorsDashboard(request):
     for i in a:
         x=i.patientId
         ap.append([x.id,x.name,i.disease,i.appointmentTime,i.id])
+    ap.sort(key=lambda x:x[3])
+    print(ap)
 
     b=Appointment.objects.filter(doctorId=d.id,status="1")
     bp=[]
@@ -214,6 +217,7 @@ def diaganosisReportCreation(request):
     lab_counter = request.POST['lab_counter']
     image_counter = request.POST['image_counter']
     try:
+    # return HttpResponse(add_reports.pid)
         patientid = patient.objects.get(id=add_reports.pid)
         did=request.session['doctor_id']
         doctorid = doctor.objects.get(id=did)
