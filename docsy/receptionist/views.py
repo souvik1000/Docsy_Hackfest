@@ -1,6 +1,6 @@
 # from curses.ascii import HT
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from datetime import date
 from patient.views import patientLogin
 
@@ -140,23 +140,48 @@ def homePage(request):
         return redirect("login")
 
 def doctorsDashboard(request):
+    # return HttpResponse("hi")
     doctor_id=request.session['doctor_id']
     today_appointments=Appointment.objects.all()
     d=doctor.objects.get(id=doctor_id)
     a=Appointment.objects.filter(doctorId=d.id,status="0")
-    ap=[]
-    for i in a:
-        x=i.patientId
-        ap.append([x.id,x.name,i.disease,i.appointmentTime,i.id])
-    ap.sort(key=lambda x:x[3])
-    print(ap)
+    if "only_todays" in request.POST:
+        # return HttpResponse("1")
+        show_only_todays=request.POST['only_todays']
+        ap=[]
+        today = date.today()
+        for i in a:
+            x=i.patientId
+            appt_time=str(i.appointmentTime).split(' ')[0]
+            if show_only_todays=="true":
+                if str(appt_time)==str(today):
+                    print(i.appointmentTime)
+                    ap.append([x.id,x.name,i.disease,i.appointmentTime,i.id])
+                else:   
+                    print('in else')
+                    # print(i.appointmentTime)
+                    # ap.append([x.id,x.name,i.disease,i.appointmentTime,i.id])
+        ap.sort(key=lambda x:x[3])
+        b=Appointment.objects.filter(doctorId=d.id,status="1")
+        bp=[]
+        for i in b:
+            x=i.patientId
+            bp.append([x.id,x.name,i.disease,i.appointmentTime,i.id])
+        return HttpResponse(render(request,'response.html',{"today_appointments":ap,"past_appointments":bp, "doctor_id":d}))
+    else:
+        ap=[]
+        today = date.today()
+        for i in a:
+            x=i.patientId
+            ap.append([x.id,x.name,i.disease,i.appointmentTime,i.id])
+        ap.sort(key=lambda x:x[3])
 
-    b=Appointment.objects.filter(doctorId=d.id,status="1")
-    bp=[]
-    for i in b:
-        x=i.patientId
-        bp.append([x.id,x.name,i.disease,i.appointmentTime,i.id])
-    return render(request,'doctorsDashboard.html',{"today_appointments":ap,"past_appointments":bp, "doctor_id":d})
+        b=Appointment.objects.filter(doctorId=d.id,status="1")
+        bp=[]
+        for i in b:
+            x=i.patientId
+            bp.append([x.id,x.name,i.disease,i.appointmentTime,i.id])
+        return render(request,'doctorsDashboard.html',{"today_appointments":ap,"past_appointments":bp, "doctor_id":d})
 
 def procedure(request):
     return render(request,'procedure.html')
@@ -268,7 +293,7 @@ def patientSummaryView(request,pid,appid):
         diagnostic_data = diagnostic.objects.all().filter(patientId=patient_id)[::-1]
         
         # Collecting Medicine based on problems
-        problem_with_medicines = [];
+        problem_with_medicines = []
         
         for i in prescription_data:
             sample_data = [problem.objects.get(prescriptionId=i.id), medicines.objects.filter(prescriptionId=i.id)]
