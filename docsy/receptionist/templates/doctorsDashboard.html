@@ -84,7 +84,7 @@
                                 </li>
                             </ul>
                             <div class="link-btn text-center mb-3 text-lg-right">
-                                <a href="" class="btn-style-one">Register a Patient</a>
+                                <a href="{% url 'logout' %}" class="btn-style-one">LOGOUT</a>
                             </div>
 
                         </div>
@@ -107,21 +107,14 @@
                             <a class="nav-link" href="{% url 'homePage' %}">Home</a>
                         </li>
                         <li class="nav-item @@about">
-                            <a class="nav-link" href="">Patient Detail Section</a>
+                            <a class="nav-link" href="{% url 'patientDetail' %}">Patient Detail Section</a>
                         </li>
-                        <!-- <li class="nav-item @@service">
-                  <a class="nav-link" href="#lab-result">Lab results</a>
-                </li>
-                <li class="nav-item @@gallery">
-                  <a class="nav-link" href="#imaging-result">Imaging Results</a>
-                </li> -->
                         <li class="nav-item @@team">
                             <a class="nav-link" href="#footer">Team</a>
                         </li>
-
                         </li>
                         <li class="nav-item @@contact">
-                            <a class="nav-link" href="">Contact</a>
+                            <a class="nav-link" href="#footer">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -235,17 +228,46 @@
             <table id="example2" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
+<<<<<<< HEAD
                         <td>PatientID</td>
                         <td>PatientName</td>
                         <td> Patient Problem</td>
                         <td>Appointment time</td>
                         <td>Action</td>
                         <td>status</td>
+=======
+                        <td>
+                            <div class="text-center">
+                                PatientID
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                Patient Name
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                Patient Problem
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                Appointment Time
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                Action
+                            </div>
+                        </td>
+>>>>>>> 858cb93e304887b572ae84d2098057892bee436e
                     </tr>
                 </thead>
                 <tbody>
                     {% for row in past_appointments %}
                     <tr>
+<<<<<<< HEAD
                         <td>{{row.0}}</td>
                         <td>{{row.1}}</td>
                         <td>{{row.2}}</td>
@@ -253,6 +275,32 @@
                         
                         <td width="180">
                             <a href="/addPrescription/{{row.patientId.id}}" class="btn-warning btn-sm" style="font-size: 12px;;">View Prescription</a>
+=======
+                        <td>
+                            <div class="text-center">
+                                {{row.0}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                {{row.1}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                {{row.2}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                {{row.3}}
+                            </div>
+                        </td>
+                        <td width="200">
+                            <div class="text-center">
+                                <a href="/addPrescription/{{row.patientId.id}}" class="btn-warning btn" style="font-size: 12px;;">View Prescription</a>
+                            </div>
+>>>>>>> 858cb93e304887b572ae84d2098057892bee436e
                         </td>
                         <td width="150">
                             <div class="text-center">
