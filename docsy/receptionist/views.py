@@ -40,7 +40,8 @@ def registrationValidation(request):
     clinic_address = request.POST['clinic_address']
     submit_details=doctor(name=name,specalist=specalist,email=email,gender=gender,phoneno=phone,password=password,clinic_address=clinic_address)
     submit_details.save()
-    return render(request,'login.html')
+    # return render(request,'login.html')
+    return redirect(login)
 
 def loginauth(request):
     phone=request.POST['a']
