@@ -47,7 +47,6 @@ def downloadLabReports(request,report,reportid):
             labreports=labreport.objects.filter(id=reportid)
             return render(request,'download_lab_reports.html',{"labreports":labreports,"patient_details":patient_details,"report":"lab"})
         else:
-            
             examinereport=imagingexam.objects.filter(id=reportid)
             return render(request,'download_lab_reports.html',{"labreports":examinereport,"patient_details":patient_details})
        

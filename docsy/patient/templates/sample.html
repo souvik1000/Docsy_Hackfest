@@ -1,0 +1,195 @@
+<!-- Start New Slider-->
+{% if lab_reports %}
+<section class="feature-section section bg-gray" id="lab-result">
+    <div class="container">
+        <div class="section-title text-center">
+            <h3>Lab Results</h3>
+            <p class="mb-0"></p>
+        </div>
+        <br><br><br>
+
+        <div id="body" style="height: 40%;width: 100%;">
+            <div style="height: 100%;" class="swiper mySwiper">
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide">
+                        <div style="margin-top: 5%;margin-bottom: 5%;width: 120%; height:100%;" class="item">
+                            {% for j in lab_reports %} {% for i in j %}
+                            <div class="card">
+                                <div class="card-body" style="align-items: center;">
+                                    <table>
+                                        <tr>
+                                            <th>My events :</th>
+                                            <td> {{i.lab_event}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Test name : </th>
+                                            <td> {{i.lab_test_name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Specimen : </th>
+                                            <td>
+                                                <table>
+                                                    <tr>
+                                                        <td>Type - </td>
+                                                        <td>{{i.lab_specimen_type}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Method - </td>
+                                                        <td>{{i.lab_specimen_method}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Body site - </td>
+                                                        <td>{{i.lab_specimen_body_site}}</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Findings : </th>
+                                            <td> {{i.lab_findings}}</td>
+                                        </tr>
+                                    </table>
+                                    <br/><br/>
+                                    <a href="downloadLabReports/lab/{{i.id}}" class="btn" style="float:right; background-color:cadetblue; color: white;">Download</a>
+                                </div>
+                            </div>
+                            {% endfor %} {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="color: #48bdc5;" class="swiper-button-next"></div>
+            <div style="color: #48bdc5;" class="swiper-button-prev"></div>
+            <div style="color: #48bdc5;" class="swiper-pagination"></div>
+        </div>
+    </div>
+</section>
+{% endif %}
+<!--End slider-->
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        slidesPerGroup: 3,
+        loop: true,
+        loopFillGroupWithBlank: true,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+</script>
+
+
+
+
+
+
+<!-- <div class="swiper-slide">
+                        <div style="margin-top: 5%;margin-bottom: 5%;width: 120%; height:100%;" class="item">
+                            <div class="card">
+                                <div class="card-body" style="align-items: center;">
+                                    <table>
+
+                                        <tr>
+                                            <th>My event : </th>
+                                            <td> XYZ</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Test name : </th>
+                                            <td> XYZ</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Specimen : </th>
+                                            <td>
+                                                <table>
+                                                    <tr>
+                                                        <td>Type - </td>
+                                                        <td>abc</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Method - </td>
+                                                        <td>abc</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Body site - </td>
+                                                        <td>abc</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Findings : </th>
+                                            <td> XYZ</td>
+                                        </tr>
+
+
+                                    </table>
+                                    <br>
+                                    <a href="#" class="btn" style="float:right; background-color:cadetblue; color: white;">Download</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+
+                        <div style="margin-top: 5%;margin-bottom: 5%;width: 120%; height:100%;" class="item">
+                            <div class="card">
+                                <div class="card-body" style="align-items: center;">
+                                    <table>
+
+                                        <tr>
+                                            <th>My event : </th>
+                                            <td> XYZ</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Test name : </th>
+                                            <td> XYZ</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Specimen : </th>
+                                            <td>
+                                                <table>
+                                                    <tr>
+                                                        <td>Type - </td>
+                                                        <td>abc</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Method - </td>
+                                                        <td>abc</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Body site - </td>
+                                                        <td>abc</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Findings : </th>
+                                            <td> XYZ</td>
+                                        </tr>
+
+
+                                    </table>
+                                    <br>
+                                    <a href="#" class="btn" style="float:right; background-color:cadetblue; color: white;">Download</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->

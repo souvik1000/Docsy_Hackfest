@@ -231,6 +231,7 @@
     </script>
 
     <div class="container" id="container">
+
         <div class="form-container sign-up-container">
             <form name="signup_form" method="post" action="{% url 'registrationValidation' %}" enctype="multipart/form-data">
                 {%csrf_token%}
@@ -294,6 +295,7 @@
     </div>
     </br>
 
+    
     <script type="text/javascript">
         const signUpButton = document.getElementById('signUp');
         const signInButton = document.getElementById('signIn');
