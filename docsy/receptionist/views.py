@@ -1,14 +1,13 @@
-from curses.ascii import HT
+# from curses.ascii import HT
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from datetime import date
-import json
+from patient.views import patientLogin
 
 # from .models import doctor,problem,medicines,prescription
 from patient.models import patient,Appointment  
 from .models import prescription
 from .models import doctor,problem,medicines,prescription, illnesshistory,allergies,procedurehistory,diagnostic,labreport,imagingexam
-
 
 
 
@@ -41,7 +40,7 @@ def registrationValidation(request):
     clinic_address = request.POST['clinic_address']
     submit_details=doctor(name=name,specalist=specalist,email=email,gender=gender,phoneno=phone,password=password,clinic_address=clinic_address)
     submit_details.save()
-    return HttpResponse("Registration Successful")
+    return render(request,'login.html')
 
 def loginauth(request):
     phone=request.POST['a']
@@ -55,16 +54,17 @@ def loginauth(request):
 
 def doctorprescription(request,patientid,appointmentId):
     if 'doctor_id' in request.session:
+        doctor_id=doctor.objects.get(id=request.session['doctor_id'])
         appointment=Appointment.objects.get(id=appointmentId)
-        #ekkada chudu
         appointment.status="0"
         appointment.save()
-        return render(request,'prescription.html',{'patientid':patientid})
+        return render(request,'prescription.html',{'patientid':patientid, "doctor_id":doctor_id})
     else:
         return redirect("login")
 
 def prescriptionBackend(request):
     if 'doctor_id' in request.session:
+        try:
             doctorid=request.session['doctor_id']
             doctorObj=doctor.objects.get(id=doctorid)
             #retrieve doctorid through
@@ -98,8 +98,6 @@ def prescriptionBackend(request):
                 interval=request.POST['interval'+i]
                 interval_unit=request.POST['interval_unit'+i]
                 named_time_event=request.POST['named_time_event'+i]
-
-
                 
                 if len(request.POST.getlist('exact_timing_critical'+i))==0:
                     exact_timing_critical=0
@@ -110,18 +108,18 @@ def prescriptionBackend(request):
                 medicine_data.save()
                 l1.append([medicine_name,form,strength,strength_unit,diluent,diluent_amount,diluent_unit,dosade_directions,frequency,frequency_unit,interval,interval_unit,named_time_event,exact_timing_critical])
             return redirect(doctorsDashboard)
-            # return HttpResponse("Prescription added")
+        except:
+            return redirect(doctorsDashboard)
     else:
         return redirect(login)
 
 def add_reports(request,patientid,appointmentId):
+    doctor_id=doctor.objects.get(id=request.session['doctor_id'])
     add_reports.pid,add_reports.appid=patientid,appointmentId
-    # return HttpResponse(add_reports.pid)
-    return render(request, 'add_reports.html',{'patientid':patientid,'appointmentId':appointmentId})
+    return render(request, 'add_reports.html',{'patientid':patientid, "doctor_id":doctor_id, 'appointmentId':appointmentId})
 
 def checkstatus(requst,pid,appid):
     appointment=Appointment.objects.get(id=appid)
-    #ekkada chudu
     appointment.status="1"
     appointment.save()
     return redirect(doctorsDashboard)
@@ -140,13 +138,9 @@ def homePage(request):
         return redirect("login")
 
 def doctorsDashboard(request):
-
     doctor_id=request.session['doctor_id']
-    # return HttpResponse(doctor_id)
     today_appointments=Appointment.objects.all()
-    # patient_id=Appointment.objects.values('patientId')
     d=doctor.objects.get(id=doctor_id)
-    # a=Appointment.objects.select_related('patientId').filter(doctorId=d.id)
     a=Appointment.objects.filter(doctorId=d.id,status="0")
     ap=[]
     for i in a:
@@ -159,17 +153,15 @@ def doctorsDashboard(request):
         x=i.patientId
         bp.append([x.id,x.name,i.disease,i.appointmentTime,i.id])
     return render(request,'doctorsDashboard.html',{"today_appointments":ap,"past_appointments":bp, "doctor_id":d})
-    # return HttpResponse("Doctors Dashboard")
 
 def procedure(request):
     return render(request,'procedure.html')
 
-# def createPatientData(request,patientid,appointmentId):
-#     return render(request, 'createPatientData.html',{'patientid':patientid,'appointmentId':appointmentId})
+def registerPatient(request):
+    return redirect(patientLogin)
+
 
 # For Creation 
-def createPatientData(request):
-    return render(request, 'createPatientData.html')
 
 def patientDetail(request):
     if 'doctor_id' in request.session:
@@ -177,22 +169,22 @@ def patientDetail(request):
         return render(request, 'patientDetailsForm.html', {"doctor_id":doctor_id})
     else:
         return redirect("login")
-
+        
 def patientDetails(request):
     patient_name = request.POST['patient_name']
     patient_number = request.POST['phone_number']
-    patient_id = patient.objects.filter(name__istartswith=patient_name, phoneno=patient_number)
-    # patient_id = patient_data[0].id
-    # pid = patient.objects.get(id=patient_id)
+    patient_id = patient.objects.filter(name__istartswith=patient_name, phoneno=patient_number)[0]
+    # pid = patient_id[0].id
+    # patient_id= patient.objects.get(id=pid)
     
     substance = request.POST['substance']
     criticality = request.POST['criticality']
     type = request.POST['type']
     comment = request.POST['comment']
-    
-    procedure_name=request.POST['Procedure']
-    body_site=request.POST['BodySite']
-    date_of_procedure=request.POST['DateofProcedure']
+
+    procedure_name=request.POST['procedure_name']
+    body_site=request.POST['body_site']
+    date_of_procedure=request.POST['date_of_procedure']
     
     illness_name = request.POST['illness_name']
     body_site = request.POST['body_site']
@@ -201,105 +193,58 @@ def patientDetails(request):
     illness_date_abatement = request.POST['illness_date_abatement']
     
     # Adding to DB based on data provided by receptionist
-    if (substance!=''):
+    if substance!='':
         allergies(patientId=patient_id, substance=substance, criticality=criticality, type=type, comment=comment).save()
         
-    if (procedure_name != '') and (date_of_procedure != ''):
+    if procedure_name!='':# and date_of_procedure!='':
         procedurehistory(patientId=patient_id,procedure_name=procedure_name ,body_site=body_site,procedure_date=date_of_procedure).save()
         
-    if (illness_name != '') and (illness_date_onset != '') and (illness_date_abatement != ''):
+    if illness_name!='':# and (illness_date_onset!='') and (illness_date_abatement!=''):
         illnesshistory(patientId=patient_id, illness_name=illness_name, body_site=body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement).save()
         
     return render(request, 'patientDetailsForm.html')
-
-# def patientAllergiesCreation(request):
-#     patientId = request.POST['patientId']
-#     substance = request.POST['substance']
-#     criticality = request.POST['criticality']
-#     type = request.POST['type']
-#     comment = request.POST['comment']
-#     pid = patient.objects.get(id=patientId)
-#     submit_allergies = allergies(patientId=pid, substance=substance, criticality=criticality, type=type, comment=comment)
-#     submit_allergies.save()
-#     return render(request, 'createPatientData.html')
-
-# def procedurecreation(request):
-#     patientId = request.POST['patientId']
-#     patientId=patient.objects.get(id=patientId)
-#     procedure_name=request.POST['Procedure']
-#     body_site=request.POST['BodySite']
-#     date_of_procedure=request.POST['DateofProcedure']
-#     submit_procedure=procedurehistory(patientId=patientId,procedure_name=procedure_name ,body_site=body_site,procedure_date=date_of_procedure)
-#     submit_procedure.save()
-#     return render(request, 'createPatientData.html')
-
-# def patientIllnessCreation(request):
-#     patientno = request.POST['patientno']
-#     illness_name = request.POST['illness_name']
-#     body_site = request.POST['body_site']
-#     severity = request.POST['severity']
-#     illness_date_onset = request.POST['illness_date_onset']
-#     illness_date_abatement = request.POST['illness_date_abatement']
-#     pid = patient.objects.get(id=patientno)
-#     submit_details = illnesshistory(patientId=pid, illness_name=illness_name, body_site=body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement)
-#     submit_details.save()
-#     return render(request, 'createPatientData.html')
 
 def imageView(request,pid, imagepath, dirname, data):
     concatedImagePath = dirname + "/" + data
     return render(request, "imageViewPage.html", {"imageData":str(concatedImagePath)})
 
 
-# doctordashboard-->add_reports/pid/apid-->add_reports.html--->diaganosisReportCreation
 def diaganosisReportCreation(request):
-    # patient_name = request.POST['patient_name']
-    # patient_number = request.POST['phone_number']
-    # doctor_name = request.POST['doctor_name']
-    # doctor_number = request.POST['doctor_number']
-    # patient_data = patient.objects.filter(name__istartswith=patient_name, phoneno=patient_number)
-    # patient_id = patient_data[0].id
-    # doctor_data = doctor.objects.filter(name__istartswith=doctor_name, phoneno=doctor_number)
-    # doctor_id = doctor_data[0].id
-    # try:
-    # a=add_reports.pid
-    patientid = patient.objects.get(id=add_reports.pid)
-    # return HttpResponse(patientid)
-    did=request.session['doctor_id']
-    doctorid = doctor.objects.get(id=did)
-    # print(patientid,doctorid)
-    diagnostic_data = diagnostic(patientId=patientid, doctorId=doctorid)
-    diagnostic_data.save()
-    diagnosticId = diagnostic.objects.get(id=diagnostic_data.id)
-    
     # hidden counter
     lab_counter = request.POST['lab_counter']
     image_counter = request.POST['image_counter']
-    
-    for lc in range(1,int(lab_counter)+1):
-        i = str(lc)
-        lab_event = request.POST['lab_event'+i]
-        lab_test_name = request.POST['lab_test_name'+i]
-        lab_specimen_type = request.POST['lab_specimen_type'+i]
-        lab_specimen_method = request.POST['lab_specimen_method'+i]
-        lab_specimen_body_site = request.POST['lab_specimen_body_site'+i]
-        lab_findings = request.POST['lab_findings'+i]
-        lab_document = request.FILES['lab_document'+i]
-        labreport(diagnosticId=diagnosticId, lab_event=lab_event, lab_test_name=lab_test_name, lab_specimen_type=lab_specimen_type, lab_specimen_method=lab_specimen_method, lab_specimen_body_site=lab_specimen_body_site, lab_findings=lab_findings, lab_document=lab_document).save()
+    try:
+        patientid = patient.objects.get(id=add_reports.pid)
+        did=request.session['doctor_id']
+        doctorid = doctor.objects.get(id=did)
+        diagnostic_data = diagnostic(patientId=patientid, doctorId=doctorid)
+        diagnostic_data.save()
+        diagnosticId = diagnostic.objects.get(id=diagnostic_data.id)
         
-    for xc in range(1,int(image_counter)+1):
-        i = str(xc)
-        imaging_event=request.POST['imaging_event'+i]
-        imaging_test_name=request.POST['imaging_test_name'+i]
-        imaging_modality=request.POST['imaging_modality'+i]
-        imaging_body_site=request.POST['imaging_body_site'+i]
-        imaging_findings=request.POST['imaging_findings'+i]
-        imaging_document= request.FILES['imaging_document'+i] 
-        imagingexam(diagnosticId=diagnosticId,imaging_event=imaging_event, imaging_test_name=imaging_test_name, imaging_modality=imaging_modality, imaging_body_site=imaging_body_site, imaging_findings=imaging_findings, imaging_document=imaging_document).save()
-        
-    return redirect(doctorsDashboard)
-    # except:
-    #     return render(request, 'not_found_page.html', {"render_value":True})
-
+        for lc in range(1,int(lab_counter)+1):
+            i = str(lc)
+            lab_event = request.POST['lab_event'+i]
+            lab_test_name = request.POST['lab_test_name'+i]
+            lab_specimen_type = request.POST['lab_specimen_type'+i]
+            lab_specimen_method = request.POST['lab_specimen_method'+i]
+            lab_specimen_body_site = request.POST['lab_specimen_body_site'+i]
+            lab_findings = request.POST['lab_findings'+i]
+            lab_document = request.FILES['lab_document'+i]
+            labreport(diagnosticId=diagnosticId, lab_event=lab_event, lab_test_name=lab_test_name, lab_specimen_type=lab_specimen_type, lab_specimen_method=lab_specimen_method, lab_specimen_body_site=lab_specimen_body_site, lab_findings=lab_findings, lab_document=lab_document).save()
+            
+        for xc in range(1,int(image_counter)+1):
+            i = str(xc)
+            imaging_event=request.POST['imaging_event'+i]
+            imaging_test_name=request.POST['imaging_test_name'+i]
+            imaging_modality=request.POST['imaging_modality'+i]
+            imaging_body_site=request.POST['imaging_body_site'+i]
+            imaging_findings=request.POST['imaging_findings'+i]
+            imaging_document= request.FILES['imaging_document'+i] 
+            imagingexam(diagnosticId=diagnosticId,imaging_event=imaging_event, imaging_test_name=imaging_test_name, imaging_modality=imaging_modality, imaging_body_site=imaging_body_site, imaging_findings=imaging_findings, imaging_document=imaging_document).save()
+            
+        return redirect(doctorsDashboard)
+    except:
+        return render(request, 'not_found_page.html', {"render_value":True})
 
 
 # For Patient Data Views
