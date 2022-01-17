@@ -24,6 +24,7 @@ urlpatterns=[
     path("doctormobilealreadyexists/",views.doctormobilealreadyexists,name="doctormobilealreadyexists"),
     path('doctorsDashboard/checkstatus/<str:pid>/<str:appid>', views.checkstatus, name="checkstatus"),
     path('doctorsDashboard/markstatus/<str:pid>/<str:appid>', views.markstatus, name="markstatus"),
+    # path('showonlytodays/',views.showonlytodays,name="showonlytodays"),
     
     path('patientSummary/',views.patientSummary,name="patientSummary"),
     # path('createPatientData/',views.createPatientData,name="createPatientData"),
