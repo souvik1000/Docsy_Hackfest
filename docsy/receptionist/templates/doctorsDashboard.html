@@ -58,6 +58,7 @@
                     [3, 5, 10, 25],
                     [3, 5, 10, 25, "All"]
                 ],
+                "order": [],
                 "iDisplayLength": 5
             });
         });
@@ -67,6 +68,7 @@
                     [3, 5, 10, 25],
                     [3, 5, 10, 25, "All"]
                 ],
+                "order": [],
                 "iDisplayLength": 5
             });
         });
@@ -76,6 +78,7 @@
                     [3, 5, 10, 25],
                     [3, 5, 10, 25, "All"]
                 ],
+                "order": [],
                 "iDisplayLength": 5
             });
         });
@@ -283,11 +286,6 @@
                         </td>
                         <td>
                             <div class="text-center">
-                                View
-                            </div>
-                        </td>
-                        <td>
-                            <div class="text-center">
                                 Status
                             </div>
                         </td>
@@ -296,17 +294,9 @@
                 <tbody>
                     {% for row in past_appointments %}
                     <tr>
-                        <td>{{row.0}}</td>
-                        <td>{{row.1}}</td>
-                        <td>{{row.2}}</td>
-                        <td>{{row.3}}</td>
-                        
-                        <td width="180">
-                            <a href="/addPrescription/{{row.patientId.id}}" class="btn-warning btn-sm" style="font-size: 12px;;">View Prescription</a>
-                        <td>
-                            <div class="text-center">
-                                {{row.0}}
-                            </div>
+                        <div class="text-center">
+                            {{row.0}}
+                        </div>
                         </td>
                         <td>
                             <div class="text-center">
