@@ -47,7 +47,6 @@ def downloadLabReports(request,report,reportid):
             labreports=labreport.objects.filter(id=reportid)
             return render(request,'download_lab_reports.html',{"labreports":labreports,"patient_details":patient_details,"report":"lab"})
         else:
-            
             examinereport=imagingexam.objects.filter(id=reportid)
             return render(request,'download_lab_reports.html',{"labreports":examinereport,"patient_details":patient_details})
        
@@ -82,7 +81,8 @@ def patientregistrationValidation(request):
     password = request.POST['password']
     submit_details=patient(name=name,dob=dob,email=email,gender=gender,phoneno=phone,password=password)
     submit_details.save()
-    return render(request,'patientLogin.html',{'message':'register success'})
+    # return render(request,'patientLogin.html',{'message':'register success'})
+    return redirect(patientLogin)
     
 def patientloginauth(request):
     email=request.POST['a']

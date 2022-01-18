@@ -157,7 +157,7 @@
                     csrfmiddlewaretoken: csrf_value
                 },
                 success: function(response) {
-                    // alert(response);
+
                     if (response == 0) {
                         document.getElementById('incorrect').innerHTML = "Incorrect Details";
                         document.getElementById('sign_in_pass').value = "";
@@ -196,32 +196,7 @@
             });
         }
     </script>
-    <script>
-        function checkemail() {
-            var mail = document.getElementById('email').value;
-
-
-            var el = document.getElementsByName("csrfmiddlewaretoken");
-            csrf_value = el[0].getAttribute("value");
-            $.ajax({
-                type: 'post',
-                url: "{% url 'emailalreadyexists' %}",
-                data: {
-                    a: mail,
-                    csrfmiddlewaretoken: csrf_value
-                },
-                success: function(response) {
-                    if (response == 0) {
-                        document.getElementById('emailid1').innerHTML = "Email Already Exists";
-
-                    } else {
-                        document.getElementById('emailid1').innerHTML = "";
-
-                    }
-                }
-            });
-        }
-    </script>
+    
     <script>
         function checkmobile() {
             var phone = document.getElementById('phone').value;
@@ -270,7 +245,7 @@
                 <span id="emailid1"></span>
                 <select name="gender" id="gender">
                     <option value="" >Choose Gender</option>
-                    <option value="male">male</option>
+                    <option value="male">Male</option>
                     <option value="female">Female</option>
                 </select>
                 <span id="gender_error"></span>

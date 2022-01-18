@@ -15,8 +15,29 @@
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
     <title>Doctor Dashboard</title>
     <script>
+        function OnlyTodays(form1) {
+        var onlytoday = document.getElementById('todays').checked;
+        // alert(onlytoday)
+        var el = document.getElementsByName("csrfmiddlewaretoken");
+        csrf_value = el[0].getAttribute("value");
+
+        $.ajax({
+            type: 'post',
+            url: "{% url 'doctorsDashboard' %}",
+            data: {
+                only_todays:onlytoday,
+                csrfmiddlewaretoken: csrf_value
+            },
+            success: function(response) {
+                // alert(response)
+                document.getElementById('table_container').innerHTML='';
+                document.getElementById('table_container').innerHTML=response;
+                }
+            });
+        }
         const btnDelete = document.querySelectorAll('.btn-delete');
         if (btnDelete) {
             const btnArray = Array.from(btnDelete);
@@ -37,6 +58,17 @@
                     [3, 5, 10, 25],
                     [3, 5, 10, 25, "All"]
                 ],
+                "order": [],
+                "iDisplayLength": 5
+            });
+        });
+        $(document).ready(function() {
+            $('#example4').DataTable({
+                "aLengthMenu": [
+                    [3, 5, 10, 25],
+                    [3, 5, 10, 25, "All"]
+                ],
+                "order": [],
                 "iDisplayLength": 5
             });
         });
@@ -46,6 +78,7 @@
                     [3, 5, 10, 25],
                     [3, 5, 10, 25, "All"]
                 ],
+                "order": [],
                 "iDisplayLength": 5
             });
         });
@@ -58,10 +91,10 @@
         <section class="header-uper">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-xl-3 col-lg-3">
+                    <div class="col-xl-3 col-lg-3 mt-3 mb-3">
                         <div class="logo">
                             <a href="{% url 'homePage' %}">
-                                <img loading="lazy" src="{% static 'image/logo.jpeg' %}" alt="logo" style="height: 150px;">
+                                <img loading="lazy"  src="{% static 'HomePageImages/logo.jpeg' %}"  alt="logo" style="height: 80px; width:150px;">
                             </a>
                         </div>
                     </div>
@@ -127,8 +160,11 @@
         <p class="h3 text-center"><u>Medical practitioner's dashboard</u></p>
 
         <br />
-        <div class="table-responsive">
-            <p class="h5 mx-2"><u>Todays Appointments</u></p>
+        {% csrf_token %}
+        <div class="table-responsive" id='table_container'>
+            <h3 class="h5 mx-2"><u>Appointments</u></h3>
+            <p style="font-size: 20px; font-weight:1000; margin-left: 10px;">Show today's : <input type="checkbox" id="todays" name="todays" onclick="OnlyTodays()"></p>
+            {% csrf_token %}
             <table id="example1" class="table table-striped table-bordered" style="width:100%;">
                 <thead>
                     <tr>
@@ -224,14 +260,10 @@
         </div>
 
         <div class="table-responsive">
-            <p class="h5 mx-2"><u>Recent Appointments</u></p>
+            <h3 class="h5 mx-2"><u>Recent Appointments</u></h3>
             <table id="example2" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
-<<<<<<< HEAD
-
-=======
->>>>>>> 8792f949a11e3693b28cb1fee6bca1993a3d7213
                         <td>
                             <div class="text-center">
                                 PatientID
@@ -254,38 +286,17 @@
                         </td>
                         <td>
                             <div class="text-center">
-                                Action
-                            </div>
-                        </td>
-<<<<<<< HEAD
-                        <td>
-                            <div class="text-center">
                                 Status
                             </div>
                         </td>
-
-=======
->>>>>>> 8792f949a11e3693b28cb1fee6bca1993a3d7213
                     </tr>
                 </thead>
                 <tbody>
                     {% for row in past_appointments %}
                     <tr>
-<<<<<<< HEAD
-
-=======
-                        <td>{{row.0}}</td>
-                        <td>{{row.1}}</td>
-                        <td>{{row.2}}</td>
-                        <td>{{row.3}}</td>
-                        
-                        <td width="180">
-                            <a href="/addPrescription/{{row.patientId.id}}" class="btn-warning btn-sm" style="font-size: 12px;;">View Prescription</a>
->>>>>>> 8792f949a11e3693b28cb1fee6bca1993a3d7213
-                        <td>
-                            <div class="text-center">
-                                {{row.0}}
-                            </div>
+                        <div class="text-center">
+                            {{row.0}}
+                        </div>
                         </td>
                         <td>
                             <div class="text-center">
@@ -304,14 +315,14 @@
                         </td>
                         <td width="200">
                             <div class="text-center">
-                                <a href="/addPrescription/{{row.patientId.id}}" class="btn-warning btn" style="font-size: 12px;;">View Prescription</a>
+                                <a href="patientSummaryView/{{row.0}}/{{row.4}}" class="btn-warning btn" style="font-size: 12px;;">View medical data</a>
                             </div>
                         </td>
                         <td width="150">
                             <div class="text-center">
                                 <a href="markstatus/{{row.0}}/{{row.4}}" class="btn-success btn" style="font-size: 12px;;">Mark as Not done</a>
                             </div>
-                            <a href="patientSummaryView/{{row.0}}/{{row.4}}" class="btn-warning btn-sm" style="font-size: 12px;;">View medical data</a>
+                            <!-- <a href="patientSummaryView/{{row.0}}/{{row.4}}" class="btn-warning btn-sm" style="font-size: 12px;;">View medical data</a> -->
                         </td>
                     </tr>
                     {% endfor %}
@@ -320,106 +331,81 @@
         </div>
 
         <!--footer-main-->
-        <footer class="footer-main" id="footer">
-            <div class="footer-top">
-                <div class="container">
-                    <div class="row justify-content-between">
-                        <div class="col-lg-4 mb-5 mb-lg-0">
-                            <div class="about-widget">
-                                <div class="footer-logo">
-                                    <figure>
-                                        <a href="{% url 'homePage' %}">
-                                            <img loading="lazy" class="img-fluid" src="{% static 'image/logo.jpeg' %}" alt="medic" style="width: 100px;">
-                                        </a>
-                                    </figure>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, temporibus?</p>
-                                <ul class="location-link">
-
-                                    <li class="item">
-                                        <i class="far fa-envelope" aria-hidden="true"></i>
-                                        <a>
-                                            <p>{{doctor_id.email}}</p>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <i class="fas fa-phone" aria-hidden="true"></i>
-                                        <p>+(91) {{doctor_id.phoneno}}</p>
-                                    </li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-5 mb-3 mb-md-0">
-                            <h2 style="font-weight: bold;">Team</h2>
-                            <ul class="menu-link">
-                                <li>
-                                    <h5>Akanksha Kushwaha</h5>
-                                </li>
-                                <li>
-                                    <h5>Kirti Garg</h5>
-                                </li>
-                                <li>
-                                    <h5>Sushanth Anantabhotala</h5>
-                                </li>
-                                <li>
-                                    <h5>Souvik Ghosh</h5>
-                                </li>
-                                <li>
-                                    <h5>Kunnathu Pavan Kumar</h5>
-                                </li>
-                                <li>
-                                    <h5>Suraj Pratap Singh</h5>
-                                </li>
-                                <li>
-                                    <h5>Raghib Shams</h5>
-                                </li>
-                                <li>
-                                    <h5>Sailesh Kumar Sharma</h5>
-                                </li>
-
-                            </ul>
-                        </div>
-                        <div class="col-lg-4 col-md-7">
-                            <div class="social-links">
-                                <h2>Some Reviews</h2>
-                                <ul>
-                                    <li class="item">
-                                        <div class="media">
-
-                                            <div class="media-body">
-                                                <h5><a href="">Your own companion</a></h5>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, dolorem.</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="item">
-                                        <div class="media">
-
-                                            <div class="media-body">
-                                                <h5><a href="">Best Experience</a></h5>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, dolorem.</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+      <footer class="footer-main" id="footer">
+        <div class="footer-top">
+          <div class="container">
+            <div class="row justify-content-between">
+              <div class="col-lg-4 mb-5 mb-lg-0">
+                <div class="about-widget">
+                  <div class="footer-logo">
+                    <figure>
+                      <a href="index.html">
+                        <img loading="lazy" class="img-fluid" src="{% static 'HomePageImages/logo.jpeg' %}" alt="medic" style="width: 100px;">
+                      </a>
+                    </figure>
+                  </div>
+                  <p style="font-size:16px">Medicines cure diseases, but only doctors can cure patients</p>
+                  <ul class="location-link">
+                   
+                    <li class="item">
+                      <i class="far fa-envelope" aria-hidden="true"></i>
+                      <a>
+                        <p>abc@docsy.com</p>
+                      </a>
+                    </li>
+                    <li class="item">
+                      <i class="fas fa-phone" aria-hidden="true"></i>
+                      <p>+(91) 1234567890</p>
+                    </li>
+                  </ul>
+                  
                 </div>
+              </div>
+              <div class="col-lg-6 col-md-5 mb-3 mb-md-0">
+                <h2 style="font-weight: bold;">Team</h2>
+                <ul class="menu-link">
+                  <li>
+                    <h6>Akanksha Kushwaha(Front-end)</h6>  
+                  </li>
+                  <li>
+                    <h6>Kirti Garg(Back-end)</h6>  
+                  </li>
+                  <li>
+                    <h6>Sushanth Anantabhotala(Back-end)</h6>  
+                  </li>
+                  <li>
+                    <h6>Souvik Ghosh(Back-end)</h6>  
+                  </li>
+                  <li>
+                    <h6>Kunnathu Pavan Kumar(Back-end)</h6>  
+                  </li>
+                  <li>
+                    <h6>Suraj Pratap Singh(Back-end)</h6>  
+                  </li>
+                  <li>
+                    <h6>Shailesh Kumar Sharma(Front-end)</h6>  
+                  </li>
+                  <li>
+                    <h6>Raghib Shams(DevOps)</h6>  
+                  </li>
+                  
+                </ul>
+              </div>
+              
             </div>
-            <div class="footer-bottom">
-                <div class="container clearfix">
-                    <div class="copyright-text">
-                        <p>&copy; Copyright 2022. Designed &amp; Developed by <a href="">Docsy Team</a></p>
-                    </div>
-
-                </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="container clearfix">
+            <div class="copyright-text">
+              <p>&copy; Copyright 2022. Designed &amp; Developed by <a href="">Docsy Team</a></p>
             </div>
-        </footer>
-        <!--End footer-main-->
+            
+          </div>
+        </div>
+      </footer>
+      <!--End footer-main-->
     </div>
-
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->

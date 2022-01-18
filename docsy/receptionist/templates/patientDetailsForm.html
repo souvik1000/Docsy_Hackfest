@@ -96,10 +96,10 @@
         <section class="header-uper">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-xl-3 col-lg-3">
+                    <div class="col-xl-3 col-lg-3 mt-3 mb-3">
                         <div class="logo">
                             <a href="{% url 'homePage' %}">
-                                <img loading="lazy" src="{% static 'image/logo.jpeg' %}" alt="logo" style="height: 150px;">
+                                <img loading="lazy"  src="{% static 'HomePageImages/logo.jpeg' %}"  alt="logo" style="height: 80px; width:150px;">
                             </a>
                         </div>
                     </div>
@@ -325,104 +325,80 @@
         <!-- form section end -->
 
         <!--footer-main-->
-        <footer class="footer-main" id="footer">
-            <div class="footer-top">
-                <div class="container">
-                    <div class="row justify-content-between">
-                        <div class="col-lg-4 mb-5 mb-lg-0">
-                            <div class="about-widget">
-                                <div class="footer-logo">
-                                    <figure>
-                                        <a href="{% url 'homePage' %}">
-                                            <img loading="lazy" class="img-fluid" src="{% static 'image/logo.jpeg' %}" alt="medic" style="width: 100px;">
-                                        </a>
-                                    </figure>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, temporibus?</p>
-                                <ul class="location-link">
-
-                                    <li class="item">
-                                        <i class="far fa-envelope" aria-hidden="true"></i>
-                                        <a>
-                                            <p>{{doctor_id.email}}</p>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <i class="fas fa-phone" aria-hidden="true"></i>
-                                        <p>+(91) {{doctor_id.phoneno}}</p>
-                                    </li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-5 mb-3 mb-md-0">
-                            <h2 style="font-weight: bold;">Team</h2>
-                            <ul class="menu-link">
-                                <li>
-                                    <h5>Akanksha Kushwaha</h5>
-                                </li>
-                                <li>
-                                    <h5>Kirti Garg</h5>
-                                </li>
-                                <li>
-                                    <h5>Sushanth Anantabhotala</h5>
-                                </li>
-                                <li>
-                                    <h5>Souvik Ghosh</h5>
-                                </li>
-                                <li>
-                                    <h5>Kunnathu Pavan Kumar</h5>
-                                </li>
-                                <li>
-                                    <h5>Suraj Pratap Singh</h5>
-                                </li>
-                                <li>
-                                    <h5>Raghib Shams</h5>
-                                </li>
-                                <li>
-                                    <h5>Sailesh Kumar Sharma</h5>
-                                </li>
-
-                            </ul>
-                        </div>
-                        <div class="col-lg-4 col-md-7">
-                            <div class="social-links">
-                                <h2>Some Reviews</h2>
-                                <ul>
-                                    <li class="item">
-                                        <div class="media">
-
-                                            <div class="media-body">
-                                                <h5><a href="">Your own companion</a></h5>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, dolorem.</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="item">
-                                        <div class="media">
-
-                                            <div class="media-body">
-                                                <h5><a href="">Best Experience</a></h5>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, dolorem.</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+      <footer class="footer-main" id="footer">
+        <div class="footer-top">
+          <div class="container">
+            <div class="row justify-content-between">
+              <div class="col-lg-4 mb-5 mb-lg-0">
+                <div class="about-widget">
+                  <div class="footer-logo">
+                    <figure>
+                      <a href="index.html">
+                        <img loading="lazy" class="img-fluid" src="{% static 'HomePageImages/logo.jpeg' %}" alt="medic" style="width: 100px;">
+                      </a>
+                    </figure>
+                  </div>
+                  <p style="font-size:16px">Medicines cure diseases, but only doctors can cure patients</p>
+                  <ul class="location-link">
+                   
+                    <li class="item">
+                      <i class="far fa-envelope" aria-hidden="true"></i>
+                      <a>
+                        <p>abc@docsy.com</p>
+                      </a>
+                    </li>
+                    <li class="item">
+                      <i class="fas fa-phone" aria-hidden="true"></i>
+                      <p>+(91) 1234567890</p>
+                    </li>
+                  </ul>
+                  
                 </div>
+              </div>
+              <div class="col-lg-6 col-md-5 mb-3 mb-md-0">
+                <h2 style="font-weight: bold;">Team</h2>
+                <ul class="menu-link">
+                  <li>
+                    <h6>Akanksha Kushwaha(Front-end)</h6>  
+                  </li>
+                  <li>
+                    <h6>Kirti Garg(Back-end)</h6>  
+                  </li>
+                  <li>
+                    <h6>Sushanth Anantabhotala(Back-end)</h6>  
+                  </li>
+                  <li>
+                    <h6>Souvik Ghosh(Back-end)</h6>  
+                  </li>
+                  <li>
+                    <h6>Kunnathu Pavan Kumar(Back-end)</h6>  
+                  </li>
+                  <li>
+                    <h6>Suraj Pratap Singh(Back-end)</h6>  
+                  </li>
+                  <li>
+                    <h6>Shailesh Kumar Sharma(Front-end)</h6>  
+                  </li>
+                  <li>
+                    <h6>Raghib Shams(DevOps)</h6>  
+                  </li>
+                  
+                </ul>
+              </div>
+              
             </div>
-            <div class="footer-bottom">
-                <div class="container clearfix">
-                    <div class="copyright-text">
-                        <p>&copy; Copyright 2022. Designed &amp; Developed by <a href="">Docsy Team</a></p>
-                    </div>
-
-                </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="container clearfix">
+            <div class="copyright-text">
+              <p>&copy; Copyright 2022. Designed &amp; Developed by <a href="">Docsy Team</a></p>
             </div>
-        </footer>
-        <!--End footer-main-->
+            
+          </div>
+        </div>
+      </footer>
+      <!--End footer-main-->
 
     </div>
 

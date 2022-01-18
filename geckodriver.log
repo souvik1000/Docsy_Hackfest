@@ -1,0 +1,7 @@
+1642426209111	geckodriver	INFO	Listening on 127.0.0.1:55639
+1642426210114	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-no-remote" "-profile" "/tmp/rust_mozprofilesSVH94"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1642426211242	Marionette	INFO	Marionette enabled
