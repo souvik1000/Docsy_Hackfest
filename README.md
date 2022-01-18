@@ -1,5 +1,4 @@
 # Docsy_Hackfest
-# GoCardless sample application
 
 ## Setup
 
