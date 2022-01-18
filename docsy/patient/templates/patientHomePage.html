@@ -57,6 +57,7 @@
                 <a href="index.html">
                   <img loading="lazy"  src="{% static 'HomePageImages/logo.jpeg' %}"  alt="logo" style="height: 120px;">
                 </a>
+                <br>
                 <span id="appointment_error" style="color: red;"> </span>
               </div>
             </div>
@@ -92,9 +93,13 @@
       <!--Header Upper-->
       <script>
         function  prescriptionErrorMessage(){
+          // alert("hi")
           var a=document.getElementById('appointment_error');
           a.innerHTML="No prescriptions are There"
+          var b=document.getElementById('appointment_error1');
+          b.innerHTML="No prescriptions are There"
           setTimeout(() => {  a.innerHTML="" }, 1500);
+          setTimeout(() => {  b.innerHTML="" }, 1500);
 
         }
       </script>
@@ -178,28 +183,58 @@
               {% if prescription_id %}
               <a class="btn btn-main"href="patientPrescription/">Prescriptions</a>
               {% else %}
-              <a class="btn btn-main" onclick="prescriptionErrorMessage()">Prescriptions</a>
+              <a class="btn btn-main" onclick="prescriptionErrorMessage()">Prescriptions</a><br>
               {% endif %}
+              <span id="appointment_error1" style="color: red;"></span>
               <!-- <a href="prescription.html" >Click here</a> -->
               <p>you can see all your detailed prescription with medicines and dosages instructions.</p>
             </div>
 
             <div class="col-lg-4  col-md-6 top-doctor item text-center"  >
               <h2>Laboratory Test Results</h2>
-              
+
+              {% if lab_reports %}
               <a href="#lab-result" class="btn btn-main">Click here</a><br><br>
+              {% else %}
+              <btn onclick="labreportErrorMessage()" class="btn btn-main">Click here</btn><br><br>
+
+              {% endif %}
+              <span id="lab_error_message" style="color: red;"></span>
+              
+              
               <p>Click here to see you Laboratory results.</p>
 
             </div>
 
             <div class="col-lg-4 col-md-12 working-time item text-center"  >
               <h2>Imaging Examination Results</h2>
-              <a href="#imaging-result" class="btn btn-main">Click here</a><br><br>
+              {% if image_reports  %}
+                   <a href="#imaging-result" class="btn btn-main">Click here</a><br><br>
+              {% else %}
+                     <btn onclick="imaginereportErrorMessage()" class="btn btn-main">Click here</btn><br><br>
+
+              {% endif %}
+              <span id="image_error_message" style="color: red;"></span>
+              
               <p>Here you can see All of your imaging results.</p>
             </div>
           </div>
         </div>
       </section>
+      <script>
+        function labreportErrorMessage(){
+          var b=document.getElementById('lab_error_message');
+          b.innerHTML="No Lab Reports are There"
+          setTimeout(() => {  b.innerHTML="" }, 1500);
+
+        }
+        function imaginereportErrorMessage(){
+          var b=document.getElementById('image_error_message');
+          b.innerHTML="No image Examinations Reports are There"
+          setTimeout(() => {  b.innerHTML="" }, 1500);
+
+        }
+      </script>
     
       <!-- end three cards -->
 
