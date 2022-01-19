@@ -8,40 +8,83 @@ import time
 # Create your tests here.
 class PlayerFormTest(LiveServerTestCase):
     selenium = webdriver.Chrome()
-    
-    def test_doctor_login(self):
-        driver = self.selenium
-        driver.get('http://127.0.0.1:8000/doctor/')
-        time.sleep(2)
-        # Find patient
-        mobile=driver.find_element_by_xpath('//*[@id="sign_in_mobile"]')
-        mobile.send_keys('8784768489')
-        password=driver.find_element_by_xpath('//*[@id="sign_in_pass"]')
-        password.send_keys('Kirti@1')
-        submit=driver.find_element_by_xpath('//*[@id="container"]/div[2]/form/button').click()
+    def test_view_medical_data(self):
+            driver = self.selenium
+            driver.get('http://127.0.0.1:8000/doctor/')
+            driver.maximize_window()
+            time.sleep(2)
+            mobile=driver.find_element_by_xpath('//*[@id="sign_in_mobile"]')
+            mobile.send_keys('8450042512')
+            password=driver.find_element_by_xpath('//*[@id="sign_in_pass"]')
+            password.send_keys('A12@asdfgh')
+            submit=driver.find_element_by_xpath('//*[@id="container"]/div[2]/form/button').click()
+            time.sleep(2)
+            driver.execute_script("window.scrollTo(0, 900);") 
+            time.sleep(2)
+            appointment=driver.find_element_by_xpath('/html/body/div/section[2]/div/div/div[1]/a').click()
+            time.sleep(2)
+            viewmed=driver.find_element_by_xpath('//*[@id="example1"]/tbody/tr/td[7]/div/a')
+            viewmed.click()
+            history=driver.find_element_by_xpath('//*[@id="diagnostic-data"]/button')
+            time.sleep(2)
+            history.click()
+            driver.execute_script("window.scrollTo(0, 550);")
+            time.sleep(3)
 
-    def test_register_patient_doctor(self):
-        driver=self.selenium 
-        driver.get('http://127.0.0.1:8000/doctor/home/')
-        time.sleep(2)  
-        registerPatient=driver.find_element_by_xpath('/html/body/div/section[1]/div/div/div[2]/div/div/a').click()
-        time.sleep(2)
-        email=driver.find_element_by_xpath('//*[@id="sign_in_email"]').send_keys('pavan@gmail.com')
-        password=driver.find_element_by_xpath('//*[@id="sign_in_pass"]').send_keys('Pavan@123')
-        login_submit=driver.find_element_by_xpath('//*[@id="container"]/div[2]/form/button').click()
-        time.sleep(4)
-        book_appointment=driver.find_element_by_xpath('/html/body/div/section[1]/div/div/div[2]/div/div/a').click()
-         
-# Create your tests here.
-    # def test_book_appointement_patient_page(self):
-    #     driver=self.selenium 
-    #     driver.get('http://127.0.0.1:8000/patient/patientlogin/')
-    #     driver.maximize_window()
-    #     time.sleep(2)
-    #     email=driver.find_element_by_xpath('//*[@id="sign_in_email"]').send_keys('pavan@gmail.com')
-    #     password=driver.find_element_by_xpath('//*[@id="sign_in_pass"]').send_keys('Pavan@123')
-    #     login_submit=driver.find_element_by_xpath('//*[@id="container"]/div[2]/form/button').click()
-    #     driver.maximize_window()
+    def testDoctorData(self):
+            driver = self.selenium
+            driver.get('http://127.0.0.1:8000/doctor/')
+            driver.maximize_window()
+            time.sleep(2)
+            mobile=driver.find_element_by_xpath('//*[@id="sign_in_mobile"]')
+            mobile.send_keys('8450042512')
+            password=driver.find_element_by_xpath('//*[@id="sign_in_pass"]')
+            password.send_keys('A12@asdfgh')
+            submit=driver.find_element_by_xpath('//*[@id="container"]/div[2]/form/button').click()
+            time.sleep(2)
+            driver.execute_script("window.scrollTo(0, 950);") 
+            time.sleep(2)
+            appointment=driver.find_element_by_xpath('/html/body/div/section[2]/div/div/div[1]/a').click()
+            time.sleep(2)
+            viewmed=driver.find_element_by_xpath('//*[@id="example1"]/tbody/tr/td[7]/div/a')
+            viewmed.click()
+            history=driver.find_element_by_xpath('//*[@id="diagnostic-data"]/button')
+            time.sleep(2)
+            history.click()
+            driver.execute_script("window.scrollTo(0, 500);")
+            docname=driver.find_element_by_xpath('//*[@id="diagnostic-data"]/div/div[1]/p[1]').text
+            #print(docname)
+            self.assertNotEqual (docname, "", "Doctor name not found")
+            docemail=driver.find_element_by_xpath('//*[@id="diagnostic-data"]/div/div[1]/p[2]').text
+            #print(docemail)
+            self.assertNotEqual (docemail, "", "Doctor email not found")
+            docphone=driver.find_element_by_xpath('//*[@id="diagnostic-data"]/div/div[1]/p[3]')
+            self.assertNotEqual (docphone, "", "Doctor phone number not found")
+            
+    
+    def test_lab_report(self):
+            driver = self.selenium
+            driver.get('http://127.0.0.1:8000/doctor/')
+            driver.maximize_window()
+            time.sleep(2)
+            mobile=driver.find_element_by_xpath('//*[@id="sign_in_mobile"]')
+            mobile.send_keys('8450042512')
+            password=driver.find_element_by_xpath('//*[@id="sign_in_pass"]')
+            password.send_keys('A12@asdfgh')
+            submit=driver.find_element_by_xpath('//*[@id="container"]/div[2]/form/button').click()
+            time.sleep(2)
+            driver.execute_script("window.scrollTo(0, 950);") 
+            time.sleep(2)
+            appointment=driver.find_element_by_xpath('/html/body/div/section[2]/div/div/div[1]/a').click()
+            time.sleep(2)
+            viewmed=driver.find_element_by_xpath('//*[@id="example1"]/tbody/tr/td[7]/div/a')
+            viewmed.click()
+            history=driver.find_element_by_xpath('//*[@id="diagnostic-data"]/button')
+            time.sleep(2)
+            history.click()
+            driver.execute_script("window.scrollTo(0, 710);")
+            prevreport=driver.find_element_by_xpath('//*[@id="diagnostic-data"]/div/button[1]')
+            prevreport.click()
         
 
 
