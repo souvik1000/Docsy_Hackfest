@@ -7,20 +7,20 @@ from selenium.webdriver.common.keys import Keys
 import time
 
 # Create your tests here.
-class PlayerFormTest(LiveServerTestCase):
-    selenium = webdriver.Chrome()
+# class PlayerFormTest(LiveServerTestCase):
+#     selenium = webdriver.Chrome()
     
-    def test_patient(self):
-        driver = self.selenium
+#     def test_patient(self):
+#         driver = self.selenium
 
 
-        driver.get('http://127.0.0.1:8000/patient/patientlogin/')
+#         driver.get('http://127.0.0.1:8000/patient/patientlogin/')
 
-        #patientlogin
-        time.sleep(1)
-        email=driver.find_element_by_xpath('//*[@id="sign_in_email"]').send_keys('pavan@gmail.com')
-        password=driver.find_element_by_xpath('//*[@id="sign_in_pass"]').send_keys('Pavan@123')
-        login_submit=driver.find_element_by_xpath('//*[@id="container"]/div[2]/form/button').click()
+#         #patientlogin
+#         time.sleep(1)
+#         email=driver.find_element_by_xpath('//*[@id="sign_in_email"]').send_keys('pavan@gmail.com')
+#         password=driver.find_element_by_xpath('//*[@id="sign_in_pass"]').send_keys('Pavan@123')
+#         login_submit=driver.find_element_by_xpath('//*[@id="container"]/div[2]/form/button').click()
 
 
         # for appointment
