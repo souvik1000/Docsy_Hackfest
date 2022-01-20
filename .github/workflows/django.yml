@@ -36,8 +36,7 @@ jobs:
       run: |
         seleniumbase install chromedriver
         seleniumbase install geckodriver
-        sudo mv /opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/site-packages/seleniumbase/drivers/chromedriver
-              /usr/bin/chromedriver 
+        sudo mv /opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/site-packages/seleniumbase/drivers/chromedriver /usr/bin/chromedriver 
         sudo chown root:root /usr/bin/chromedriver 
         sudo chmod +x /usr/bin/chromedriver 
     - name: Install Dependencies
