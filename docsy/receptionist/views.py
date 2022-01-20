@@ -212,11 +212,11 @@ def patientDetails(request):
     comment = request.POST['comment']
 
     procedure_name=request.POST['procedure_name']
-    body_site=request.POST['body_site']
+    procedure_body_site=request.POST['procedure_body_site']
     date_of_procedure=request.POST['date_of_procedure']
     
     illness_name = request.POST['illness_name']
-    body_site = request.POST['body_site']
+    illness_body_site = request.POST['illness_body_site']
     severity = request.POST['severity']
     illness_date_onset = request.POST['illness_date_onset']
     illness_date_abatement = request.POST['illness_date_abatement']
@@ -226,10 +226,10 @@ def patientDetails(request):
         allergies(patientId=patient_id, substance=substance, criticality=criticality, type=type, comment=comment).save()
         
     if procedure_name!='':# and date_of_procedure!='':
-        procedurehistory(patientId=patient_id,procedure_name=procedure_name ,body_site=body_site,procedure_date=date_of_procedure).save()
+        procedurehistory(patientId=patient_id,procedure_name=procedure_name ,body_site=procedure_body_site,procedure_date=date_of_procedure).save()
         
     if illness_name!='':# and (illness_date_onset!='') and (illness_date_abatement!=''):
-        illnesshistory(patientId=patient_id, illness_name=illness_name, body_site=body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement).save()
+        illnesshistory(patientId=patient_id, illness_name=illness_name, body_site=illness_body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement).save()
         
     return render(request, 'patientDetailsForm.html')
 
