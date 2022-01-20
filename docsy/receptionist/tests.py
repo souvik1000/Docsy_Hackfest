@@ -23,13 +23,8 @@ class PlayerFormTest(LiveServerTestCase):
             time.sleep(2)
             appointment=driver.find_element_by_xpath('/html/body/div/section[2]/div/div/div[1]/a').click()
             time.sleep(2)
-            viewmed=driver.find_element_by_xpath('//*[@id="example1"]/tbody/tr/td[7]/div/a')
-            viewmed.click()
-            history=driver.find_element_by_xpath('//*[@id="diagnostic-data"]/button')
-            time.sleep(2)
-            history.click()
-            driver.execute_script("window.scrollTo(0, 550);")
-            time.sleep(3)
+           
+           
 
     def testDoctorData(self):
             driver = self.selenium
@@ -82,9 +77,10 @@ class PlayerFormTest(LiveServerTestCase):
             history=driver.find_element_by_xpath('//*[@id="diagnostic-data"]/button')
             time.sleep(2)
             history.click()
-            driver.execute_script("window.scrollTo(0, 710);")
+            driver.execute_script("window.scrollTo(0, 650);")
             prevreport=driver.find_element_by_xpath('//*[@id="diagnostic-data"]/div/button[1]')
             prevreport.click()
+            
         
 
 
