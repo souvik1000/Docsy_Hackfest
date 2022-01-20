@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: mr-smithers-excellent/docker-build-push@v5
       with:
-        image: raghib123/docsy1
+        image: raghib123/docsy
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
