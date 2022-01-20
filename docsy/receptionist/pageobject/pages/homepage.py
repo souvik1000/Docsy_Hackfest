@@ -1,4 +1,5 @@
 import time
+# from receptionist.pageobject.pages.appointment import Appointment
 from receptionist.pageobject.pages.login import Login
 from receptionist.pageobject.locators.varhomepage import VarHomePage
 
@@ -12,7 +13,12 @@ class HomePage:
         patient_details.click()
     
         
-    # def doctor_homepage_appointment(self, driver):
+    def doctor_homepage_appointment(self, driver):
+        Login.doctor_login(self, driver)
+        appointment_section = driver.find_element_by_xpath(VarHomePage.HOME_APPOINTMENT_DETAILS_XPATH)
+        appointment_section.location_once_scrolled_into_view
+        time.sleep(1)
+        appointment_section.click()
     
     
     def doctor_logout(self, driver):

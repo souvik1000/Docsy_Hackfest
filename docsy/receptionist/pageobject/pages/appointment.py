@@ -1,10 +1,47 @@
 import time
 from receptionist.pageobject.locators.varappointment import VarAppointment
+from receptionist.pageobject.pages.homepage import HomePage
 
-class Appointment:        
+class Appointment:  
+    def click_on_todays_from_home(self, driver):
+        HomePage.doctor_homepage_appointment(self, driver)
+        time.sleep(1)
+        driver.find_element_by_xpath(VarAppointment.TODAY_CHECKBOX_XPATH).click()
+        time.sleep(1)
+        
+          
     def click_on_view_medicine(self, driver):
         time.sleep(1)
         driver.find_element_by_xpath(VarAppointment.VIEW_MEDICINE_XPATH).click()
         time.sleep(1)
+        
+        
+    def check_data_in_the_table_after_click_todays(self, driver):
+        Appointment.click_on_todays_from_home(self, driver)
+        return driver.find_element_by_xpath(VarAppointment.LOAD_DATA_XPATH).text
+    
+    
+    def check_data_in_the_table_after_click_load_all(self, driver):
+        Appointment.click_on_todays_from_home(self, driver)
+        driver.find_element_by_xpath(VarAppointment.LOAD_DATA_XPATH).click()
+        return driver.find_element_by_xpath(VarAppointment.TODAY_NAME_XPATH).text
+        
+        
+    def click_on_status_appointment(self, driver):
+        HomePage.doctor_homepage_appointment(self, driver)
+        time.sleep(1)
+        driver.find_element_by_xpath(VarAppointment.MARK_AS_DONE_XPATH).click()
+        return driver.find_element_by_xpath(VarAppointment.MARK_AS_NOT_DONE_XPATH).text
+    
+    
+    def click_on_status_recent_appointment(self, driver):
+        HomePage.doctor_homepage_appointment(self, driver)
+        time.sleep(1)
+        driver.find_element_by_xpath(VarAppointment.MARK_AS_NOT_DONE_XPATH).click()
+        time.sleep(1)
+        mark_as_done = driver.find_element_by_xpath(VarAppointment.MARK_AS_DONE_XPATH)
+        mark_as_done.location_once_scrolled_into_view
+        time.sleep(5)
+        return mark_as_done.text
         
         
