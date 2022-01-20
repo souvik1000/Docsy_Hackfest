@@ -23,7 +23,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install SeleniumBase
       run: |
-        python setup.py install
+        python -m pip install seleniumbase
     - name: Install Chrome and Firefox
       run: |
         sudo apt install google-chrome-stable
