@@ -16,7 +16,7 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: docker build csharp
       run: |
-        docker build -t aimvector/csharp:1.0.0
+        docker build . --file Dockerfile --tag raghib123/docsy:$(date +%s)
     - name: docker push
       run: |
-        docker push aimvector/csharp:1.0.0
+        docker push raghib123/docsy
