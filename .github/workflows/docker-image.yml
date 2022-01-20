@@ -1,24 +1,22 @@
-name: Docker Image CI
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+name: Docker Series Builds
+
+on: [push]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
-    - uses: mr-smithers-excellent/docker-build-push@v5
-      with:
-        image: raghib123/docsy
-        registry: docker.io
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-#       - name: Build the Docker image
-#         run: docker build . --file dockerfile --tag my-image-name:$(date +%s)
+    - name: docker login
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}   
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - name: docker build csharp
+      run: |
+        docker build -t aimvector/csharp:1.0.0
+    - name: docker push
+      run: |
+        docker push aimvector/csharp:1.0.0
