@@ -1,13 +1,12 @@
-import sys
-sys.path.append("/home/souvik/Desktop/New/Docsy_Hackfest/docsy/receptionist")
 import time
-from pageobject.pages.login import Login
+from receptionist.pageobject.pages.login import Login
+from receptionist.pageobject.locators.varhomepage import VarHomePage
 
 class HomePage:
     def doctor_homepage_patient_details(self, driver):
         Login.doctor_login(self, driver)
         # Doctor HomePage
-        patient_details = driver.find_element_by_xpath('/html/body/div/section[2]/div/div/div[3]/a')
+        patient_details = driver.find_element_by_xpath(VarHomePage.HOME_PATIENT_DETAILS_XPATH)
         patient_details.location_once_scrolled_into_view
         time.sleep(1)
         patient_details.click()
@@ -19,4 +18,4 @@ class HomePage:
     def doctor_logout(self, driver):
         Login.doctor_login(self, driver)
         # Doctor Logout
-        driver.find_element_by_xpath('//*[@id="navbarLinks"]/ul/li[4]/a').click()
+        driver.find_element_by_xpath(VarHomePage.HOME_NAVBAR_LOGOUT_XPATH).click()

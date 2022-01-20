@@ -1,72 +1,69 @@
-import sys
-sys.path.append("/home/souvik/Desktop/New/Docsy_Hackfest/docsy/receptionist")
-
 import time
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
-from pageobject.pages.homepage import HomePage
-from pageobject.locator import Locator
+from receptionist.pageobject.pages.homepage import HomePage
+from receptionist.pageobject.locators.varpatientdetails import VarPatientDetails
 
 class PatientDetails:
     def navbar_and_click_appointment(self, driver):
         # Goto NAV Bar
-        navbar = driver.find_element_by_xpath('//*[@id="navbarLinks"]')
+        navbar = driver.find_element_by_xpath(VarPatientDetails.NAVBAR_XPATH)
         navbar.location_once_scrolled_into_view
         time.sleep(1)
-        driver.find_element_by_xpath('//*[@id="navbarLinks"]/ul/li[2]/a').click()
+        driver.find_element_by_xpath(VarPatientDetails.NAVBAR_ALL_APPOINTMENT_XPATH).click()
     
     def patient_details(self, driver):
         # Patient Details
-        driver.find_element_by_xpath(Locator.PATIENT_NAME_XPATH).send_keys(Locator.PATIENT_NAME)
-        driver.find_element_by_xpath(Locator.PATIENT_PHONENO_XPATH).send_keys(Locator.PATIENT_PHONENO)
+        driver.find_element_by_xpath(VarPatientDetails.PATIENT_NAME_XPATH).send_keys(VarPatientDetails.PATIENT_NAME)
+        driver.find_element_by_xpath(VarPatientDetails.PATIENT_PHONENO_XPATH).send_keys(VarPatientDetails.PATIENT_PHONENO)
         time.sleep(1)
         
     def submit(self, driver):
         # Click Submit
-        submit = driver.find_element_by_xpath('/html/body/div/div/div/div/div/form/div[10]/div/input')
+        submit = driver.find_element_by_xpath(VarPatientDetails.SUBMIT_XPATH)
         submit.location_once_scrolled_into_view
         time.sleep(1)
         submit.click()
         
     def allergies(self, driver):     
         # Goto Allergies Section
-        allergies_section = driver.find_element_by_xpath('/html/body/div/div/div/div/div/form/h4[1]')
+        allergies_section = driver.find_element_by_xpath(VarPatientDetails.ALLERGIES_SECTION_XPATH)
         allergies_section.location_once_scrolled_into_view
-        type = Select(driver.find_element_by_xpath('//*[@id="type"]'))
-        type.select_by_visible_text('Intolerance')
-        criticality = Select(driver.find_element_by_xpath('//*[@id="criticality"]'))
-        criticality.select_by_visible_text('Medium')
-        driver.find_element_by_xpath('//*[@id="substance"]').send_keys('Dust')
-        driver.find_element_by_xpath('//*[@id="comment"]').send_keys('Take medicines two times a day.')
+        type = Select(driver.find_element_by_xpath(VarPatientDetails.ALLERGIES_TYPE_XPATH))
+        type.select_by_visible_text(VarPatientDetails.ALLERGIES_TYPE)
+        criticality = Select(driver.find_element_by_xpath(VarPatientDetails.ALLERGIES_CRITICALITY_XPATH))
+        criticality.select_by_visible_text(VarPatientDetails.ALLERGIES_CRITICALITY)
+        driver.find_element_by_xpath(VarPatientDetails.ALLERGIES_SUBSTANCE_XPATH).send_keys(VarPatientDetails.ALLERGIES_SUBSTANCE)
+        driver.find_element_by_xpath(VarPatientDetails.ALLERGIES_COMMENT_XPATH).send_keys(VarPatientDetails.ALLERGIES_COMMENT)
         
         time.sleep(1)
         
     def procedure(self, driver):
         # Goto Procedure Section
-        procedure_section = driver.find_element_by_xpath('/html/body/div/div/div/div/div/form/h4[2]')
+        procedure_section = driver.find_element_by_xpath(VarPatientDetails.PROCEDURE_SECTION_XPATH)
         procedure_section.location_once_scrolled_into_view
-        driver.find_element_by_xpath('//*[@id="procedure_name"]').send_keys('Ligament Injury')
-        driver.find_element_by_xpath('//*[@id="procedure_body_site"]').send_keys('Left Leg')
-        driver.find_element_by_xpath('//*[@id="date_of_procedure"]').send_keys('10-12-2021')
+        driver.find_element_by_xpath(VarPatientDetails.PROCEDURE_NAME_XPATH).send_keys(VarPatientDetails.PROCEDURE_NAME)
+        driver.find_element_by_xpath(VarPatientDetails.PROCEDURE_BODYSITE_XPATH).send_keys(VarPatientDetails.PROCEDURE_BODYSITE)
+        driver.find_element_by_xpath(VarPatientDetails.PROCEDURE_DATE_OF_PROCEDURE_XPATH).send_keys(VarPatientDetails.PROCEDURE_DATE_OF_PROCEDURE)
         
         time.sleep(1)
     
     def illness(self, driver):
         # Goto Illness Section
-        illness_section = driver.find_element_by_xpath('/html/body/div/div/div/div/div/form/h4[3]')
+        illness_section = driver.find_element_by_xpath(VarPatientDetails.ILLNESS_SECTION_XPATH)
         illness_section.location_once_scrolled_into_view
-        driver.find_element_by_xpath('//*[@id="illness_name"]').send_keys("Fever")
-        driver.find_element_by_xpath('//*[@id="illness_body_site"]').send_keys("Head")
-        severity = Select(driver.find_element_by_xpath('//*[@id="severity"]'))
-        severity.select_by_visible_text('High')
-        date_onset = driver.find_element_by_xpath('//*[@id="illness_date_onset"]')
-        date_onset.send_keys('10-12-2021')
+        driver.find_element_by_xpath(VarPatientDetails.ILLNESS_NAME_XPATH).send_keys(VarPatientDetails.ILLNESS_NAME)
+        driver.find_element_by_xpath(VarPatientDetails.ILLNESS_BODYSITE_XPATH).send_keys(VarPatientDetails.ILLNESS_BODYSITE)
+        severity = Select(driver.find_element_by_xpath(VarPatientDetails.ILLNESS_SEVERITY_XPATH))
+        severity.select_by_visible_text(VarPatientDetails.ILLNESS_SEVERITY)
+        date_onset = driver.find_element_by_xpath(VarPatientDetails.ILLNESS_DATE_OF_ONSET_XPATH)
+        date_onset.send_keys(VarPatientDetails.ILLNESS_DATE_OF_ONSET)
         date_onset.send_keys(Keys.TAB)
-        date_onset.send_keys('0245PM')
-        date_abatement = driver.find_element_by_xpath('//*[@id="illness_date_abatement"]')
-        date_abatement.send_keys('17-12-2021')
+        date_onset.send_keys(VarPatientDetails.ILLNESS_TIME_OF_ONSET)
+        date_abatement = driver.find_element_by_xpath(VarPatientDetails.ILLNESS_DATE_OF_ABATEMENT_XPATH)
+        date_abatement.send_keys(VarPatientDetails.ILLNESS_DATE_OF_ABATEMENT)
         date_abatement.send_keys(Keys.TAB)
-        date_abatement.send_keys('0945AM')
+        date_abatement.send_keys(VarPatientDetails.ILLNESS_TIME_OF_ABATEMENT)
         
         time.sleep(1)
 

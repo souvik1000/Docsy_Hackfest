@@ -1,24 +1,23 @@
-import imp
-import sys
-sys.path.append("/home/souvik/Desktop/New/Docsy_Hackfest/docsy/receptionist")
-from django.test import TestCase
+# import imp
+# import sys
+# sys.path.append("/home/souvik/Desktop/New/Docsy_Hackfest/docsy/receptionist")
+# from django.test import TestCase
 from django.test import LiveServerTestCase
 from selenium import webdriver
-from pageobject.pages.patientdetails import PatientDetails
-from pageobject.pages.viewmedicaldata import ViewMedicalData
+from receptionist.pageobject.pages.patientdetails import PatientDetails
+from receptionist.pageobject.pages.viewmedicaldata import ViewMedicalData
 
 
-from pageobject.pages.homepage import HomePage
-from pageobject.pages.patientdetails import PatientDetails
-from pageobject.pages.appointment import Appointment
-from pageobject.pages.viewmedicaldata import ViewMedicalData
+from receptionist.pageobject.pages.homepage import HomePage
+from receptionist.pageobject.pages.patientdetails import PatientDetails
+# from pageobject.pages.appointment import Appointment
+from receptionist.pageobject.pages.viewmedicaldata import ViewMedicalData
 
 import time
 
 # Create your tests here.
 class ReceptionistAppTest(LiveServerTestCase):
     selenium = webdriver.Chrome()
-
     
     def test_01_patient_details_allergies(self):
         driver = self.selenium 
