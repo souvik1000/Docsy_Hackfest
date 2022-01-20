@@ -16,7 +16,7 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: docker build csharp
       run: |
-        docker build . --file Dockerfile --tag raghib123/docsy:$(date +%s)
+        docker build . --file Dockerfile --tag raghib123/docsy:latest .
     - name: docker push
       run: |
         docker push raghib123/docsy
