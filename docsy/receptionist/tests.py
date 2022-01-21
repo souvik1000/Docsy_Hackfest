@@ -36,7 +36,8 @@ class CheckAddReports(LiveServerTestCase):
 
         add_lab_counter=0
         add_image_counter=0
-        for each_lab_click in range(2):
+        no_of_records=1
+        for each_lab_click in range(no_of_records):
             add_lab = driver.find_element_by_xpath('//*[@id="features-creation"]/div/div[2]/button[1]')
             driver.execute_script("arguments[0].click();", add_lab)
             # add_lab.location_once_scrolled_into_view
@@ -95,7 +96,7 @@ class CheckAddReports(LiveServerTestCase):
         close_lab = driver.find_element_by_xpath('/html/body/div/div[2]/div/div[1]/form/div[1]/div[{}]/div/div/div/div/p/b'.format(add_lab_counter+1))
         driver.execute_script("arguments[0].click();", close_lab)
 
-        for each_image_click in range(2):
+        for each_image_click in range(no_of_records):
             add_image = driver.find_element_by_xpath('//*[@id="features-creation"]/div/div[2]/button[2]')
             driver.execute_script("arguments[0].click();", add_image)
             # print(add_image_counter)
