@@ -5,7 +5,15 @@
     {
       "dnsSearchDomains": null,
       "environmentFiles": null,
-      "logConfiguration": null,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "secretOptions": null,
+        "options": {
+          "awslogs-group": "/ecs/doscytask1",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
       "entryPoint": null,
       "portMappings": [
         {
@@ -25,11 +33,11 @@
       "workingDirectory": null,
       "secrets": null,
       "dockerSecurityOptions": null,
-      "memory": 500,
-      "memoryReservation": null,
+      "memory": null,
+      "memoryReservation": 500,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "052250720528.dkr.ecr.us-east-1.amazonaws.com/group-l:30f60bd087e0282fcab4eece73184f85a03947fb",
+      "image": "052250720528.dkr.ecr.us-east-1.amazonaws.com/group-l:latest",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -46,23 +54,48 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": "docsycontainer"
+      "name": "dcontainer"
     }
   ],
   "placementConstraints": [],
   "memory": "4096",
   "taskRoleArn": "arn:aws:iam::052250720528:role/ecsTaskExecutionRole",
   "compatibilities": [
-    "EC2"
+    "EC2",
+    "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:052250720528:task-definition/docsytask:7",
-  "family": "docsytask",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:052250720528:task-definition/doscytask1:1",
+  "family": "doscytask1",
   "requiresAttributes": [
     {
       "targetId": null,
       "targetType": null,
       "value": null,
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.execution-role-awslogs"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
       "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
     },
     {
       "targetId": null,
@@ -91,12 +124,15 @@
   ],
   "pidMode": null,
   "requiresCompatibilities": [
-    "EC2"
+    "FARGATE"
   ],
   "networkMode": "awsvpc",
-  "runtimePlatform": null,
-  "cpu": "4096",
-  "revision": 7,
+  "runtimePlatform": {
+    "operatingSystemFamily": "LINUX",
+    "cpuArchitecture": null
+  },
+  "cpu": "2048",
+  "revision": 1,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
