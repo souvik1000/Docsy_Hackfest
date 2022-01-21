@@ -3,11 +3,12 @@ from selenium import webdriver
 from receptionist.pageobject.pages.appointment import Appointment
 from receptionist.pageobject.pages.patientdetails import PatientDetails
 from receptionist.pageobject.pages.viewmedicaldata import ViewMedicalData
-
+from receptionist.pageobject.pages.diagnostic import Daignostic
 from receptionist.pageobject.pages.homepage import HomePage
 from receptionist.pageobject.pages.patientdetails import PatientDetails
 from receptionist.pageobject.pages.viewmedicaldata import ViewMedicalData
 from receptionist.pageobject.locators.checks import Checks
+from receptionist.pageobject.locators.vardiagnostic import VarDiagnostic
 import time
 
 # Create your tests here.
@@ -52,18 +53,8 @@ class ReceptionistAppTest(LiveServerTestCase):
         self.assertEqual(date_of_onset, "Dec. 10, 2021, 2:45 a.m.", "Data Not Matched")
         self.assertEqual(date_of_abatement, "Dec. 17, 2021, 9:45 a.m.", "Data Not Matched")
         
-
-    def test_04_logout(self):
-        driver = self.selenium
-        driver.maximize_window()
-        base_link = 'http://127.0.0.1:8000/doctor/'
-        driver.get(base_link)
-        time.sleep(1)
-        HomePage.doctor_logout(self, driver)
-        self.assertEqual(base_link, driver.current_url, "Logout Not Working")
         
-        
-    def test_05_show_today(self):
+    def test_04_show_today(self):
         driver = self.selenium
         driver.maximize_window()
         driver.get(Checks.BASE_URL)
@@ -71,7 +62,7 @@ class ReceptionistAppTest(LiveServerTestCase):
         self.assertEqual(load_data, Checks.LOAD_DATA, "No Load All Section")
 
         
-    def test_06_show_load_all(self):
+    def test_05_show_load_all(self):
         driver = self.selenium
         driver.maximize_window()
         driver.get(Checks.BASE_URL)
@@ -79,7 +70,55 @@ class ReceptionistAppTest(LiveServerTestCase):
         self.assertEqual(todays, Checks.NAME_TODAY, "No Load All Section")
         
         
-    def test_07_doctor_mark_as_done(self):
+    def test_06_add_single_lab_report(self):
+        driver = self.selenium
+        driver.maximize_window()
+        driver.get(Checks.BASE_URL)
+        time.sleep(2)
+        Daignostic.add_single_lab_report(self, driver)
+        # Now Check Data comes or not
+        ViewMedicalData.check_single_lab_report(self, driver)
+        file_name = VarDiagnostic.LAB_FILE_INPUT.split('/')[-1].split('.')[0]
+        self.assertIn(file_name,driver.current_url, "File Name not Found")
+        
+    
+    def test_07_add_single_image_report(self):
+        driver = self.selenium
+        driver.maximize_window()
+        driver.get(Checks.BASE_URL)
+        time.sleep(2)
+        Daignostic.add_single_image_report(self, driver)
+        # Now Check Data comes or not
+        ViewMedicalData.check_single_image_report(self, driver)
+        file_name = VarDiagnostic.IMAGE_FILE_INPUT.split('/')[-1].split('.')[0]
+        self.assertIn(file_name,driver.current_url, "File Name not Found")
+        
+        
+    def test_08_check_doctor_details_in_diagnostic_view(self):
+        driver = self.selenium
+        driver.maximize_window()
+        driver.get(Checks.BASE_URL)
+        time.sleep(2)
+        ViewMedicalData.check_doctor_details(self, driver)
+            
+        
+    def test_09_click_close_lab_report(self):
+        driver = self.selenium
+        driver.maximize_window()
+        driver.get(Checks.BASE_URL)
+        time.sleep(2)
+        self.assertEqual(True, Daignostic.click_close_button_lab_report(self, driver), "Lab Cross Button Not Working")
+            
+        
+    def test_10_click_close_image_report(self):
+        driver = self.selenium
+        driver.maximize_window()
+        driver.get(Checks.BASE_URL)
+        time.sleep(2)
+        self.assertEqual(True, Daignostic.click_close_button_image_report(self, driver), "Image Cross Button Not Working")
+        
+        
+    def test_11_doctor_mark_as_done(self):
         driver = self.selenium 
         driver.maximize_window()
         driver.get(Checks.BASE_URL)
@@ -88,7 +127,7 @@ class ReceptionistAppTest(LiveServerTestCase):
         self.assertEqual(status, Checks.MAKE_AS_NOT_DONE, "Make as not done")
 
 
-    def test_08_doctor_mark_as_not_done(self):
+    def test_12_doctor_mark_as_not_done(self):
         driver = self.selenium
         driver.maximize_window()
         driver.get(Checks.BASE_URL)
@@ -97,4 +136,11 @@ class ReceptionistAppTest(LiveServerTestCase):
         self.assertEqual(status, Checks.MAKE_AS_DONE, "Make as done")
         
         
-        
+    def test_13_logout(self):
+        driver = self.selenium
+        driver.maximize_window()
+        base_link = 'http://127.0.0.1:8000/doctor/'
+        driver.get(base_link)
+        time.sleep(1)
+        HomePage.doctor_logout(self, driver)
+        self.assertEqual(base_link, driver.current_url, "Logout Not Working")

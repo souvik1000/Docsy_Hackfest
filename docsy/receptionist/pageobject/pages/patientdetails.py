@@ -6,10 +6,11 @@ from receptionist.pageobject.locators.varpatientdetails import VarPatientDetails
 
 class PatientDetails:
     def navbar_and_click_appointment(self, driver):
+        time.sleep(1)
         # Goto NAV Bar
         navbar = driver.find_element_by_xpath(VarPatientDetails.NAVBAR_XPATH)
         navbar.location_once_scrolled_into_view
-        time.sleep(1)
+        time.sleep(2)
         driver.find_element_by_xpath(VarPatientDetails.NAVBAR_ALL_APPOINTMENT_XPATH).click()
     
     def patient_details(self, driver):

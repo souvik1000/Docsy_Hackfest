@@ -1,227 +1,231 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-{% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1"> {% load static %}
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" href="{% static 'css/indexstyles.css' %}">
     <title>Home - INDOCSY</title>
     <script>
-    (
-      function(w, d) {
-       w.CollectId = "61e2c43bbe19f1762af01bc4";
-        var h = d.head || d.getElementsByTagName("head")[0];
-        var s = d.createElement("script"); 
-        s.setAttribute("type", "text/javascript"); 
-        s.async=true; 
-        s.setAttribute("src", "https://collectcdn.com/launcher.js");
-         h.appendChild(s);
-        }
-      )
+        (
+            function(w, d) {
+                w.CollectId = "61e2c43bbe19f1762af01bc4";
+                var h = d.head || d.getElementsByTagName("head")[0];
+                var s = d.createElement("script");
+                s.setAttribute("type", "text/javascript");
+                s.async = true;
+                s.setAttribute("src", "https://collectcdn.com/launcher.js");
+                h.appendChild(s);
+            }
+        )
         (window, document);
-      </script>
-  </head>
-  <body>
-    
+    </script>
+</head>
+
+<body>
+
 
 
     <div class="page-wrapper">
 
-      <!--Header Upper-->
-      <section class="header-uper">
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-xl-4 col-lg-3 mt-3 mb-3">
-              <div class="logo">
-                <a href="index.html">
-                  <img loading="lazy"  src="{% static 'HomePageImages/logo.jpeg' %}"  alt="logo" style="height: 80px; width:150px;">
-                </a>
-              </div>
-            </div>
-            <div class="col-xl-8 col-lg-9">
-              <div class="right-side">
-                <ul style="padding-top: 3%;" class="contact-info pl-0 mb-4 mb-md-0">
-                  <li class="item text-left">
-                   <!---->
-                    <strong>Email</strong>
-                    <br>
-                    <a href="mailto:info@medic.com">
-                      <span>Ecare@docsy.com</span>
-                    </a>
-                  </li>
-                  <li class="item text-left">
-                    
-                    <strong>Call Now</strong>
-                    <br>
-                    <span>+ (91) 1234567890</span>
-                  </li>
-                </ul>
-                <div class="link-btn text-center text-lg-right">
-                  <a href="{% url 'login' %}" class="btn-style-one">Register As a doctor</a>
+        <!--Header Upper-->
+        <section class="header-uper">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-4 col-lg-3 mt-3 mb-3">
+                        <div class="logo">
+                            <a href="index.html">
+                                <img loading="lazy" src="{% static 'HomePageImages/logo.jpeg' %}" alt="logo" style="height: 80px; width:150px;">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-lg-9">
+                        <div class="right-side">
+                            <ul style="padding-top: 3%;" class="contact-info pl-0 mb-4 mb-md-0">
+                                <li class="item text-left">
+                                    <!---->
+                                    <strong>Email</strong>
+                                    <br>
+                                    <a href="mailto:info@medic.com">
+                                        <span>Ecare@docsy.com</span>
+                                    </a>
+                                </li>
+                                <li class="item text-left">
+
+                                    <strong>Call Now</strong>
+                                    <br>
+                                    <span>+ (91) 1234567890</span>
+                                </li>
+                            </ul>
+                            <div class="link-btn text-center text-lg-right">
+                                <a href="{% url 'login' %}" class="btn-style-one">Register As a doctor</a>
+                            </div>
+                            <div class="link-btn text-center text-lg-right">
+                                <a href="{% url 'patientLogin' %}" class="btn-style-one">Register As a Patient</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="link-btn text-center text-lg-right">
-                  <a href="{% url 'patientLogin' %}" class="btn-style-one">Register As a Patient</a>
-                </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </section>
-      <!--Header Upper-->
+        </section>
+        <!--Header Upper-->
 
 
-      <!--Main Header-->
-      <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarLinks" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <!--Main Header-->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarLinks" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-        
-          <div class="collapse navbar-collapse" id="navbarLinks">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'home' %}">Home</a>
-              </li>
-             
-              <li class="nav-item @@team">
-                <a class="nav-link" href="#footer">Team</a>
-              </li>
-              <li class="nav-item @@gallery">
-                <a class="nav-link" href="#footer">About us</a>
-              </li>
-              
-              </li>
-              <li class="nav-item @@contact">
-                <a class="nav-link" href="">Contact</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <!--End Main Header -->
+
+                <div class="collapse navbar-collapse" id="navbarLinks">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home' %}">Home</a>
+                        </li>
+
+                        <li class="nav-item @@team">
+                            <a class="nav-link" href="#footer">Team</a>
+                        </li>
+                        <li class="nav-item @@gallery">
+                            <a class="nav-link" href="#footer">About us</a>
+                        </li>
+
+                        </li>
+                        <li class="nav-item @@contact">
+                            <a class="nav-link" href="">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--End Main Header -->
 
 
-      <!---  Page Slider   -->
-      <div class="hero-slider">
-        <!-- Slider Item -->
-        <video preload="auto" style="width: 100%; height: 100%%;" autoplay playsinline loop muted>
+        <!---  Page Slider   -->
+        <div class="hero-slider">
+            <!-- Slider Item -->
+            <video preload="auto" style="width: 100%; height: 100%;" autoplay playsinline loop muted>
           <source src="{% static 'videos/video.mp4' %}" type="video/mp4">
         </video>
-      </div>
-
-      <!-- End of Page Slider  -->
-
-      <!-- three cards -->
-      <section class="cta">
-
-        <div  class="container">
-
-          <div class="cta-block row no-gutters">
-
-            <div class="col-lg-4 col-md-6 emmergency item text-center">
-              <img  width="350" height="350" src="https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/09/IBD-Fertility-TN-3.jpg?x40264" class="attachment-recent-posts size-recent-posts" alt="" srcset="https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/09/IBD-Fertility-TN-3-66x66.jpg?x40264 66w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/09/IBD-Fertility-TN-3-80x80.jpg?x40264 80w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/09/IBD-Fertility-TN-3-200x200.jpg?x40264 200w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/09/IBD-Fertility-TN-3-300x300.jpg?x40264 300w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/09/IBD-Fertility-TN-3-320x320.jpg?x40264 320w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/09/IBD-Fertility-TN-3.jpg?x40264 350w" sizes="(max-width: 350px) 100vw, 350px" />
-              <h4 style="text-align: left;padding-top:10px;font-size: 22px;text-align: justify; "><a href="#">Inflammatory Bowel Disease can impact sexuality and fertility, but proper medical care can help patients address their concerns</a></h4>
-              <p style="text-align: left;color: rgb(63, 58, 58);">Inflammatory Bowel Disease, which often shows up in a patient's teens, 20s or 30s, can have a significant impact on sexuality and fertility. Gastroenterologist [...]</p>
-            </div>
-
-            <div class="col-lg-4 col-md-6 top-doctor item text-center">
-              <img width="350" height="350" src="https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Artwork-TN.jpg?x40264" class="attachment-recent-posts size-recent-posts" alt="" srcset="https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Artwork-TN-66x66.jpg?x40264 66w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Artwork-TN-80x80.jpg?x40264 80w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Artwork-TN-200x200.jpg?x40264 200w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Artwork-TN-300x300.jpg?x40264 300w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Artwork-TN-320x320.jpg?x40264 320w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Artwork-TN.jpg?x40264 350w" sizes="(max-width: 350px) 100vw, 350px" />
-              <h4 style="text-align: left;padding-top:10px;font-size: 22px;text-align: justify; "><a href="#">Artist Danny Broadway, inspired by his wife’s care, shares the healing power of art with Docsy and staff</a></h4>
-              <p style="text-align: left;color: rgb(63, 58, 58); padding-top: 40px;;"> Regional One Health Foundation recently unveiled a new art installation, Healing Motion, which was created by Memphis-based artist Danny Broadway. Broadway was inspired [...]</p>
-            </div>
-
-            <div class="col-lg-4 col-md-12 working-time item text-center">
-              <img width="350" height="350" src="https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Sam-TN.jpg?x40264" class="attachment-recent-posts size-recent-posts" alt="" srcset="https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Sam-TN-66x66.jpg?x40264 66w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Sam-TN-80x80.jpg?x40264 80w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Sam-TN-200x200.jpg?x40264 200w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Sam-TN-300x300.jpg?x40264 300w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Sam-TN-320x320.jpg?x40264 320w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Sam-TN.jpg?x40264 350w" sizes="(max-width: 350px) 100vw, 350px" />
-              <h4 style="text-align: left;padding-top:10px;font-size: 22px;text-align: justify; "><a href="#">“We are joyful just to have him here:” As they celebrate the holidays, the Reids reflect on their son’s inspiring recovery from a sledding accident</a></h4>
-              <p style="text-align: left;color: rgb(63, 58, 58);padding-top:10px;"> Sam Reid was sledding with some friends when he was thrown into a metal tractor spike, which impaled him from his stomach to [...]</p>
-            </div>
-          </div>
         </div>
-      </section>
-    
-      <!-- end three cards -->
 
-      <br><br><br><br>
+        <!-- End of Page Slider  -->
 
-      <!--footer-main-->
-      <footer class="footer-main" id="footer">
-        <div class="footer-top">
-          <div class="container">
-            <div class="row justify-content-between">
-              <div class="col-lg-4 mb-5 mb-lg-0">
-                <div class="about-widget">
-                  <div class="footer-logo">
-                    <figure>
-                      <a href="index.html">
-                        <img loading="lazy" class="img-fluid" src="{% static 'HomePageImages/logo.jpeg' %}" alt="medic" style="width: 100px;">
-                      </a>
-                    </figure>
-                  </div>
-                  <p style="font-size:16px">Medicines cure diseases, but only doctors can cure patients</p>
-                  <ul class="location-link">
-                   
-                    <li class="item">
-                      <i class="far fa-envelope" aria-hidden="true"></i>
-                      <a>
-                        <p>abc@docsy.com</p>
-                      </a>
-                    </li>
-                    <li class="item">
-                      <i class="fas fa-phone" aria-hidden="true"></i>
-                      <p>+(91) 1234567890</p>
-                    </li>
-                  </ul>
-                  
+        <!-- three cards -->
+        <section class="cta">
+
+            <div class="container">
+
+                <div class="cta-block row no-gutters">
+
+                    <div class="col-lg-4 col-md-6 emmergency item text-center">
+                        <img width="350" height="350" src="https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/09/IBD-Fertility-TN-3.jpg?x40264" class="attachment-recent-posts size-recent-posts" alt="" srcset="https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/09/IBD-Fertility-TN-3-66x66.jpg?x40264 66w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/09/IBD-Fertility-TN-3-80x80.jpg?x40264 80w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/09/IBD-Fertility-TN-3-200x200.jpg?x40264 200w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/09/IBD-Fertility-TN-3-300x300.jpg?x40264 300w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/09/IBD-Fertility-TN-3-320x320.jpg?x40264 320w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/09/IBD-Fertility-TN-3.jpg?x40264 350w"
+                            sizes="(max-width: 350px) 100vw, 350px" />
+                        <h4 style="text-align: left;padding-top:10px;font-size: 22px;text-align: justify; "><a href="#">Inflammatory Bowel Disease can impact sexuality and fertility, but proper medical care can help patients address their concerns</a></h4>
+                        <p style="text-align: left;color: rgb(63, 58, 58);">Inflammatory Bowel Disease, which often shows up in a patient's teens, 20s or 30s, can have a significant impact on sexuality and fertility. Gastroenterologist [...]</p>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 top-doctor item text-center">
+                        <img width="350" height="350" src="https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Artwork-TN.jpg?x40264" class="attachment-recent-posts size-recent-posts" alt="" srcset="https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Artwork-TN-66x66.jpg?x40264 66w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Artwork-TN-80x80.jpg?x40264 80w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Artwork-TN-200x200.jpg?x40264 200w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Artwork-TN-300x300.jpg?x40264 300w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Artwork-TN-320x320.jpg?x40264 320w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Artwork-TN.jpg?x40264 350w"
+                            sizes="(max-width: 350px) 100vw, 350px" />
+                        <h4 style="text-align: left;padding-top:10px;font-size: 22px;text-align: justify; "><a href="#">Artist Danny Broadway, inspired by his wife’s care, shares the healing power of art with Docsy and staff</a></h4>
+                        <p style="text-align: left;color: rgb(63, 58, 58); padding-top: 40px;;"> Regional One Health Foundation recently unveiled a new art installation, Healing Motion, which was created by Memphis-based artist Danny Broadway. Broadway was inspired [...]</p>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 working-time item text-center">
+                        <img width="350" height="350" src="https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Sam-TN.jpg?x40264" class="attachment-recent-posts size-recent-posts" alt="" srcset="https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Sam-TN-66x66.jpg?x40264 66w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Sam-TN-80x80.jpg?x40264 80w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Sam-TN-200x200.jpg?x40264 200w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Sam-TN-300x300.jpg?x40264 300w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Sam-TN-320x320.jpg?x40264 320w, https://regionalonehealth-valeoonlinemarke.netdna-ssl.com/wp-content/uploads/2021/12/Sam-TN.jpg?x40264 350w"
+                            sizes="(max-width: 350px) 100vw, 350px" />
+                        <h4 style="text-align: left;padding-top:10px;font-size: 22px;text-align: justify; "><a href="#">“We are joyful just to have him here:” As they celebrate the holidays, the Reids reflect on their son’s inspiring recovery from a sledding accident</a></h4>
+                        <p style="text-align: left;color: rgb(63, 58, 58);padding-top:10px;"> Sam Reid was sledding with some friends when he was thrown into a metal tractor spike, which impaled him from his stomach to [...]</p>
+                    </div>
                 </div>
-              </div>
-              <div class="col-lg-6 col-md-5 mb-3 mb-md-0">
-                <h2 style="font-weight: bold;">Team</h2>
-                <ul class="menu-link">
-                  <li>
-                    <h6>Akanksha Kushwaha(Front-end)</h6>  
-                  </li>
-                  <li>
-                    <h6>Kirti Garg(Back-end)</h6>  
-                  </li>
-                  <li>
-                    <h6>Sushanth Anantabhotala(Back-end)</h6>  
-                  </li>
-                  <li>
-                    <h6>Souvik Ghosh(Back-end)</h6>  
-                  </li>
-                  <li>
-                    <h6>Kunnathu Pavan Kumar(Back-end)</h6>  
-                  </li>
-                  <li>
-                    <h6>Suraj Pratap Singh(Back-end)</h6>  
-                  </li>
-                  <li>
-                    <h6>Shailesh Kumar Sharma(Front-end)</h6>  
-                  </li>
-                  <li>
-                    <h6>Raghib Shams(DevOps)</h6>  
-                  </li>
-                  
-                </ul>
-              </div>
-              
             </div>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <div class="container clearfix">
-            <div class="copyright-text">
-              <p>&copy; Copyright 2022. Designed &amp; Developed by <a href="">Docsy Team</a></p>
+        </section>
+
+        <!-- end three cards -->
+
+        <br><br><br><br>
+
+        <!--footer-main-->
+        <footer class="footer-main" id="footer">
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="col-lg-4 mb-5 mb-lg-0">
+                            <div class="about-widget">
+                                <div class="footer-logo">
+                                    <figure>
+                                        <a href="index.html">
+                                            <img loading="lazy" class="img-fluid" src="{% static 'HomePageImages/logo.jpeg' %}" alt="medic" style="width: 100px;">
+                                        </a>
+                                    </figure>
+                                </div>
+                                <p style="font-size:16px">Medicines cure diseases, but only doctors can cure patients</p>
+                                <ul class="location-link">
+
+                                    <li class="item">
+                                        <i class="far fa-envelope" aria-hidden="true"></i>
+                                        <a>
+                                            <p>abc@docsy.com</p>
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <i class="fas fa-phone" aria-hidden="true"></i>
+                                        <p>+(91) 1234567890</p>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-5 mb-3 mb-md-0">
+                            <h2 style="font-weight: bold;">Team</h2>
+                            <ul class="menu-link">
+                                <li>
+                                    <h6>Akanksha Kushwaha(Front-end)</h6>
+                                </li>
+                                <li>
+                                    <h6>Kirti Garg(Back-end)</h6>
+                                </li>
+                                <li>
+                                    <h6>Sushanth Anantabhotala(Back-end)</h6>
+                                </li>
+                                <li>
+                                    <h6>Souvik Ghosh(Back-end)</h6>
+                                </li>
+                                <li>
+                                    <h6>Kunnathu Pavan Kumar(Back-end)</h6>
+                                </li>
+                                <li>
+                                    <h6>Suraj Pratap Singh(Back-end)</h6>
+                                </li>
+                                <li>
+                                    <h6>Shailesh Kumar Sharma(Front-end)</h6>
+                                </li>
+                                <li>
+                                    <h6>Raghib Shams(DevOps)</h6>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-            
-          </div>
-        </div>
-      </footer>
-      <!--End footer-main-->
+            <div class="footer-bottom">
+                <div class="container clearfix">
+                    <div class="copyright-text">
+                        <p>&copy; Copyright 2022. Designed &amp; Developed by <a href="">Docsy Team</a></p>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+        <!--End footer-main-->
 
 
 
@@ -236,15 +240,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
-    
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-    
-    
+
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    
-  </body>
+
+</body>
+
 </html>
