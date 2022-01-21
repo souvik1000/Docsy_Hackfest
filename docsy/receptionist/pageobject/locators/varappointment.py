@@ -1,5 +1,9 @@
 class VarAppointment:
+    # View medical data
     VIEW_MEDICINE_XPATH = '//*[@id="example1"]/tbody/tr/td[7]/div/a'
+    
+    # View add Report
+    ADD_REPORT_XPATH = '//*[@id="example1"]/tbody/tr/td[6]/div/a'
     
     # Check Today
     TODAY_CHECKBOX_XPATH = '//*[@id="todays"]'
@@ -13,7 +17,7 @@ class VarAppointment:
     
     # Status
     MARK_AS_DONE_XPATH = '//*[@id="example1"]/tbody/tr/td[8]/div/a'
-    MARK_AS_NOT_DONE_XPATH ='//*[@id="example2"]/tbody/tr/td[5]/div/a'
+    MARK_AS_NOT_DONE_XPATH ='/html/body/div/div[2]/div[2]/div[2]/div/table/tbody/tr/td[5]/div/a'
    
     
     

@@ -3,6 +3,9 @@ class VarViewMedicalData:
     PATIENT_NAME_XPATH = '/html/body/div/div[1]/p[1]/span'
     PATIENT_AGE_XPATH = '/html/body/div/div[1]/p[2]/span'
     
+    # Argument Click
+    ARGUMENT_CLICK = "arguments[0].click();"
+    
     # Click on History of Allergies
     ALLERGIES_BUTTON_XPATH = '//*[@id="Patient-data"]/button[2]'
     SUBSTANCE_XPATH = '//*[@id="allergies-view"]/tbody/tr[1]/td[3]'
@@ -23,3 +26,45 @@ class VarViewMedicalData:
     ILLNESS_SEVERITY_XPATH = '//*[@id="illness-view"]/tbody/tr[1]/td[3]'
     ILLNESS_DATE_OF_ONSET_XPATH = '//*[@id="illness-view"]/tbody/tr[1]/td[4]'
     ILLNESS_DATE_OF_ABATEMENT_XPATH = '//*[@id="illness-view"]/tbody/tr[1]/td[5]'
+    
+    # Click on History of Diagnostic Data
+    DIAGNOSTIC_BUTTON_XPATH = '//*[@id="diagnostic-data"]/button'
+    LAB_REPORT_BUTTON_XPATH = '/html/body/div/div[2]/div[2]/div/button[1]'
+    IMAGE_REPORT_BUTTON_XPATH = '/html/body/div/div[2]/div[2]/div/button[2]'
+    
+    # Check Doctor Details
+    DOCTOR_NAME_XPATH = '/html/body/div/div[2]/div[2]/div/div[1]/p[1]/span[1]'
+    DOCTOR_XPATH = '/html/body/div/div[2]/div[2]/div/div[1]/p[1]/span[2]'
+    DOCTOR_EMAIL_XPATH = '/html/body/div/div[2]/div[2]/div/div[1]/p[2]/span[1]'
+    EMAIL_XPATH = '/html/body/div/div[2]/div[2]/div/div[1]/p[2]/span[2]'
+    DOCTOR_PHN_XPATH = '/html/body/div/div[2]/div[2]/div/div[1]/p[3]/span[1]'
+    PHN_XPATH = '/html/body/div/div[2]/div[2]/div/div[1]/p[3]/span[2]'
+    DOCTOR_NAME = "Doctor Name:"
+    DOCTOR = "SOUVIK GHOSH"
+    DOCTOR_EMAIL = "Doctor Email-Id:"
+    EMAIL = "DOCTOR@INNOVACCER.COM"
+    DOCTOR_PHN = "Doctor Phone-No:"
+    PHN = "8450042512"
+    
+    # Lab Report Header
+    LAB_HEADER_XPATH = '/html/body/div/div[2]/div[2]/div/div[2]/div/table/thead/tr/td[{}]'
+    LAB_TABLE_XPATH = '/html/body/div/div[2]/div[2]/div/div[2]/div/table/tbody/tr/td[{}]'
+    LAB_REPORT_VIEW_BUTTON_XPATH = '/html/body/div/div[2]/div[2]/div/div[2]/div/table/tbody/tr/td[7]/div/a'
+    LAB_H_EVENT='lab_event'
+    LAB_H_TEST_NAME='lab_test_name'
+    LAB_H_SPECIMEN_TYPE='lab_specimen_type'
+    LAB_H_SPECIMEN_METHOD='lab_specimen_method'
+    LAB_H_SPECIMEN_BODY_SITE='lab_specimen_body_site'
+    LAB_H_FINDINGS='lab_findings'
+    LAB_H_DOCUMENT='lab_document'
+    
+    # Image Report Header
+    IMAGE_HEADER_XPATH = '/html/body/div/div[2]/div[2]/div/div[3]/div/table/thead/tr/td[{}]'
+    IMAGE_TABLE_XPATH = '/html/body/div/div[2]/div[2]/div/div[3]/div/table/tbody/tr/td[{}]'
+    IMAGE_REPORT_VIEW_BUTTON_XPATH = '/html/body/div/div[2]/div[2]/div/div[3]/div/table/tbody/tr/td[6]/div/a'
+    IMAGING_H_EVENT='imaging_event'
+    IMAGING_H_TEST_NAME='imaging_test_name'
+    IMAGING_H_MODALITY='imaging_modality'
+    IMAGING_H_BODY_SITE='imaging_body_site'
+    IMAGING_H_FINDINGS='imaging_findings'
+    IMAGING_H_DOCUMENT='imaging_document'
