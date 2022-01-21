@@ -1,52 +1,63 @@
 from unittest import expectedFailure
 from django.test import TestCase
-
+import os.path
 from distutils.core import setup
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
+from patient.pageobject.pages.patientlogin import PatientLogin
+from patient.pageobject.pages.patienthomepage import PatientHomePage
+from patient.pageobject.pages.appointmentpage import AppointmentPage
+
+from patient.pageobject.locator.get import GetPage
+
 
 # Create your tests here.
 class PatientFormTest(LiveServerTestCase):
     selenium = webdriver.Chrome()
-    
-    def test4_patient_download_report(self):
-        driver = self.selenium
-        driver.get('http://127.0.0.1:8000/patient/patientlogin/')
-        email=driver.find_element_by_xpath('//*[@id="sign_in_email"]')
-        email.send_keys('patient@innovaccer.com')
-        password2=driver.find_element_by_xpath('//*[@id="sign_in_pass"]')
-        password2.send_keys('A12@asdfgh')
-        login_submit=driver.find_element_by_xpath('//*[@id="container"]/div[2]/form/button').click()
-        time.sleep(4) 
+    def test1_book_appointment(self):
+        driver=self.selenium 
+        driver.get(GetPage.GET_PATIENT)
+        time.sleep(5)  
+        
         driver.maximize_window()
-        driver.execute_script('window.scrollTo(0,450);') 
-        time.sleep(4)
-        clickreports=driver.find_element_by_xpath('/html/body/div/section[2]/div/div/div[2]/a').click()
-        time.sleep(5)
-        downloadlab=driver.find_element_by_xpath('/html/body/div/section[3]/div/div[2]/div[1]/div/div[4]/div/div/div/a')
-        time.sleep(2)
-        driver.execute_script("arguments[0].click();",downloadlab)
         time.sleep(3)
-        checkdownloadactual=driver.find_element_by_xpath('/html/body/div[2]/section/div/div[2]/div/div/div/div/div[1]/div[1]/p/b').text
-        expected='Name :'
-        self.assertEquals(checkdownloadactual,expected)
-        time.sleep(3)
-        driver.get('http://127.0.0.1:8000/patient/')
-        driver.maximize_window()
-        driver.execute_script('window.scrollTo(0,450);') 
-        time.sleep(4)
-        clickreports2=driver.find_element_by_xpath('/html/body/div/section[2]/div/div/div[3]/a').click()
-        time.sleep(5)
-        downloadlab2=driver.find_element_by_xpath('/html/body/div/section[4]/div/div[2]/div[1]/div/div[4]/div/div/div/a')
-        time.sleep(2)
-        driver.execute_script("arguments[0].click();",downloadlab2)
-        time.sleep(3)
-        checkdownloadactual2=driver.find_element_by_xpath('/html/body/div[2]/section/div/div[2]/div/div/div/div/div[1]/div[1]/p/b').text
-        expected2='Name :'
-        self.assertEquals(checkdownloadactual2,expected2)
+        AppointmentPage.appointmentform(self,driver)
+       
 
+    def test2_patient_download_report(self):
+        driver = self.selenium
+        driver.get(GetPage.GET_PATIENT)
+        
+        time.sleep(4) 
+        
+        driver.maximize_window()
+        driver.execute_script('window.scrollTo(0,450);') 
+        time.sleep(4)
+        PatientHomePage.download_report(self,driver)
+
+    def test3_viewprescription(self):
+           driver=self.selenium 
+           PatientHomePage.viewprescription(self,driver) 
+    
+    def test4_prescriptiondownload(self):
+        driver=self.selenium
+        # op = webdriver.ChromeOptions()
+        # p = {'download.default_directory': '/home/i1639/jan21/Docsy_Hackfest/docsy/static/image'}
+        # op.add_experimental_option('prefs', p)
+        # driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver",options=op)
+        # driver.maximize_window()
+        PatientHomePage.downloadprescription(self,driver)
+        # while not os.path.exists('home/i1639/jan21/Docsy_Hackfest/docsy/static/image'):
+        #     time.sleep(2)
+        
+        #     if os.path.isfile('home/i1639/jan21/Docsy_Hackfest/docsy/static/image'):
+        #         print("File download is completed")
+        #     else:
+        #         print("File download is not completed")
+        # #close browser
+        #     driver.quit()
 # # Create your tests here.
 # class PlayerFormTest(LiveServerTestCase):
 #     selenium = webdriver.Chrome()
