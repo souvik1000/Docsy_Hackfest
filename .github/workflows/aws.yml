@@ -26,22 +26,25 @@
 
 name: Deploy to Amazon ECS
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 env:
-  AWS_REGION: us-east-1                   # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: group-l           # set this to your Amazon ECR repository name
-  ECS_SERVICE: docsyservice                 # set this to your Amazon ECS service name
-  ECS_CLUSTER: docsy                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: .aws/task-definition.json # set this to the path to your Amazon ECS task definition
-                                               # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: dcontainer       # set this to the name of the container in the
-                                               # containerDefinitions section of your task definition
+  AWS_REGION: us-east-1                         # set this to your preferred AWS region, e.g. us-west-1
+  ECR_REPOSITORY: group-l                  # set this to your Amazon ECR repository name
+  ECS_CLUSTER: docsy                       # set this to your Amazon ECS cluster name
+  ECS_TASK_DEFINITION: task-definition.json # set this to the path to your Amazon ECS task definition
+                                                # file, e.g. .aws/task-definition.json
+  CONTAINER_NAME: dcontainer                   # set this to the name of the container in the
+                                                # containerDefinitions section of your task definition
 
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'deploy')"
     environment: production
 
     steps:
@@ -68,8 +71,8 @@ jobs:
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
     - name: Fill in the new image ID in the Amazon ECS task definition
@@ -84,6 +87,5 @@ jobs:
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: ${{ env.ECS_SERVICE }}
         cluster: ${{ env.ECS_CLUSTER }}
         wait-for-service-stability: true
