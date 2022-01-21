@@ -57,7 +57,7 @@ class CheckAddReports(LiveServerTestCase):
                 lab_specimen_method.send_keys('demo_test_specimen_method')
 
                 lab_specimen_body_site=driver.find_element_by_xpath('/html/body/div/div[2]/div/div[1]/form/div[1]/div/div/div/div/div/div[6]/input')
-                lab_specimen_body_site.send_keys('demo_test_specimen_method')
+                lab_specimen_body_site.send_keys('demo_test_body_site')
 
                 lab_finding=driver.find_element_by_xpath('/html/body/div/div[2]/div/div[1]/form/div[1]/div/div/div/div/div/div[7]/input')
                 lab_finding.send_keys('demo_test_findings')
@@ -80,7 +80,7 @@ class CheckAddReports(LiveServerTestCase):
                 lab_specimen_method.send_keys('demo_test_specimen_method')
 
                 lab_specimen_body_site=driver.find_element_by_xpath('/html/body/div/div[2]/div/div[1]/form/div[1]/div[{}]/div/div/div/div/div[6]/input'.format(add_lab_counter+1))
-                lab_specimen_body_site.send_keys('demo_test_specimen_method')
+                lab_specimen_body_site.send_keys('demo_test_body_site')
 
                 lab_finding=driver.find_element_by_xpath('/html/body/div/div[2]/div/div[1]/form/div[1]/div[{}]/div/div/div/div/div[7]/input'.format(add_lab_counter+1))
                 lab_finding.send_keys('demo_test_findings')
