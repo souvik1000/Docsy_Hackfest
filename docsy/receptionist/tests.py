@@ -1,18 +1,13 @@
-# import imp
-# import sys
-# sys.path.append("/home/souvik/Desktop/New/Docsy_Hackfest/docsy/receptionist")
-# from django.test import TestCase
 from django.test import LiveServerTestCase
 from selenium import webdriver
+from receptionist.pageobject.pages.appointment import Appointment
 from receptionist.pageobject.pages.patientdetails import PatientDetails
 from receptionist.pageobject.pages.viewmedicaldata import ViewMedicalData
-
 
 from receptionist.pageobject.pages.homepage import HomePage
 from receptionist.pageobject.pages.patientdetails import PatientDetails
-# from pageobject.pages.appointment import Appointment
 from receptionist.pageobject.pages.viewmedicaldata import ViewMedicalData
-
+from receptionist.pageobject.locators.checks import Checks
 import time
 
 # Create your tests here.
@@ -66,3 +61,40 @@ class ReceptionistAppTest(LiveServerTestCase):
         time.sleep(1)
         HomePage.doctor_logout(self, driver)
         self.assertEqual(base_link, driver.current_url, "Logout Not Working")
+        
+        
+    def test_05_show_today(self):
+        driver = self.selenium
+        driver.maximize_window()
+        driver.get(Checks.BASE_URL)
+        load_data = Appointment.check_data_in_the_table_after_click_todays(self, driver)
+        self.assertEqual(load_data, Checks.LOAD_DATA, "No Load All Section")
+
+        
+    def test_06_show_load_all(self):
+        driver = self.selenium
+        driver.maximize_window()
+        driver.get(Checks.BASE_URL)
+        todays = Appointment.check_data_in_the_table_after_click_load_all(self, driver)
+        self.assertEqual(todays, Checks.NAME_TODAY, "No Load All Section")
+        
+        
+    def test_07_doctor_mark_as_done(self):
+        driver = self.selenium 
+        driver.maximize_window()
+        driver.get(Checks.BASE_URL)
+        time.sleep(2)
+        status = Appointment.click_on_status_appointment(self, driver)
+        self.assertEqual(status, Checks.MAKE_AS_NOT_DONE, "Make as not done")
+
+
+    def test_08_doctor_mark_as_not_done(self):
+        driver = self.selenium
+        driver.maximize_window()
+        driver.get(Checks.BASE_URL)
+        time.sleep(2)
+        status = Appointment.click_on_status_recent_appointment(self, driver)
+        self.assertEqual(status, Checks.MAKE_AS_DONE, "Make as done")
+        
+        
+        

@@ -4,3 +4,6 @@ class VarHomePage:
     
     # NAVBAR Logout 
     HOME_NAVBAR_LOGOUT_XPATH = '//*[@id="navbarLinks"]/ul/li[4]/a'
+    
+    # Below Appointment Details
+    HOME_APPOINTMENT_DETAILS_XPATH = '/html/body/div/section[2]/div/div/div[1]/a'
