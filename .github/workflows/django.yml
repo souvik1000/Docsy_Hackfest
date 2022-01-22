@@ -40,4 +40,5 @@ jobs:
     - name: Run Tests
       working-directory: ./docsy
       run: |
+        python manage.py test patient/
         python manage.py test receptionist/
