@@ -2,13 +2,18 @@
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from controller.pageobject.locator.checks import Check
+from selenium.webdriver.chrome.options import Options
 from controller.pageobject.pages.doctorsignup import DoctorSignUp
 from controller.pageobject.pages.patientsignup import PatientSignUp
 
 
 # Create your tests here.
 class PlayerFormTest(LiveServerTestCase):
-    selenium = webdriver.Chrome('chromedriver')
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    selenium = webdriver.Chrome('chromedriver',chrome_options=chrome_options)
     
     def test_01_doctor_signup(self):
         driver = self.selenium

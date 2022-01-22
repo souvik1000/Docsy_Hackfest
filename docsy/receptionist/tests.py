@@ -10,11 +10,16 @@ from receptionist.pageobject.pages.patientdetails import PatientDetails
 from receptionist.pageobject.pages.viewmedicaldata import ViewMedicalData
 from receptionist.pageobject.locators.checks import Checks
 from receptionist.pageobject.locators.vardiagnostic import VarDiagnostic
+from selenium.webdriver.chrome.options import Options
 import time
 
 # Create your tests here.
 class ReceptionistAppTest(LiveServerTestCase):
-    selenium = webdriver.Chrome('chromedriver')
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    selenium = webdriver.Chrome('chromedriver',chrome_options=chrome_options)
     
     def test_01_patient_details_allergies(self):
         driver = self.selenium 
