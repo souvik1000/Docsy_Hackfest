@@ -8,7 +8,7 @@ from controller.pageobject.pages.patientsignup import PatientSignUp
 
 # Create your tests here.
 class PlayerFormTest(LiveServerTestCase):
-    selenium = webdriver.Chrome()
+    selenium = webdriver.Chrome('chromedriver')
     
     def test_01_doctor_signup(self):
         driver = self.selenium

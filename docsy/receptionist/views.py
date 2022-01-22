@@ -95,9 +95,34 @@ def prescriptionBackend(request):
                 diluent_unit=request.POST['diluent_unit'+i]
                 dosade_directions=request.POST['dosade_directions'+i]
                 frequency=request.POST['frequency'+i]
-                frequency_unit=request.POST['frequency_unit'+i]
+
+                if 'frequency_unit'+i in request.POST:
+                    if request.POST['frequency_unit'+i]=='1':
+                        frequency_unit='1/d'
+                    elif request.POST['frequency_unit'+i]=='2':
+                        frequency_unit='1/h'
+                    elif request.POST['frequency_unit'+i]=='3':
+                        frequency_unit='1/m'
+                    elif request.POST['frequency_unit'+i]=='4':
+                        frequency_unit='1/s'
+                    else:
+                        frequency_unit="none"
+
+
                 interval=request.POST['interval'+i]
                 interval_unit=request.POST['interval_unit'+i]
+
+                if 'interval_unit'+i in request.POST:
+                    if request.POST['interval_unit'+i]=='1':
+                        interval_unit='h'
+                    elif request.POST['interval_unit'+i]=='2':
+                        interval_unit='m'
+                    elif request.POST['interval_unit'+i]=='3':
+                        interval_unit='s'
+                    else:
+                        interval_unit="none"
+
+
                 named_time_event=request.POST['named_time_event'+i]
                 
                 if len(request.POST.getlist('exact_timing_critical'+i))==0:
