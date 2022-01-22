@@ -10,6 +10,7 @@ from receptionist.pageobject.pages.patientdetails import PatientDetails
 from receptionist.pageobject.pages.viewmedicaldata import ViewMedicalData
 from receptionist.pageobject.locators.checks import Checks
 from receptionist.pageobject.locators.vardiagnostic import VarDiagnostic
+from selenium.webdriver.chrome.options import Options
 import time
 
 # Create your tests here.
