@@ -46,18 +46,18 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": "docsyeccont"
+      "name": "doscyec2cont"
     }
   ],
   "placementConstraints": [],
   "memory": "1024",
   "taskRoleArn": "arn:aws:iam::052250720528:role/ecsTaskExecutionRole",
   "compatibilities": [
-    "EC2",
-    "FARGATE"
+    "EXTERNAL",
+    "EC2"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:052250720528:task-definition/docsyec2:1",
-  "family": "docsyec2",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:052250720528:task-definition/doscyec2task:1",
+  "family": "doscyec2task",
   "requiresAttributes": [
     {
       "targetId": null,
@@ -76,25 +76,13 @@
       "targetType": null,
       "value": null,
       "name": "ecs.capability.execution-role-ecr-pull"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "ecs.capability.task-eni"
     }
   ],
   "pidMode": null,
   "requiresCompatibilities": [
     "EC2"
   ],
-  "networkMode": "awsvpc",
+  "networkMode": null,
   "runtimePlatform": null,
   "cpu": "512",
   "revision": 1,
