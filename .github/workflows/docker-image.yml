@@ -21,8 +21,8 @@ jobs:
 #       run: |
 #         docker push raghib123/docsy1
 
-    - name: Run Tests
-      working-directory: ./docsy
-      run: |
-        python manage.py test patient/
-        python manage.py test receptionist/
+#     - name: Run Tests
+#       working-directory: ./docsy
+#       run: |
+#         python manage.py test patient/
+#         python manage.py test receptionist/
