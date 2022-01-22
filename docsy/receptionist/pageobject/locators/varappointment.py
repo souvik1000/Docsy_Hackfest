@@ -19,6 +19,11 @@ class VarAppointment:
     MARK_AS_DONE_XPATH = '//*[@id="example1"]/tbody/tr/td[8]/div/a'
     MARK_AS_NOT_DONE_XPATH ='/html/body/div/div[2]/div[2]/div[2]/div/table/tbody/tr/td[5]/div/a'
    
+
+    #prescription
+    ADD_PRESCRIPTION_XPATH = '//*[@id="example1"]/tbody/tr/td[5]/div/a'
+
+
     
     
     

@@ -1,3 +1,6 @@
+import os
+BASE_DIR = os.getcwd()
+
 class VarDiagnostic:
     # Add Lab Report
     ADD_LAB_REPORT_BUTTON_XPATH = '//*[@id="features-creation"]/div/div[2]/button[1]'
@@ -21,7 +24,7 @@ class VarDiagnostic:
     LAB_REPORT_XPATH = '/html/body/div/div[2]/div/div[1]/form/div[1]/div/div/div/div/div/div[7]/input'
     LAB_REPORT = 'demo_test_findings'
     LAB_FILE_INPUT_XPATH = '/html/body/div/div[2]/div/div[1]/form/div[1]/div/div/div/div/div/div[8]/input'
-    LAB_FILE_INPUT = "/home/souvik/Desktop/New/Docsy_Hackfest/docsy/static/testing_image/Indocsy.png"
+    LAB_FILE_INPUT = os.path.join(BASE_DIR, 'static/image/3.jpg')
     
     # Lab Report - Multiple
     LAB_M_EVENT_XPATH = '/html/body/div/div[2]/div/div[1]/form/div[1]/div[{}]/div/div/div/div/div[2]/input'
@@ -37,7 +40,7 @@ class VarDiagnostic:
     LAB_M_REPORT_XPATH = '/html/body/div/div[2]/div/div[1]/form/div[1]/div[{}]/div/div/div/div/div[7]/input'
     LAB_M_REPORT = 'demo_test_findings'
     LAB_M_FILE_INPUT_XPATH = '/html/body/div/div[2]/div/div[1]/form/div[1]/div[{}]/div/div/div/div/div[8]/input'
-    LAB_M_FILE_INPUT = "/home/souvik/Desktop/New/Docsy_Hackfest/docsy/static/testing_image/Indocsy.png"
+    LAB_M_FILE_INPUT = os.path.join(BASE_DIR, 'static/image/3.jpg')
     
     # Image Report - Single 
     IMAGE_EVENT_XPATH='/html/body/div/div[2]/div/div[1]/form/div[2]/div/div/div/div/div/div[2]/input'
@@ -51,7 +54,7 @@ class VarDiagnostic:
     IMAGE_FINDING_XPATH='/html/body/div/div[2]/div/div[1]/form/div[2]/div/div/div/div/div[2]/div[2]/input'
     IMAGE_FINDING='image_demo_image_findings'
     IMAGE_FILE_INPUT_XPATH='/html/body/div/div[2]/div/div[1]/form/div[2]/div/div/div/div/div[2]/div[3]/input'
-    IMAGE_FILE_INPUT="/home/souvik/Desktop/New/Docsy_Hackfest/docsy/static/testing_image/Indocsy.png"
+    IMAGE_FILE_INPUT=os.path.join(BASE_DIR, 'static/image/3.jpg')
     
     # Image Report - MULTIPLE
     IMAGE_M_EVENT_XPATH='/html/body/div/div[2]/div/div[1]/form/div[2]/div[{}]/div/div/div/div/div[2]/input'
@@ -65,7 +68,7 @@ class VarDiagnostic:
     IMAGE_M_FINDING_XPATH='/html/body/div/div[2]/div/div[1]/form/div[2]/div[{}]/div/div/div/div[2]/div[2]/input'
     IMAGE_M_FINDING='image_demo_image_findings'
     IMAGE_M_FILE_INPUT_XPATH='/html/body/div/div[2]/div/div[1]/form/div[2]/div[{}]/div/div/div/div[2]/div[3]/input'
-    IMAGE_M_FILE_INPUT="/home/souvik/Desktop/New/Docsy_Hackfest/docsy/static/testing_image/Indocsy.png"
+    IMAGE_M_FILE_INPUT=os.path.join(BASE_DIR, 'static/image/3.jpg')
     
     
     # Argument Click

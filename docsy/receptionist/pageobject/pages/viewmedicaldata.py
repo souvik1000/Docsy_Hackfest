@@ -1,4 +1,5 @@
 import time
+from receptionist.pageobject.pages.prescription import Prescription
 from receptionist.pageobject.pages.appointment import Appointment
 from receptionist.pageobject.locators.varviewmedicaldata import VarViewMedicalData
 from receptionist.pageobject.locators.vardiagnostic import VarDiagnostic
@@ -122,3 +123,41 @@ class ViewMedicalData:
         patient_name = driver.find_element_by_xpath(VarViewMedicalData.PATIENT_NAME_XPATH).text
         patient_age = driver.find_element_by_xpath(VarViewMedicalData.PATIENT_AGE_XPATH).text
         return ([patient_name, patient_age])
+
+
+    def view_prescription_medicines(self,driver,check_reports_size):
+        Prescription.add_prescription(self,driver,check_reports_size)
+        time.sleep(1)
+        Appointment.click_on_view_medicine(self, driver)
+        time.sleep(1)
+        # check medical_data
+        ViewMedicalData.get_medicine_data=[]
+        for med_counter in range(1,check_reports_size+1):
+            ViewMedicalData.get_medicine_data.append(ViewMedicalData.get_prescription_data(self,driver,med_counter))
+
+        
+
+
+    def get_prescription_data(self,driver,med_counter):
+        previous_prescriptions=driver.find_element_by_xpath(VarViewMedicalData.PREVIOUS_PRESCRIPTIONS_XPATH)
+        time.sleep(1)
+        previous_prescriptions.click()
+
+        # print(driver.find_element_by_xpath(VarViewMedicalData.GET_MEDICINE_NAME_XPATH.format(str(med_counter))).get_attribute('textContent'))
+        get_medicine_name=driver.find_element_by_xpath(VarViewMedicalData.GET_MEDICINE_NAME_XPATH.format(str(med_counter))).get_attribute('textContent')
+        get_form=driver.find_element_by_xpath(VarViewMedicalData.GET_FORM_XPATH.format(str(med_counter))).get_attribute('textContent')
+        get_strength=driver.find_element_by_xpath(VarViewMedicalData.GET_STRENGTH_XPATH.format(str(med_counter))).get_attribute('textContent')
+        getstrength_unit=driver.find_element_by_xpath(VarViewMedicalData.GETSTRENGTH_UNIT_XPATH.format(str(med_counter))).get_attribute('textContent')
+        getdiluent=driver.find_element_by_xpath(VarViewMedicalData.GETDILUENT_XPATH.format(str(med_counter))).get_attribute('textContent')
+        getdiluent_amount=driver.find_element_by_xpath(VarViewMedicalData.GETDILUENT_AMOUNT_XPATH.format(str(med_counter))).get_attribute('textContent')
+        getdiluent_unit=driver.find_element_by_xpath(VarViewMedicalData.GETDILUENT_UNIT_XPATH.format(str(med_counter))).get_attribute('textContent')
+        getdosade_directions=driver.find_element_by_xpath(VarViewMedicalData.GETDOSADE_DIRECTIONS_XPATH.format(str(med_counter))).get_attribute('textContent')
+        getfrequency=driver.find_element_by_xpath(VarViewMedicalData.GETFREQUENCY_XPATH.format(str(med_counter))).get_attribute('textContent')
+        getfrequency_unit=driver.find_element_by_xpath(VarViewMedicalData.GETFREQUENCY_UNIT_XPATH.format(str(med_counter))).get_attribute('textContent')
+        getinterval=driver.find_element_by_xpath(VarViewMedicalData.GETINTERVAL_XPATH.format(str(med_counter))).get_attribute('textContent')
+        getinterval_unit=driver.find_element_by_xpath(VarViewMedicalData.GETINTERVAL_UNIT_XPATH.format(str(med_counter))).get_attribute('textContent')
+        getnamed_time_event=driver.find_element_by_xpath(VarViewMedicalData.GETNAMED_TIME_EVENT_XPATH.format(str(med_counter))).get_attribute('textContent')
+        getexact_timing_critical=driver.find_element_by_xpath(VarViewMedicalData.GETEXACT_TIMING_CRITICAL_XPATH.format(str(med_counter))).get_attribute('textContent')
+
+        return [get_medicine_name,get_form,get_strength,getstrength_unit,getdiluent,getdiluent_amount,getdiluent_unit,
+        getdosade_directions,getfrequency,getfrequency_unit,getinterval,getinterval_unit,getnamed_time_event,getexact_timing_critical]

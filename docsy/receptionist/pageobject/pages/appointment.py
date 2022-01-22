@@ -54,10 +54,18 @@ class Appointment:
         time.sleep(1)
         return mark_as_done.text
         
-    
+
     def click_on_medecine_from_home(self, driver):
         HomePage.doctor_homepage_appointment(self, driver)
         time.sleep(1)
         driver.find_element_by_xpath(VarAppointment.VIEW_MEDICINE_XPATH).click()
         time.sleep(1)
-     
+
+    
+    def click_on_add_prescription(self, driver):
+        HomePage.doctor_homepage_appointment(self, driver)
+        time.sleep(1)
+        driver.find_element_by_xpath(VarAppointment.ADD_PRESCRIPTION_XPATH).click()
+        time.sleep(1)
+
+    
