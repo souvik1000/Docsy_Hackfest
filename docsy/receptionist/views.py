@@ -95,9 +95,34 @@ def prescriptionBackend(request):
                 diluent_unit=request.POST['diluent_unit'+i]
                 dosade_directions=request.POST['dosade_directions'+i]
                 frequency=request.POST['frequency'+i]
-                frequency_unit=request.POST['frequency_unit'+i]
+
+                if 'frequency_unit'+i in request.POST:
+                    if request.POST['frequency_unit'+i]=='1':
+                        frequency_unit='1/d'
+                    elif request.POST['frequency_unit'+i]=='2':
+                        frequency_unit='1/h'
+                    elif request.POST['frequency_unit'+i]=='3':
+                        frequency_unit='1/m'
+                    elif request.POST['frequency_unit'+i]=='4':
+                        frequency_unit='1/s'
+                    else:
+                        frequency_unit="none"
+
+
                 interval=request.POST['interval'+i]
                 interval_unit=request.POST['interval_unit'+i]
+
+                if 'interval_unit'+i in request.POST:
+                    if request.POST['interval_unit'+i]=='1':
+                        interval_unit='h'
+                    elif request.POST['interval_unit'+i]=='2':
+                        interval_unit='m'
+                    elif request.POST['interval_unit'+i]=='3':
+                        interval_unit='s'
+                    else:
+                        interval_unit="none"
+
+
                 named_time_event=request.POST['named_time_event'+i]
                 
                 if len(request.POST.getlist('exact_timing_critical'+i))==0:
@@ -212,11 +237,11 @@ def patientDetails(request):
     comment = request.POST['comment']
 
     procedure_name=request.POST['procedure_name']
-    body_site=request.POST['body_site']
+    procedure_body_site=request.POST['procedure_body_site']
     date_of_procedure=request.POST['date_of_procedure']
     
     illness_name = request.POST['illness_name']
-    body_site = request.POST['body_site']
+    illness_body_site = request.POST['illness_body_site']
     severity = request.POST['severity']
     illness_date_onset = request.POST['illness_date_onset']
     illness_date_abatement = request.POST['illness_date_abatement']
@@ -226,10 +251,10 @@ def patientDetails(request):
         allergies(patientId=patient_id, substance=substance, criticality=criticality, type=type, comment=comment).save()
         
     if procedure_name!='':# and date_of_procedure!='':
-        procedurehistory(patientId=patient_id,procedure_name=procedure_name ,body_site=body_site,procedure_date=date_of_procedure).save()
+        procedurehistory(patientId=patient_id,procedure_name=procedure_name ,body_site=procedure_body_site,procedure_date=date_of_procedure).save()
         
     if illness_name!='':# and (illness_date_onset!='') and (illness_date_abatement!=''):
-        illnesshistory(patientId=patient_id, illness_name=illness_name, body_site=body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement).save()
+        illnesshistory(patientId=patient_id, illness_name=illness_name, body_site=illness_body_site, severity=severity, illness_date_onset=illness_date_onset, illness_date_abatement=illness_date_abatement).save()
         
     return render(request, 'patientDetailsForm.html')
 
