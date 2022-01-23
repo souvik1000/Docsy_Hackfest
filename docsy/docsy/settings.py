@@ -135,7 +135,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 # MEDIA_ROOT = '/home/kunnathu/Desktop/hackfest/Docsy_Hackfest/docsy/static'
-# MEDIA_ROOT = '/home/i1611/Desktop/HackFestMain/16_23_52/Docsy_Hackfest/docsy/static'
 # MEDIA_ROOT = '/home/kunnathu/Desktop/hackfest/Docsy_Hackfest/docsy/static'
 # MEDIA_ROOT = '/home/souvik/Desktop/Testing/Docsy_Hackfest/docsy/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static')

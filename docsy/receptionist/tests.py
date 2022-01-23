@@ -24,7 +24,7 @@ class ReceptionistAppTest(LiveServerTestCase):
     def test_01_patient_details_allergies(self):
         driver = self.selenium 
         driver.maximize_window()
-        driver.get(Checks.BASE_URL)
+        driver.get('http://127.0.0.1:8000/doctor/')
         time.sleep(1)
         PatientDetails.add_allergies_data(self, driver)
         substance, criticality, type, comment = ViewMedicalData.check_allergies_from_appointment(self, driver)
@@ -37,7 +37,7 @@ class ReceptionistAppTest(LiveServerTestCase):
     def test_02_patient_details_procedure(self):
         driver = self.selenium
         driver.maximize_window()
-        driver.get(Checks.BASE_URL)
+        driver.get('http://127.0.0.1:8000/doctor/')
         time.sleep(1)
         PatientDetails.add_procedure_data(self, driver)
         procedure_name, body_site, date_of_procedure = ViewMedicalData.check_procedures_from_appointment(self, driver)
@@ -49,7 +49,7 @@ class ReceptionistAppTest(LiveServerTestCase):
     def test_03_patient_details_illness(self):
         driver = self.selenium        
         driver.maximize_window()
-        driver.get(Checks.BASE_URL)
+        driver.get('http://127.0.0.1:8000/doctor/')
         time.sleep(1)
         PatientDetails.add_illness_data(self, driver)
         illness_name, body_site, severity, date_of_onset, date_of_abatement = ViewMedicalData.check_illness_from_appointment(self, driver)
@@ -145,15 +145,17 @@ class ReceptionistAppTest(LiveServerTestCase):
     def test_13_logout(self):
         driver = self.selenium
         driver.maximize_window()
-        driver.get(Checks.BASE_URL)
+        base_link = 'http://127.0.0.1:8000/doctor/'
+        driver.get(base_link)
         time.sleep(1)
         HomePage.doctor_logout(self, driver)
-        self.assertEqual(Checks.BASE_URL, driver.current_url, "Logout Not Working")
+        self.assertEqual(base_link, driver.current_url, "Logout Not Working")
 
     def test_14_prescription_add_check(self):
         driver = self.selenium
         driver.maximize_window()
-        driver.get(Checks.BASE_URL)
+        base_link = 'http://127.0.0.1:8000/doctor/'
+        driver.get(base_link)
         time.sleep(1)
         ViewMedicalData.view_prescription_medicines(self, driver, 2)
         for givenn in range(len(Prescription.set_medical_data)):
