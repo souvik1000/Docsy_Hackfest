@@ -18,11 +18,6 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install Dependencies
-      run: |
-        RUN wget -q "https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.zip"
-        && unzip /tmp/chromedriver.zip -d /usr/bin/
-        && rm /tmp/chromedriver.zip
-
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         python docsy/manage.py migrate
