@@ -14,10 +14,7 @@ RUN wget -q "https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux
     && unzip /tmp/chromedriver.zip -d /usr/bin/ \
     && rm /tmp/chromedriver.zip
 
-# xvfb - X server display
-ADD selenium-base-image/xvfb-chromium /usr/bin/xvfb-chromium
-RUN ln -s /usr/bin/xvfb-chromium /usr/bin/google-chrome \
-    && chmod 777 /usr/bin/xvfb-chromium
+
 
 # create symlinks to chromedriver and geckodriver (to the PATH)
 RUN ln -s /usr/bin/geckodriver /usr/bin/chromium-browser \
