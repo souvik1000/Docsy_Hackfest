@@ -10,10 +10,11 @@ from controller.pageobject.pages.patientsignup import PatientSignUp
 # Create your tests here.
 class PlayerFormTest(LiveServerTestCase):
     chrome_options = Options()
-    chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-dev-shm-usage')
-    selenium = webdriver.Chrome('chromedriver',chrome_options=chrome_options)
+#     chrome_options.add_argument('--headless')
+#     chrome_options.add_argument('--no-sandbox')
+#     chrome_options.add_argument('--disable-dev-shm-usage')
+#     selenium = webdriver.Chrome('chromedriver',chrome_options=chrome_options)
+    selenium = webdriver.Chrome('chromedriver')
     
     def test_01_doctor_signup(self):
         driver = self.selenium
