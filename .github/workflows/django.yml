@@ -38,6 +38,7 @@ jobs:
         pip install -r requirements.txt
         python docsy/manage.py migrate
     - name: Coverage report
+      working-directory: ./docsy
       run: |
         pip install coverage
         coverage run manage.py test
