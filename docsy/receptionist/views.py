@@ -16,7 +16,7 @@ def login(request):
 
 def doctoremailalreadyexists(request):
     email=request.POST['a']
-    patient_table=patient.objects.all()
+    patient_table=doctor.objects.all()
     for i in patient_table:
         if(i.email==email):
             return  HttpResponse(0)
@@ -24,7 +24,7 @@ def doctoremailalreadyexists(request):
 
 def doctormobilealreadyexists(request):
     mobile=request.POST['a']
-    patient_table=patient.objects.all()
+    patient_table=doctor.objects.all()
     for i in patient_table:
         if(i.phoneno==mobile):
             return  HttpResponse(0)
