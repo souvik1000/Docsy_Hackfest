@@ -40,5 +40,5 @@ jobs:
     - name: Run Tests
       working-directory: ./docsy
       run: |
-        python manage.py test
+        python manage.py test --keepdb
 
