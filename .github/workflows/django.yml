@@ -41,7 +41,7 @@ jobs:
       working-directory: ./docsy
       run: |
         pip install coverage
-        coverage run manage.py test
+        coverage run manage.py test --keepdb
         coverage report
     - name: Run Tests
       working-directory: ./docsy
