@@ -93,6 +93,9 @@ DATABASES = {
     'PASSWORD': 'postgres',
     'HOST': 'docsydatabase.cayn3utpakrm.us-east-1.rds.amazonaws.com',
     'PORT': '5432',
+    'TEST': {
+            'NAME': 'test_postgres',
+        },
     }
 }
 
