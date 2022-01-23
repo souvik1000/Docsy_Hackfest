@@ -1,0 +1,139 @@
+/* team animation style */
+
+.team-animation{
+    /* display: flex; */
+    align-items: center;
+    min-height: 100vh;
+    /* background:linear-gradient(60deg, darkcyan 50%, coral 50%) ; */
+    background:white;
+    /* overflow: hidden; */
+    perspective: 5000px;
+    padding-bottom: 70px;
+  }
+  
+  .team-animation .container{
+    transform-style: preserve-3d;
+    border-radius: 30px;
+    /* background: #333; */
+    box-shadow: 0 10px 15px rgba(0,0,0,.5);
+    padding: 15px;
+    /* margin-left: 100px; */
+  
+  }
+  
+  .team-animation .container .card-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .team-animation .container .card-container .card{
+    /* height: 250px;
+    width: 250px; */
+    border: 0;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    /* margin: 15px; */
+    /* border-radius: 15px;
+    box-shadow: 0 10px 15px rgba(0,0,0,.9);
+    border: 4px solid #fff; */
+  }
+  
+  .team-animation .container .card-container .card .background{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transform: scale(1.1);
+    filter:blur(2.5px);
+  }
+  
+  .team-animation .container .card-container .card .girl{
+    /* position: absolute; */
+    /* bottom: -25px; */
+    /* left: 0; */
+    border-radius: 20%;
+    object-fit: cover;
+    height: 140px;
+    width: 140px;
+    transform-style: preserve-3d;
+  }
+  
+  .team-animation .container .card-container .card .info{
+    position: absolute;
+    bottom: 5px;
+  }
+
+
+  /* counter up animation style */
+
+  .counter-container{
+    min-height: 100vh;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #d9d9d9; */
+    padding-bottom: 100px;
+    flex-wrap: wrap;
+}
+
+.counter-container .box{
+    text-align: center;
+    margin: 20px;
+    height: 170px;
+    width: 230px;
+    position: relative;
+    z-index: 1;
+}
+
+.counter-container .box::before,
+.counter-container .box::after{
+    content: '';
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    right: 0;
+    left: 0;
+    z-index: -1;
+    clip-path: polygon(13% 0%, 87% 0%, 100% 50%, 87% 100%, 13% 100%, 0% 50%);
+    background: #2980b9;
+}
+
+.counter-container .box::after{
+    
+    top: 0px;
+    bottom: 0px;
+    right: 10px;
+    left: 10px;
+    z-index: -1;
+    clip-path: polygon(13% 0%, 87% 0%, 100% 50%, 87% 100%, 13% 100%, 0% 50%);
+    background:#fff;
+}
+
+.counter-container .box:nth-child(2)::before{
+    background: #c0392b;
+}
+
+.counter-container .box:nth-child(3)::before{
+    background: #16a085;
+}
+
+.counter-container .box i{
+    color: #999;
+    font-size: 40px;
+    padding:20px 0;
+}
+
+.counter-container .box .title{
+    font-size: 20px;
+    text-transform: capitalize;
+    color: #2980b9;
+    padding-bottom: 15px;
+}
+
+.counter-container .box .counter{
+    font-size: 30px;
+    color: rgba(77, 21, 21, 0.541);
+}

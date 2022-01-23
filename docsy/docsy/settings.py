@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+from re import M
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,7 @@ SECRET_KEY = 'django-insecure-0kyt&+gesbw=&j-t1q%ufwys1a&48bn(k8icvp(v((q821fbch
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -134,9 +135,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 # MEDIA_ROOT = '/home/kunnathu/Desktop/hackfest/Docsy_Hackfest/docsy/static'
-MEDIA_ROOT = '/home/i1611/Desktop/version 2.0/19_12_33/Docsy_Hackfest/docsy/static'
 # MEDIA_ROOT = '/home/kunnathu/Desktop/hackfest/Docsy_Hackfest/docsy/static'
 # MEDIA_ROOT = '/home/souvik/Desktop/Testing/Docsy_Hackfest/docsy/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 
 #MEDIA_ROOT = '/home/souvik/Desktop/HeroVired/HACKFEST/docsy/static'
 
