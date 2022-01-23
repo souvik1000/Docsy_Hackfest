@@ -15,10 +15,10 @@ import time
 
 # Create your tests here.
 class ReceptionistAppTest(LiveServerTestCase):
-    chrome_options = Options()
-    chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-dev-shm-usage')
+#     chrome_options = Options()
+#     chrome_options.add_argument('--headless')
+#     chrome_options.add_argument('--no-sandbox')
+#     chrome_options.add_argument('--disable-dev-shm-usage')
     selenium = webdriver.Chrome()
     
     def test_01_patient_details_allergies(self):
