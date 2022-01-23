@@ -4,7 +4,6 @@ RUN mkdir /myDir
 WORKDIR /myDir
 COPY . /myDir/
 # install google chrome
-FROM python:2.7-stretch
 
 
 
