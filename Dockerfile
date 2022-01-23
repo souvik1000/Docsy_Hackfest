@@ -4,18 +4,24 @@ RUN mkdir /myDir
 WORKDIR /myDir
 COPY . /myDir/
 # install google chrome
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-RUN apt-get -y update
-RUN apt-get install -y google-chrome-stable
+FROM python:2.7-stretch
 
-# install chromedriver
-RUN apt-get install -yqq unzip
-RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip
-RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
 
-# set display port to avoid crash
-ENV DISPLAY=:99
+
+
+# chromeDriver v2.35
+RUN wget -q "https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.zip" -O /tmp/chromedriver.zip \
+    && unzip /tmp/chromedriver.zip -d /usr/bin/ \
+    && rm /tmp/chromedriver.zip
+
+# xvfb - X server display
+ADD selenium-base-image/xvfb-chromium /usr/bin/xvfb-chromium
+RUN ln -s /usr/bin/xvfb-chromium /usr/bin/google-chrome \
+    && chmod 777 /usr/bin/xvfb-chromium
+
+# create symlinks to chromedriver and geckodriver (to the PATH)
+RUN ln -s /usr/bin/geckodriver /usr/bin/chromium-browser \
+    && chmod 777 /usr/bin/chromium-browser
 
 RUN apt-get update
 RUN pip install -U pip
