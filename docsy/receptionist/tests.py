@@ -1,5 +1,3 @@
-        
-
 from django.test import TestCase
 from patient.models import patient
 from receptionist.models import doctor,diagnostic,labreport,imagingexam, medicines, prescription,problem,allergies,procedurehistory,illnesshistory

@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-0kyt&+gesbw=&j-t1q%ufwys1a&48bn(k8icvp(v((q821fbch
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -93,6 +93,9 @@ DATABASES = {
     'PASSWORD': 'postgres',
     'HOST': 'docsydatabase.cayn3utpakrm.us-east-1.rds.amazonaws.com',
     'PORT': '5432',
+    'TEST': {
+            'NAME': 'test_postgres1',
+        },
     }
 }
 
