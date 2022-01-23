@@ -17,9 +17,9 @@ jobs:
     - name: docker build
       run: |
         docker build . --file Dockerfile --tag raghib123/docsy1:latest
-#     - name: docker push
-#       run: |
-#         docker push raghib123/docsy1
+    - name: docker push
+      run: |
+         docker push raghib123/docsy1
 
 #     - name: Run Tests
 #       working-directory: ./docsy
