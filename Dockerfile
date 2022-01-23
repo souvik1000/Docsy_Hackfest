@@ -10,4 +10,4 @@ RUN python docsy/manage.py makemigrations
 RUN python docsy/manage.py migrate
 CMD ["python", "docsy/manage.py","runserver","0.0.0.0:8000"]
 WORKDIR /myDir/docsy
-RUN python manage.py test receptionist/
+#RUN python manage.py test receptionist/
