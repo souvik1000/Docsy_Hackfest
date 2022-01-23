@@ -33,7 +33,7 @@
             <div class="row align-items-center">
                 <div class="col-xl-3 col-lg-3 mt-3 mb-3">
                     <div class="logo">
-                        <a href="{% url 'homePage' %}">
+                        <a href="{% url 'patientHomePage' %}">
                             <img loading="lazy" src="{% static 'image/logo.jpeg' %}" alt="logo" style="height: 50px; width:100px">
                         </a>
                     </div>
@@ -210,7 +210,7 @@
                             <div class="about-widget">
                                 <div class="footer-logo">
                                     <figure>
-                                        <a href="index.html">
+                                        <a href="{% url 'patientHomePage' %}">
                                             <img loading="lazy" class="img-fluid" src="{% static 'HomePageImages/logo.jpeg' %}" alt="medic" style="width: 100px;">
                                         </a>
                                     </figure>
