@@ -48,7 +48,7 @@
                 <div class="row align-items-center">
                     <div class="col-xl-5 col-lg-3 mt-3 mb-3">
                         <div class="logo">
-                            <a href="index.html">
+                            <a href="{% url 'patientHomePage' %}">
                                 <img loading="lazy" src="{% static 'HomePageImages/logo.jpeg' %}" alt="logo" style="height: 80px; width:150px;">
                             </a>
                             <span id="appointment_error" style="color: red;"> </span>
@@ -354,7 +354,7 @@
                             <div class="about-widget">
                                 <div class="footer-logo">
                                     <figure>
-                                        <a href="index.html">
+                                        <a href="{% url 'patientHomePage' %}">
                                             <img loading="lazy" class="img-fluid" src="{% static 'HomePageImages/logo.jpeg' %}" alt="medic" style="width: 100px;">
                                         </a>
                                     </figure>
