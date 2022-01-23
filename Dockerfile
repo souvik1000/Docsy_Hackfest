@@ -16,10 +16,6 @@ RUN wget -q "https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux
 
 
 
-# create symlinks to chromedriver and geckodriver (to the PATH)
-RUN ln -s /usr/bin/geckodriver /usr/bin/chromium-browser \
-    && chmod 777 /usr/bin/chromium-browser
-
 RUN apt-get update
 RUN pip install -U pip
 RUN pip install -r requirements.txt
