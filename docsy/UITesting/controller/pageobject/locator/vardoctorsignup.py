@@ -5,13 +5,13 @@ class VarDoctorSignUp:
     
     # SignUp Data
     DOCTOR_NAME_XPATH = '//*[@id="name"]'
-    DOCTOR_NAME = "Jeshmi Ghosh"
+    DOCTOR_NAME = "Souvik Ghosh"
     DOCTOR_SPECALITY_XPATH = '//*[@id="specality"]'
     DOCTOR_SPECALITY = "DNA"
     DOCTOR_EMAIL_XPATH = '//*[@id="email"]'
-    DOCTOR_EMAIL = "ghosh.jeshmi@gmail.com"
+    DOCTOR_EMAIL = "doctor@innovaccer.com"
     DOCTOR_GENDER_XPATH = '//*[@id="gender"]'
-    DOCTOR_GENDER = 'Female'
+    DOCTOR_GENDER = 'Male'
     DOCTOR_PHONE_NUMBER_XPATH = '//*[@id="phone"]'
     DOCTOR_PHONE_NUMBER = '8450042512'
     DOCTOR_PASSWORD_XPATH = '//*[@id="password"]'
