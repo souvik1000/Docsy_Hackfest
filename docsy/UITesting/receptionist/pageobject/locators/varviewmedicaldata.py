@@ -42,7 +42,7 @@ class VarViewMedicalData:
     DOCTOR_NAME = "Doctor Name:"
     DOCTOR = "SOUVIK GHOSH"
     DOCTOR_EMAIL = "Doctor Email-Id:"
-    EMAIL = "DOCTOR@INNOVACCER.COM"
+    EMAIL = "DOCTOR@SAMPLE.COM"
     DOCTOR_PHN = "Doctor Phone-No:"
     PHN = "8450042512"
     
