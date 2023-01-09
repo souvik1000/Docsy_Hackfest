@@ -9,7 +9,7 @@ class VarDoctorSignUp:
     DOCTOR_SPECALITY_XPATH = '//*[@id="specality"]'
     DOCTOR_SPECALITY = "DNA"
     DOCTOR_EMAIL_XPATH = '//*[@id="email"]'
-    DOCTOR_EMAIL = "doctor@innovaccer.com"
+    DOCTOR_EMAIL = "doctor@sample.com"
     DOCTOR_GENDER_XPATH = '//*[@id="gender"]'
     DOCTOR_GENDER = 'Male'
     DOCTOR_PHONE_NUMBER_XPATH = '//*[@id="phone"]'
