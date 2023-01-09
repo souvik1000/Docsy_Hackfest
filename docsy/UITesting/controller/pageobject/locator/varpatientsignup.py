@@ -8,7 +8,7 @@ class VarPatientSignUp:
     PATIENT_DOB_XPATH = '//*[@id="dob"]'
     PATIENT_DOB = "19/09/1999"
     PATIENT_EMAIL_XPATH = '//*[@id="email"]'
-    PATIENT_EMAIL = "patient@innovaccer.com"
+    PATIENT_EMAIL = "patient@sample.com"
     PATIENT_GENDER_XPATH = '//*[@id="gender"]'
     PATIENT_GENDER = 'Female'
     PATIENT_PHONE_NO_XPATH = '//*[@id="phone"]'
